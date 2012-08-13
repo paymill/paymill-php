@@ -1,0 +1,203 @@
+<?php
+
+require_once '../lib/Services/Paymill/Refunds.php';
+
+require_once 'TestBase.php';
+
+/**
+ * Services_Paymill_Transaction test case.
+ */
+class Services_Paymill_RefundsTest extends Services_Paymill_TestBase
+{
+
+    /**
+     * @var Services_Paymill_Refunds
+     */
+    private $_refunds;
+    
+    /**
+     * @var Services_Paymill_Transactions
+     */
+    private $_transactions;
+
+    /**
+     * Prepares the environment before running a test.
+     */
+    protected function setUp()
+    {
+        parent::setUp();
+
+        $this->_refunds = new Services_Paymill_Refunds($this->_apiTestKey,  $this->_apiUrl);
+        $this->_transactions = new Services_Paymill_Transactions($this->_apiTestKey,  $this->_apiUrl);
+    }
+
+    /**
+     * Cleans up the environment after running a test.
+     */
+    protected function tearDown()
+    {
+        $this->_refunds = null;
+        $this->_transactions = null;
+
+        parent::tearDown();
+    }
+    
+    /**
+     * Tests Services_Paymill_Refunds->create()
+     */
+    public function testCreateWithWrongTransactionid()
+    {        
+        try {
+            $transactionId = "wrong_test_transactionid";
+            $refundParams = array('amount'=>4200);
+            $refund = $this->_refunds->create($transactionId, $refundParams);
+        } catch (Exception $e) {
+            $this->assertInstanceOf('Services_Paymill_Exception', $e);
+            $this->assertEquals(404, $e->getCode() );
+        }
+    }
+    
+    /**
+     * Tests Services_Paymill_Refunds->create()
+     */
+    public function testCreateWithoutNullAmount()
+    {        
+        try {
+            $transactionParams = array('amount' => 4200,
+                        'currency'=> 'eur',
+                        'description' => 'Deuterium Cartridge',
+                        'token' => $this->getToken()
+                        );
+            $transaction = $this->_transactions->create($transactionParams);
+            $refund = $this->_refunds->create($transaction['id'], null);
+        } catch (Exception $e) {
+            $this->assertInstanceOf('Services_Paymill_Exception', $e);
+            $this->assertEquals(412, $e->getCode() );
+        }
+    }
+    
+    /**
+     * Tests Services_Paymill_Refunds->create()
+     */
+    public function testCreate()
+    {
+        $transactionParams = array('amount' => 4200,
+                        'currency'=> 'eur',
+                        'description' => 'Deuterium Cartridge',
+                        'token' => $this->getToken()
+                        );
+        $refundParams = array('amount'=>4200);        
+        $transaction = $this->_transactions->create($transactionParams);
+        $refund = $this->_refunds->create($transaction['id'], $refundParams);
+        
+        $this->assertInternalType('array', $refund['data']);
+        $this->assertArrayHasKey('id', $refund['data']);
+        $this->assertEquals($refund['data']['amount'], 4200);
+        $refundId = $refund['data']['id'];
+        
+        return $refundId;
+    }
+    
+    /**
+     * Tests Services_Paymill_Refunds->create()
+     */
+    public function testRefundWithLessAmount()
+    {
+        $transactionParams = array('amount' => 4200,
+                        'currency'=> 'eur',
+                        'description' => 'Deuterium Cartridge',
+                        'token' => $this->getToken()
+                        );
+        $refundParams = array('amount'=>3200);        
+        $transaction = $this->_transactions->create($transactionParams);
+        $refund = $this->_refunds->create($transaction['id'], $refundParams);
+        
+        $this->assertEquals($refund['data']['transaction']['id'], $transaction['id']);
+        $this->assertEquals($refund['data']['transaction']['amount'], 1000);
+        $this->assertEquals($refund['data']['transaction']['status'], 'partial_refunded');
+        $transactionId = $transaction['id'];
+        
+        return $transactionId;
+    }
+    
+    /**
+     * Tests Services_Paymill_Refunds->create()
+     * @depends testRefundWithLessAmount
+     */
+    public function testRefundRestfromLastTest($transactionId)
+    {
+        $refundParams = array('amount'=>1000);
+        $refund = $this->_refunds->create($transactionId, $refundParams);
+
+        $this->assertEquals($refund['data']['transaction']['id'], $transactionId);
+        $this->assertEquals($refund['data']['transaction']['amount'], 0);
+        $this->assertEquals($refund['data']['transaction']['status'], 'refunded');
+    }
+
+    /**
+     * Tests Services_Paymill_Refunds->get()
+     * @depends testCreate
+     */
+    public function testGet()
+    {
+        $filters = array('count'=>10,'offset'=>0,);
+        $refund = $this->_refunds->get($filters);
+        $this->assertInternalType('array', $refund);
+        $this->assertGreaterThanOrEqual(1, count($refund));
+        $this->assertArrayHasKey('id', $refund[0]);
+    }
+
+    /**
+     * Tests Services_Paymill_Refunds->getOne()
+     * @depends testCreate
+     */
+    public function testGetOne($refundId)
+    {
+        $refund = $this->_refunds->getOne($refundId);
+        
+        $this->assertInternalType('array', $refund);
+        $this->assertArrayHasKey('id', $refund);
+        $this->assertEquals($refund['id'],$refundId);
+    }
+    
+    /**
+     * Tests Services_Paymill_Refunds->getOne()
+     */
+    public function testGetUnknownOne()
+    {
+        try {
+            $refund = $this->_refunds->getOne('refund_b12c9470e4603paymill');
+        } catch (Exception $e) {
+            $this->assertInstanceOf('Services_Paymill_Exception', $e);
+            $this->assertEquals(404, $e->getCode() );
+        }
+    }
+    
+    /**
+     * Tests Services_Paymill_Refunds->update()
+     */
+    public function testUpdate()
+    {
+        try {
+            $this->_refunds->update();
+        } catch (Exception $e) {
+            $this->assertInstanceOf('Services_Paymill_Exception', $e);
+            $this->assertEquals(404, $e->getCode() );
+        }
+    }
+    
+    /**
+     * Tests Services_Paymill_Refunds->delete()
+     */
+    public function testDelete()
+    {
+        try {
+            $this->_refunds->delete();
+        } catch (Exception $e) {
+            $this->assertInstanceOf('Services_Paymill_Exception', $e);
+            $this->assertEquals(404, $e->getCode() );
+        }
+    }
+    
+    
+}

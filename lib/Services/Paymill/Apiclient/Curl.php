@@ -1,5 +1,5 @@
 <?php
-require 'Interface.php';
+require_once 'Interface.php';
 
 require_once realpath(dirname(__FILE__)) . '/../Exception.php';
 
@@ -66,17 +66,13 @@ class Services_Paymill_Apiclient_Curl implements Services_Paymill_Apiclient_Inte
                 if (isset($response['body']['error'])) {
                     $errorMessage = $response['body']['error'];
                 }
-                throw new Services_Paymill_Exception(
-                    $errorMessage,
-                    $httpStatusCode,
-                    $response['body']
-                );
+                return array("data" => array("error" => $errorMessage));
             }
 
             return $response['body'];
 
         } catch (Exception $e) {
-            throw $e;
+            return array("data" => array("error" => $e->getMessage()));
         }
     }
 

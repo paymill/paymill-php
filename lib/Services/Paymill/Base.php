@@ -3,7 +3,6 @@
 require_once 'Apiclient/Curl.php';
 /**
  * Paymill API wrapper super class
- *
  */
 abstract class Services_Paymill_Base
 {
@@ -36,8 +35,9 @@ abstract class Services_Paymill_Base
     /**
      * General REST GET verb
      * 
-     * @param array $filters    e.g. count,offest
+     * @param array  $filters    e.g. count,offest
      * @param string $identifier resource id
+     *
      * @return array of resource items
      */
     public function get($filters = array(), $identifier = '')
@@ -56,13 +56,16 @@ abstract class Services_Paymill_Base
      * returns one item or null
      * 
      * @param string $identifier resource id
+     *
      * @return array resource item | null
      */
     public function getOne($identifier = null)
     {
-        if (!$identifier) return null;
+        if (!$identifier) {
+            return null;
+        }
         
-        $filters = array("count"=>1,'offset'=>0);
+        $filters = array("count" => 1, 'offset' => 0);
         
         return $this->get($filters, $identifier);
     }
@@ -72,18 +75,18 @@ abstract class Services_Paymill_Base
      * Delete or inactivate/cancel resource item
      * 
      * @param string $clientId
+     *
      * @return array item deleted
      */
-    public function delete($clientId)
+    public function delete($clientId = null)
     {
         $response =  $this->_httpClient->request(
-                $this->_serviceResource . $clientId,
-                array(),
-                Services_Paymill_Apiclient_Interface::HTTP_DELETE
+            $this->_serviceResource . $clientId,
+            array(),
+            Services_Paymill_Apiclient_Interface::HTTP_DELETE
         );
 
         return $response['data'];
-
     }
 
     /**
@@ -91,14 +94,15 @@ abstract class Services_Paymill_Base
      * create resource item
      *
      * @param array $itemData
+     *
      * @return array created item
      */
     public function create($itemData = array())
     {
         $response = $this->_httpClient->request(
-                $this->_serviceResource,
-                $itemData,
-                Services_Paymill_Apiclient_Interface::HTTP_POST
+            $this->_serviceResource,
+            $itemData,
+            Services_Paymill_Apiclient_Interface::HTTP_POST
         );
 
         return $response['data'];
@@ -109,9 +113,10 @@ abstract class Services_Paymill_Base
      * Update resource item
      *
      * @param array $itemData
+     *
      * @return array item updated or null
      */
-    public function update(array $itemData )
+    public function update(array $itemData = array())
     {
         if (!isset($itemData['id']) ) {
             return null;
@@ -121,9 +126,9 @@ abstract class Services_Paymill_Base
         unset ($itemData['id']);
 
         $response = $this->_httpClient->request(
-                $this->_serviceResource . $itemId,
-                $itemData,
-                Services_Paymill_Apiclient_Interface::HTTP_PUT
+            $this->_serviceResource . $itemId,
+            $itemData,
+            Services_Paymill_Apiclient_Interface::HTTP_PUT
         );
 
         return $response['data'];

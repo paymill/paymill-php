@@ -8,11 +8,7 @@ require_once ('Base.php');
 class Services_Paymill_Clients extends Services_Paymill_Base
 {
     /**
-     * Paymill API clients resource relative path name
-     * 
-     * @var string
+     * {@inheritDoc}
      */
     protected $_serviceResource = 'clients/';
-
-    
 }

@@ -7,12 +7,8 @@ require_once ('Base.php');
  */
 class Services_Paymill_Subscriptions extends Services_Paymill_Base
 {
-
     /**
-     * Paymill API subscriptions resource relative path name
-     * 
-     * @var string
+     * {@inheritDoc}
      */
     protected $_serviceResource = 'subscriptions/';
-
 }

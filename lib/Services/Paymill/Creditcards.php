@@ -7,23 +7,16 @@ require_once ('Base.php');
  */
 class Services_Paymill_Creditcards extends Services_Paymill_Base
 {
-
     /**
-     * Paymill API creditcards resource relative path name
-     * 
-     * @var string
+     * {@inheritDoc}
      */
     protected $_serviceResource = 'creditcards/';
 
-
     /**
-     * Rest PUT verb not supported
-     *
-     * @param null $identifier
-     * @return array|void
-     * @throws Services_Paymill_Exception
+     * {@inheritDoc}
      */
-    public function update($identifier = null) {
+    public function update(array $itemData = array())
+    {
         throw new Services_Paymill_Exception( __CLASS__ . " does not support " . __METHOD__, "404");
     }
 }

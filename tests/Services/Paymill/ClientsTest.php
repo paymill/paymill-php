@@ -21,7 +21,6 @@ require_once 'TestBase.php';
 class Services_Paymill_ClientsTest extends Services_Paymill_TestBase
 {
     /**
-     *
      * @var Services_Paymill_Clients
      */
     private $_clients;
@@ -50,8 +49,8 @@ class Services_Paymill_ClientsTest extends Services_Paymill_TestBase
     public function testCreate()
     {
         $email = 'john.bigboote@example.org';
-        $client = $this->_clients->create(array('email'=> $email));
-        
+        $client = $this->_clients->create(array('email' => $email));
+
         $this->assertArrayHasKey('email', $client);
         $this->assertEquals($email, $client['email']);
 

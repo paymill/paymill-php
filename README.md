@@ -14,7 +14,7 @@
 
 3.	Make the appropriate call on the class instance. For additional parameters please refer to the API-Reference:
 
-    ```$transactionsObject->create($params);```
+```$transactionsObject->create($params);```
 	
 For further information, please refer to our official PHP library reference:
 http://paymill.de/doumentation/referenz/api-referenz/

@@ -6,11 +6,11 @@
 
 2. 	Instantiate the class, for example the Services_Paymill_Transactions class, with the following parameters:
 
-2.1	```$apiKey```: First parameter is always your private API (test) Key
+* ```$apiKey```: First parameter is always your private API (test) Key
 
-2.2 ```$apiEndpoint```: Second parameter is to configure the API Endpoint (with ending /), e.g. "https://api.paymill.de/v1/"
+* ```$apiEndpoint```: Second parameter is to configure the API Endpoint (with ending /), e.g. "https://api.paymill.de/v1/"
 	
-    ```$transactionsObject = new Services_Paymill_Transactions($apiKey, $apiEndpoint);```
+```$transactionsObject = new Services_Paymill_Transactions($apiKey, $apiEndpoint);```
 
 3.	Make the appropriate call on the class instance. For additional parameters please refer to the API-Reference:
 	

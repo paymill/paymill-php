@@ -19,7 +19,7 @@ define('TEST_TOKEN_HOST', $testTokenHost);
  * $apiKey should be set to api test key
  * can be overriden with environment variable API_TEST_KEY 
  */
-$apiTestKey = '';
+$apiTestKey = 'c6c32297fbe42e8870af92e9f34e2bcf';
 if (getenv('API_TEST_KEY') ) $apiTestKey = getenv('API_TEST_KEY');
 define('API_TEST_KEY', $apiTestKey);
 
@@ -27,7 +27,7 @@ define('API_TEST_KEY', $apiTestKey);
  * $apiKey should be set to api test key
  * can be overriden with environment variable API_TEST_KEY
  */
-$publicTestKey = '';
+$publicTestKey = '3317120243083ca2b4f46d03e82b1c8e';
 if (getenv('PUBLIC_TEST_KEY') ) $publicTestKey = getenv('PUBLIC_TEST_KEY');
 define('PUBLIC_TEST_KEY', $publicTestKey);
 

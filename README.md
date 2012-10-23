@@ -21,4 +21,4 @@
         $transactionsObject->create($params);
 	
 For further information, please refer to our official PHP library reference:
-http://paymill.de/doumentation/referenz/api-referenz/
+http://paymill.de/documentation/referenz/api-referenz/

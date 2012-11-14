@@ -13,7 +13,12 @@ class Services_Paymill_Transactions extends Services_Paymill_Base
     protected $_serviceResource = 'transactions/';
 
     /**
-     * {@inheritDoc}
+     * General REST PUT verb
+     * Update resource item
+     *
+     * @param array $itemData
+     *
+     * @return array item updated or null
      */
     public function update(array $itemData = array())
     {
@@ -21,7 +26,12 @@ class Services_Paymill_Transactions extends Services_Paymill_Base
     }
 
     /**
-     * {@inheritDoc}
+     * General REST DELETE verb
+     * Delete or inactivate/cancel resource item
+     * 
+     * @param string $clientId
+     *
+     * @return array item deleted
      */
     public function delete($clientId = null)
     {

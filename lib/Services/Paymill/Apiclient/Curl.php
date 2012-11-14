@@ -30,7 +30,10 @@ class Services_Paymill_Apiclient_Curl implements Services_Paymill_Apiclient_Inte
      */
     private $_apiUrl = '/' ;
 
-    const USER_AGENT = 'Paymill-php/0.0.1';
+    const USER_AGENT = 'Paymill-php/0.0.2';
+
+    public static $lastRawResponse;
+    public static $lastRawCurlOptions;
 
     /**
      * cURL HTTP client constructor
@@ -93,7 +96,7 @@ class Services_Paymill_Apiclient_Curl implements Services_Paymill_Apiclient_Inte
                 CURLOPT_USERAGENT => self::USER_AGENT,
                 CURLOPT_SSL_VERIFYPEER => false,
                 CURLOPT_SSLVERSION => 3,
-                CURLOPT_CAINFO => realpath(dirname(__FILE__)) . DIRECTORY_SEPARATOR . 'paymill.crt',
+//                CURLOPT_CAINFO => realpath(dirname(__FILE__)) . DIRECTORY_SEPARATOR . 'paymill.crt',
         );
 
         if (Services_Paymill_Apiclient_Interface::HTTP_GET === $method) {
@@ -112,6 +115,8 @@ class Services_Paymill_Apiclient_Curl implements Services_Paymill_Apiclient_Inte
         $curl = curl_init();
         curl_setopt_array($curl, $curlOpts);
         $responseBody = curl_exec($curl);
+        self::$lastRawCurlOptions = $curlOpts;
+        self::$lastRawResponse = $responseBody;
         $responseInfo = curl_getinfo($curl);
         curl_close($curl);
 

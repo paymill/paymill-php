@@ -3,37 +3,27 @@
  * $apiHost should be set to default unit test host for external users
  * can be overriden with environment variable PAYMILL_TEST_API_HOST
  */
-$apiHost = 'https://api.paymill.de/v1/';
-if (getenv('PAYMILL_TEST_API_HOST') ) $apiHost = getenv('PAYMILL_TEST_API_HOST');
-define('API_HOST', $apiHost);
+if (!defined('API_HOST') && getenv('PAYMILL_TEST_API_HOST'))
+    define('API_HOST', getenv('PAYMILL_TEST_API_HOST'));
 
-/** 
- * $testTokenHost should be set to default unit token host for external users
- * can be overriden with environment variable TEST_TOKEN_HOST
- */
-$testTokenHost = 'https://test-token.paymill.de';
-if (getenv('TEST_TOKEN_HOST') ) $testTokenHost = getenv('TEST_TOKEN_HOST');
-define('TEST_TOKEN_HOST', $testTokenHost);
+defined('API_HOST')
+    || define('API_HOST', 'https://api.paymill.de/v2/');
 
 /**
  * $apiKey should be set to api test key
  * can be overriden with environment variable API_TEST_KEY 
  */
-$apiTestKey = 'c6c32297fbe42e8870af92e9f34e2bcf';
-if (getenv('API_TEST_KEY') ) $apiTestKey = getenv('API_TEST_KEY');
-define('API_TEST_KEY', $apiTestKey);
+if (!defined('API_TEST_KEY') && getenv('API_TEST_KEY'))
+    define('API_TEST_KEY', getenv('API_TEST_KEY'));
 
-/** 
- * $apiKey should be set to api test key
- * can be overriden with environment variable API_TEST_KEY
+defined('API_TEST_KEY')
+    || define('API_TEST_KEY', '3fb33577bb16c8d08a36a064bdb10299');
+
+/**
+ * Define path to application directory
  */
-$publicTestKey = '3317120243083ca2b4f46d03e82b1c8e';
-if (getenv('PUBLIC_TEST_KEY') ) $publicTestKey = getenv('PUBLIC_TEST_KEY');
-define('PUBLIC_TEST_KEY', $publicTestKey);
-
-// Define path to application directory
 defined('APPLICATION_PATH')
-|| define('APPLICATION_PATH', realpath(dirname(__FILE__) . '/../lib'));
+    || define('APPLICATION_PATH', realpath(dirname(__FILE__) . '/../lib'));
 
 // Ensure library/ is on include_path
 set_include_path(implode(PATH_SEPARATOR, array(

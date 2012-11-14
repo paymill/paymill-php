@@ -16,12 +16,6 @@ class Services_Paymill_TestBase extends PHPUnit_Framework_TestCase
             throw new Services_Paymill_Exception('Please provide the ApiTestKey in bootstrap.php or via environment', '401');
         }
         
-        if (PUBLIC_TEST_KEY !== '') {
-            $this->_publicTestKey = PUBLIC_TEST_KEY;
-        } else {
-            throw new Services_Paymill_Exception('Please provide the PublicTestKey in bootstrap.php or via environment','401');
-        }
-        
         if (API_HOST !== '') {
             $this->_apiUrl = API_HOST;
         } else {
@@ -34,32 +28,20 @@ class Services_Paymill_TestBase extends PHPUnit_Framework_TestCase
      */
     protected function getToken()
     {
-        $params = array(
-            'requesttype' => 'create_token',
-            'merchantkey' => $this->_publicTestKey,
-            'card'        => array(
-                'number'          => '4111111111111111'
-                ,'cvc'            => 343
-                ,'exp_month'      => 12
-                ,'exp_year'       => 2012
-                ,'cardholdername' => 'Test Person'
-            )
+        return "098f6bcd4621d373cade4e832627b4f6";
+    }
+
+    protected function getMessages($response)
+    {
+        $info = array(
+            "endpoint" => $this->_apiUrl,
+            "api_key" => $this->_apiTestKey,
+            "public_key" => $this->_publicTestKey,
+            "response" => var_export($response, true),
+            "raw_response" => var_export(Services_Paymill_Apiclient_Curl::$lastRawResponse, true),
+            "curl_options" => var_export(Services_Paymill_Apiclient_Curl::$lastRawCurlOptions, true)
         );
 
-        $curlOpts = array(
-            CURLOPT_URL            => TEST_TOKEN_HOST,
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_CUSTOMREQUEST  => 'POST',
-            CURLOPT_SSL_VERIFYPEER => false,
-            CURLOPT_POSTFIELDS     => json_encode($params),
-        );
-
-        $curl = curl_init();
-        curl_setopt_array($curl, $curlOpts);
-        $responseBody = curl_exec($curl);
-        curl_close($curl);
-        $responseBodyAsArray = json_decode($responseBody,true);
-
-        return $responseBodyAsArray['token'];
+        return var_export($info, true);
     }
 }

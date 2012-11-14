@@ -51,23 +51,10 @@ class Services_Paymill_ClientsTest extends Services_Paymill_TestBase
         $email = 'john.bigboote@example.org';
         $client = $this->_clients->create(array('email' => $email));
 
-        $this->assertArrayHasKey('email', $client);
+        $this->assertArrayHasKey('email', $client, $this->getMessages($email));
         $this->assertEquals($email, $client['email']);
 
         return $client['id'];
-    }
-
-    /**
-     * Tests Services_Paymill_Clients->create()
-     */
-    public function testCreateNull()
-    {
-        try {
-            $client = $this->_clients->create(null);
-        } catch (Exception $e) {
-            $this->assertInstanceOf('Services_Paymill_Exception', $e);
-            $this->assertEquals(412, $e->getCode() );
-        }
     }
 
     /**
@@ -79,7 +66,7 @@ class Services_Paymill_ClientsTest extends Services_Paymill_TestBase
         $filters = array('count'=>10,'offset'=>0,);
         $clients = $this->_clients->get($filters);
         $this->assertInternalType('array', $clients);
-        $this->assertGreaterThanOrEqual(1, count($clients));
+        $this->assertGreaterThanOrEqual(1, count($clients), $this->getMessages($clients));
         $this->assertArrayHasKey('id', $clients[0]);
     }
 
@@ -173,8 +160,10 @@ class Services_Paymill_ClientsTest extends Services_Paymill_TestBase
     public function testDelete($clientId)
     {
         $client = $this->_clients->delete($clientId);
-        
         $this->assertInternalType('array', $client);
-        $this->assertCount(0,$client);
+        $this->assertEquals($clientId, $client["id"]);
+
+        $client = $this->_clients->getOne($clientId);
+        $this->assertEquals("Client not found", $client["error"]);
     }
 }

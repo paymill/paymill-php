@@ -13,7 +13,12 @@ class Services_Paymill_Refunds extends Services_Paymill_Base
     protected $_serviceResource = 'refunds/';
 
     /**
-     * {@inheritDoc}
+     * General REST POST verb
+     * create resource item
+     *
+     * @param array $itemData
+     *
+     * @return array created item
      */
     public function create($itemData = array())
     {
@@ -28,7 +33,12 @@ class Services_Paymill_Refunds extends Services_Paymill_Base
     }
 
     /**
-     * {@inheritDoc}
+     * General REST DELETE verb
+     * Delete or inactivate/cancel resource item
+     * 
+     * @param string $clientId
+     *
+     * @return array item deleted
      */
     public function delete($identifier = null)
     {

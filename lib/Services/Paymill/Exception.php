@@ -6,7 +6,9 @@
 class Services_Paymill_Exception extends Exception
 {
   /**
-   * {@inheritDoc}
+   * Constructor for exception object
+   *
+   * @return void
    */
   public function __construct($message, $code)
   {

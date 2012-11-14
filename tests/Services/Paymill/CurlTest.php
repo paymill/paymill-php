@@ -16,7 +16,7 @@ class Services_Paymill_Apiclient_CurlTest extends Services_Paymill_TestBase
      *
      * @var Services_Paymill_Apiclient_Curl
      */
-    private $curlClient;
+    private $_curlClient;
 
     /**
      * Prepares the environment before running a test.

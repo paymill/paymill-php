@@ -12,7 +12,7 @@
 
     $apiKey: First parameter is always your private API (test) Key
 
-    $apiEndpoint: Second parameter is to configure the API Endpoint (with ending /), e.g. "https://api.paymill.de/v1/"
+    $apiEndpoint: Second parameter is to configure the API Endpoint (with ending /), e.g. "https://api.paymill.de/v2/"
 	
         $transactionsObject = new Services_Paymill_Transactions($apiKey, $apiEndpoint);
 

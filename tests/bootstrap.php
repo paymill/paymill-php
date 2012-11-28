@@ -7,7 +7,7 @@ if (!defined('API_HOST') && getenv('PAYMILL_TEST_API_HOST'))
     define('API_HOST', getenv('PAYMILL_TEST_API_HOST'));
 
 defined('API_HOST')
-    || define('API_HOST', 'https://api.paymill.de/v2/');
+    || define('API_HOST', 'https://api.paymill.com/v2/');
 
 /**
  * $apiKey should be set to api test key

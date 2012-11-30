@@ -1,6 +1,6 @@
 <?php
 
-require_once ('Base.php');
+require_once ('Transactions.php');
 
 /**
  * Paymill API wrapper for transactions resource

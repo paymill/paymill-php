@@ -1,7 +1,5 @@
 # Paymill-PHP
 
-[![Build Status](https://secure.travis-ci.org/Paymill/Paymill-PHP.png)](http://travis-ci.org/Paymill/Paymill-PHP)
-
 # Getting started with Paymill
 
 1.  Include the required PHP file from the paymill PHP library. For example via: 

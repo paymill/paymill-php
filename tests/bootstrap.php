@@ -1,5 +1,5 @@
 <?php
-/** 
+/**
  * $apiHost should be set to default unit test host for external users
  * can be overriden with environment variable PAYMILL_TEST_API_HOST
  */
@@ -11,10 +11,13 @@ defined('API_HOST')
 
 /**
  * $apiKey should be set to api test key
- * can be overriden with environment variable API_TEST_KEY 
+ * can be overriden with environment variable API_TEST_KEY
  */
 if (!defined('API_TEST_KEY') && getenv('API_TEST_KEY'))
     define('API_TEST_KEY', getenv('API_TEST_KEY'));
+
+if (!defined('API_TEST_KEY'))
+    define('API_TEST_KEY', '9ac3a8f542da4132d7c9db158b815dc9');
 
 /**
  * Define path to application directory

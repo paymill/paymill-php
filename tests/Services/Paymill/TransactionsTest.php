@@ -62,7 +62,7 @@ class Services_Paymill_TransactionsTest extends Services_Paymill_TestBase
         $this->assertEquals($transaction['description'], 'Deuterium Cartridge');
 
         $transactionId = $transaction['id'];
-        
+
         return $transactionId;
     }
 
@@ -108,10 +108,10 @@ class Services_Paymill_TransactionsTest extends Services_Paymill_TestBase
      * @depends testCreate
      */
     public function testGet()
-    {   
+    {
         $filters = array('count'=>5,'offset'=>0);
         $transactions = $this->_transaction->get($filters);
-        
+
         $this->assertInternalType('array', $transactions);
         $this->assertGreaterThanOrEqual(1, count($transactions));
         $this->assertArrayHasKey('id', $transactions[0]);
@@ -126,7 +126,7 @@ class Services_Paymill_TransactionsTest extends Services_Paymill_TestBase
         $transaction = $this->_transaction->getOne($transactionId);
         $this->assertEquals($transactionId, $transaction['id']);
     }
-    
+
     /**
      * Tests Services_Paymill_Transaction->update()
      */
@@ -139,7 +139,7 @@ class Services_Paymill_TransactionsTest extends Services_Paymill_TestBase
             $this->assertEquals(404, $e->getCode() );
         }
     }
-    
+
     /**
      * Tests Services_Paymill_Transaction->delete()
      */

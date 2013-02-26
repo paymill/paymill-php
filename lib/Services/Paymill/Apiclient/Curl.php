@@ -1,13 +1,14 @@
 <?php
+
 require_once 'Interface.php';
 
 require_once realpath(dirname(__FILE__)) . '/../Exception.php';
 
-if ( !function_exists('json_decode') ) {
+if (!function_exists('json_decode')) {
     throw new Exception("Please install the PHP JSON extension");
 }
 
-if ( !function_exists('curl_init') ) {
+if (!function_exists('curl_init')) {
     throw new Exception("Please install the PHP cURL extension");
 }
 
@@ -16,19 +17,20 @@ if ( !function_exists('curl_init') ) {
  */
 class Services_Paymill_Apiclient_Curl implements Services_Paymill_Apiclient_Interface
 {
+
     /**
      * Paymill API merchant key
-     * 
+     *
      * @var string
      */
     private $_apiKey = null;
 
     /**
      *  Paymill API base url
-     * 
+     *
      *  @var string
      */
-    private $_apiUrl = '/' ;
+    private $_apiUrl = '/';
 
     const USER_AGENT = 'Paymill-php/0.0.2';
 
@@ -59,21 +61,29 @@ class Services_Paymill_Apiclient_Curl implements Services_Paymill_Apiclient_Inte
      */
     public function request($action, $params = array(), $method = 'POST')
     {
-        if (!is_array($params)) $params = array();
+        if (!is_array($params))
+            $params = array();
 
         try {
-            $response =  $this->_requestApi($action, $params, $method);
+            $response = $this->_requestApi($action, $params, $method);
             $httpStatusCode = $response['header']['status'];
-            if ( $httpStatusCode != 200 ) {
+            if ($httpStatusCode != 200) {
                 $errorMessage = 'Client returned HTTP status code ' . $httpStatusCode;
                 if (isset($response['body']['error'])) {
                     $errorMessage = $response['body']['error'];
                 }
-                return array("data" => array("error" => $errorMessage));
+                $responseCode = '';
+                if (isset($response['body']['response_code'])) {
+                    $responseCode = $response['body']['response_code'];
+                }
+
+                return array("data" => array(
+                        "error" => $errorMessage,
+                        "response_code" => $responseCode
+                        ));
             }
 
             return $response['body'];
-
         } catch (Exception $e) {
             return array("data" => array("error" => $e->getMessage()));
         }
@@ -87,15 +97,15 @@ class Services_Paymill_Apiclient_Curl implements Services_Paymill_Apiclient_Inte
      * @param string $method
      * @return array
      */
-    private function _requestApi($action = '', $params = array(), $method = 'POST')
+    protected function _requestApi($action = '', $params = array(), $method = 'POST')
     {
         $curlOpts = array(
-                CURLOPT_URL => $this->_apiUrl . $action,
-                CURLOPT_RETURNTRANSFER => true,
-                CURLOPT_CUSTOMREQUEST => $method,
-                CURLOPT_USERAGENT => self::USER_AGENT,
-                CURLOPT_SSL_VERIFYPEER => false,
-                CURLOPT_SSLVERSION => 3,
+            CURLOPT_URL => $this->_apiUrl . $action,
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_CUSTOMREQUEST => $method,
+            CURLOPT_USERAGENT => self::USER_AGENT,
+            CURLOPT_SSL_VERIFYPEER => false,
+            CURLOPT_SSLVERSION => 3,
 //                CURLOPT_CAINFO => realpath(dirname(__FILE__)) . DIRECTORY_SEPARATOR . 'paymill.crt',
         );
 
@@ -128,11 +138,12 @@ class Services_Paymill_Apiclient_Curl implements Services_Paymill_Apiclient_Inte
         }
 
         return array(
-                'header' => array(
-                        'status' => $responseInfo['http_code'],
-                        'reason' => null,
-                ),
-                'body' => $responseBody
+            'header' => array(
+                'status' => $responseInfo['http_code'],
+                'reason' => null,
+            ),
+            'body' => $responseBody
         );
     }
+
 }

@@ -13,6 +13,8 @@ class Services_Paymill_WebhooksTest extends Services_Paymill_TestBase
      * @var Services_Paymill_Webhooks
      */
     private $_webhook;
+    private $_email;
+    private $_url;
 
     /**
      * Prepares the environment before running a test.
@@ -21,7 +23,9 @@ class Services_Paymill_WebhooksTest extends Services_Paymill_TestBase
     {
         parent::setUp();
 
-        $this->_webhook = new Services_Paymill_Webhooks($this->_apiTestKey,  $this->_apiUrl);
+        $this->_webhook     = new Services_Paymill_Webhooks($this->_apiTestKey,  $this->_apiUrl);
+        $this->_email       = 'dummy@example.com';
+        $this->_url         = 'http://example.com/dummyCallback';
     }
 
     /**
@@ -41,9 +45,8 @@ class Services_Paymill_WebhooksTest extends Services_Paymill_TestBase
     public function testCreateUrlWebhook()
     {
         $events = array('transaction.succeeded', 'subscription.created');
-        $url = 'http://floreysoftsandbox.appspot.com/dummyCallback';
         $params = array(
-            'url'        => $url,
+            'url'        => $this->_url,
             'event_types'=> $events
         );
 
@@ -52,7 +55,7 @@ class Services_Paymill_WebhooksTest extends Services_Paymill_TestBase
         $this->assertInternalType('array', $webhook);
         $this->assertArrayHasKey('id', $webhook, $this->getMessages($webhook));
         $this->assertNotEmpty($webhook['id']);
-        $this->assertEquals($url, $webhook['url']);
+        $this->assertEquals($this->_url, $webhook['url']);
         $this->assertContains('subscription.created', $webhook['event_types']);
         $this->assertContains('transaction.succeeded', $webhook['event_types']);
 
@@ -66,10 +69,9 @@ class Services_Paymill_WebhooksTest extends Services_Paymill_TestBase
      */
     public function testCreateEmailWebhook()
     {
-        $email  = 'test@paymill.com';
         $events = array('transaction.succeeded', 'subscription.created');
         $params = array(
-            'email'      => $email,
+            'email'      => $this->_email,
             'event_types'=> $events
         );
 
@@ -78,7 +80,7 @@ class Services_Paymill_WebhooksTest extends Services_Paymill_TestBase
         $this->assertInternalType('array', $webhook);
         $this->assertArrayHasKey('id', $webhook, $this->getMessages($webhook));
         $this->assertNotEmpty($webhook['id']);
-        $this->assertEquals($email, $webhook['email']);
+        $this->assertEquals($this->_email, $webhook['email']);
         $this->assertContains('subscription.created', $webhook['event_types']);
         $this->assertContains('transaction.succeeded', $webhook['event_types']);
 
@@ -90,7 +92,6 @@ class Services_Paymill_WebhooksTest extends Services_Paymill_TestBase
 
     /**
      * Tests Services_Paymill_Webhooks->get()
-     * @depends testCreateUrlWebhook
      */
     public function testGet()
     {
@@ -120,11 +121,10 @@ class Services_Paymill_WebhooksTest extends Services_Paymill_TestBase
      */
     public function testUpdate($webhookId)
     {
-        $url = 'http://floreysoftsandbox.appspot.com/dummyCallback';
         $events = array('transaction.failed', 'subscription.failed');
         $params = array(
             'id'         => $webhookId,
-            'url'        => $url,
+            'url'        => $this->_url,
             'event_types'=> $events
         );
 
@@ -138,11 +138,19 @@ class Services_Paymill_WebhooksTest extends Services_Paymill_TestBase
 
     /**
      * Tests Services_Paymill_Webhooks->delete()
-     * @depends testCreateUrlWebhook
+     * and cleans up the test web hooks
      */
-    public function testDelete($webhookId)
+    public function testDelete()
     {
-        $webhook = $this->_webhook->delete($webhookId);
-        $this->assertEquals(null, $webhook);
+        $webhooks = $this->_webhook->get();
+
+        foreach ($webhooks as $webhook) {
+            if(    (isset($webhook['email']) && $webhook['email'] == $this->_email)
+                || (isset($webhook['url'])   && $webhook['url'] == $this->_url)
+            ) {
+                $webhook = $this->_webhook->delete($webhook['id']);
+                $this->assertEquals(null, $webhook);
+            }
+        }
      }
 }

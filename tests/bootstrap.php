@@ -16,9 +16,6 @@ defined('API_HOST')
 if (!defined('API_TEST_KEY') && getenv('API_TEST_KEY'))
     define('API_TEST_KEY', getenv('API_TEST_KEY'));
 
-if (!defined('API_TEST_KEY'))
-    define('API_TEST_KEY', '9ac3a8f542da4132d7c9db158b815dc9');
-
 /**
  * Define path to application directory
  */

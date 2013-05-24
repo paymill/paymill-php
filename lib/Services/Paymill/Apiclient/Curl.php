@@ -105,7 +105,6 @@ class Services_Paymill_Apiclient_Curl implements Services_Paymill_Apiclient_Inte
             CURLOPT_CUSTOMREQUEST => $method,
             CURLOPT_USERAGENT => self::USER_AGENT,
             CURLOPT_SSL_VERIFYPEER => true,
-            CURLOPT_SSLVERSION => 3,
             CURLOPT_CAINFO => realpath(dirname(__FILE__)) . DIRECTORY_SEPARATOR . 'paymill.crt',
         );
 

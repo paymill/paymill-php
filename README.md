@@ -1,6 +1,10 @@
-# Paymill-PHP
+Paymill-PHP
+===========
 
-# Getting started with Paymill
+[![Build Status](https://travis-ci.org/Paymill/Paymill-PHP.png?branch=master)](https://travis-ci.org/Paymill/Paymill-PHP)
+
+Getting started with Paymill
+----------------------------
 
 1.  Include the required PHP file from the paymill PHP library. For example via: 
 
@@ -18,7 +22,8 @@
 
         $transactionsObject->create($params);
 
-# API versions
+API versions
+--------------
 
 The master branch reflects the newest API version, which is v2 for now. In order to use an older version just checkout the corresponding tag.
 	

@@ -1,7 +1,7 @@
 Paymill-PHP
 ===========
 
-[![Build Status](https://travis-ci.org/Paymill/Paymill-PHP.png?branch=master)](https://travis-ci.org/Paymill/Paymill-PHP)
+[![Build Status](https://travis-ci.org/paymill/paymill-php.png?branch=master)](https://travis-ci.org/paymill/paymill-php)
 
 Getting started with Paymill
 ----------------------------

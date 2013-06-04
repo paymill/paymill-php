@@ -137,6 +137,7 @@ abstract class Services_Paymill_Base
     /**
      * Returns the response of the last request as an array
      * @return mixed Response
+     * @todo Add Unit test
      */
     public function getResponse(){
         $this->_httpClient->getResponse();

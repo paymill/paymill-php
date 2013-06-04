@@ -24,6 +24,8 @@ class Services_Paymill_Apiclient_Curl implements Services_Paymill_Apiclient_Inte
      * @var string
      */
     private $_apiKey = null;
+    
+    private $_responseArray = null;
 
     /**
      *  Paymill API base url
@@ -65,16 +67,16 @@ class Services_Paymill_Apiclient_Curl implements Services_Paymill_Apiclient_Inte
             $params = array();
 
         try {
-            $response = $this->_requestApi($action, $params, $method);
-            $httpStatusCode = $response['header']['status'];
+            $this->_responseArray = $this->_requestApi($action, $params, $method);
+            $httpStatusCode = $this->_responseArray['header']['status'];
             if ($httpStatusCode != 200) {
                 $errorMessage = 'Client returned HTTP status code ' . $httpStatusCode;
-                if (isset($response['body']['error'])) {
-                    $errorMessage = $response['body']['error'];
+                if (isset($this->_responseArray['body']['error'])) {
+                    $errorMessage = $this->_responseArray['body']['error'];
                 }
                 $responseCode = '';
-                if (isset($response['body']['response_code'])) {
-                    $responseCode = $response['body']['response_code'];
+                if (isset($this->_responseArray['body']['response_code'])) {
+                    $responseCode = $this->_responseArray['body']['response_code'];
                 }
 
                 return array("data" => array(
@@ -83,7 +85,7 @@ class Services_Paymill_Apiclient_Curl implements Services_Paymill_Apiclient_Inte
                         ));
             }
 
-            return $response['body'];
+            return $this->_responseArray['body'];
         } catch (Exception $e) {
             return array("data" => array("error" => $e->getMessage()));
         }
@@ -144,5 +146,13 @@ class Services_Paymill_Apiclient_Curl implements Services_Paymill_Apiclient_Inte
             'body' => $responseBody
         );
     }
-
+    
+    /**
+     * Returns the response of the request as an array.
+     * @return mixed Response
+     * @todo Create Unit Test
+     */
+    public function getResponse(){
+        return $this->_responseArray;
+    }
 }

@@ -140,6 +140,6 @@ abstract class Services_Paymill_Base
      * @todo Add Unit test
      */
     public function getResponse(){
-        $this->_httpClient->getResponse();
+        return $this->_httpClient->getResponse();
     }
 }

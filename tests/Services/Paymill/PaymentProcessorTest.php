@@ -295,4 +295,41 @@ class Services_Paymill_PaymentProcessorTest extends Services_Paymill_TestBase im
         $this->_clientObject->delete($this->_clientId);
     }
 
+    /**
+     * tests the toArray-function
+     */
+    public function testToArray()
+    {
+
+        $toArrayResult = $this->_paymentProcessor->toArray();
+        $this->assertEquals($this->_apiTestKey, $toArrayResult['privatekey']);
+        $this->assertEquals($this->_apiUrl, $toArrayResult['apiurl']);
+        $this->assertInstanceOf('Services_Paymill_PaymentProcessorTest', $toArrayResult['logger']);
+        $this->assertEquals(dirname(realpath('../lib/Services/Paymill/PaymentProcessor.php')) . DIRECTORY_SEPARATOR, $toArrayResult['libbase']);
+        $this->assertEquals(1000, $toArrayResult['amount']);
+        $this->assertEquals(1000, $toArrayResult['authorizedamount']);
+        $this->assertEquals('EUR', $toArrayResult['currency']);
+        $this->assertEquals('Deuterium Cartridge', $toArrayResult['description']);
+        $this->assertEquals('John@doe.net', $toArrayResult['email']);
+        $this->assertEquals('John Doe', $toArrayResult['name']);
+        $this->assertEquals($this->getToken(), $toArrayResult['token']);
+    }
+
+    /**
+     * tests the getLastResponse-function
+     */
+    public function testGetLastResponse()
+    {
+        $expectedResult = array(
+            'error' => 'Token not Found',
+            'response_code' => ''
+        );
+
+        $this->_paymentProcessor->setToken('wrongToken');
+        $this->assertFalse($this->ProcessPayment());
+        $response = $this->_paymentProcessor->getLastResponse();
+        $this->assertInternalType('array', $response);
+        $this->assertEquals($expectedResult, $response);
+    }
+
 }

@@ -475,7 +475,7 @@ class PaymentProcessor
      * <b>The Logger object can be any class implementing a log(String, String) function.</b>
      * @param any $object
      */
-    public function setLogger(Services_Paymill_PaymentProcessorInterface $object)
+    public function setLogger(Services_Paymill_PaymentProcessorInterface $object = null)
     {
         $this->_logger = $object;
     }

@@ -6,7 +6,7 @@
  * @category   PayIntelligent
  * @copyright  Copyright (c) 2013 PayIntelligent GmbH (http://payintelligent.de)
  */
-class PaymentProcessor
+class Services_Paymill_PaymentProcessor
 {
 
     //Options: Variables needed to create Paymill Lib Components
@@ -48,9 +48,9 @@ class PaymentProcessor
      *    <b>email</b>,               Customer emailaddress <br />
      *    <b>description</b>,         Description for transactions <br />
      * ) <p color='red'><b>(If not set here, the use of setters is required for the class to work)</b></p>
-     * @param object $loggingClassInstance Instance of Object implementing a log(String,String) function. If not set, there will be no logging.
+     * @param object $loggingClassInstance Instance of Object implementing the Services_Paymill_PaymentProcessorInterface. If not set, there will be no logging.
      */
-    public function __construct($privateKey, $apiUrl, $libBase = null, $params = null, Services_Paymill_PaymentProcessorInterface $loggingClassInstance = null)
+    public function __construct($privateKey = null, $apiUrl = null, $libBase = null, $params = null, Services_Paymill_PaymentProcessorInterface $loggingClassInstance = null)
     {
         $this->setPrivateKey($privateKey);
         $this->setApiUrl($apiUrl);
@@ -162,10 +162,10 @@ class PaymentProcessor
      */
     final private function _initiatePhpWrapperClasses()
     {
-        require_once $this->_libBase . 'Paymill/Transactions.php';
-        require_once $this->_libBase . 'Paymill/Clients.php';
-        require_once $this->_libBase . 'Paymill/Payments.php';
-        require_once $this->_libBase . 'Paymill/Refunds.php';
+        require_once $this->_libBase . 'Transactions.php';
+        require_once $this->_libBase . 'Clients.php';
+        require_once $this->_libBase . 'Payments.php';
+        require_once $this->_libBase . 'Refunds.php';
         $this->_clientsObject = new Services_Paymill_Clients($this->_privateKey, $this->_apiUrl);
         $this->_transactionsObject = new Services_Paymill_Transactions($this->_privateKey, $this->_apiUrl);
         $this->_paymentsObject = new Services_Paymill_Payments($this->_privateKey, $this->_apiUrl);
@@ -339,8 +339,8 @@ class PaymentProcessor
 
     /**
      * <p align = 'center'><b>Can only be called after the call of processPayment(). Otherwise null will be returned</b></p>
-     * Returns the ClientId
-     * @return String ClientId
+     * Returns the PaymentId
+     * @return String PaymentId
      */
     public function getPaymentId()
     {
@@ -349,8 +349,8 @@ class PaymentProcessor
 
     /**
      * <p align = 'center'><b>Can only be called after the call of processPayment(). Otherwise null will be returned</b></p>
-     * Returns the transactionId
-     * @return String transactionId
+     * Returns the TransactionId
+     * @return String TransactionId
      */
     public function getTransactionId()
     {
@@ -359,132 +359,132 @@ class PaymentProcessor
 
     /**
      * <p align = 'center'><b>Can only be called after the call of processPayment(). Otherwise null will be returned</b></p>
-     * Returns the secondTransactionId
-     * @return String secondTransactionId
+     * Returns the SecondTransactionId
+     * @return String SecondTransactionId
      */
     public function getSecondTransactionId()
     {
         return $this->_secondTransactionId;
     }
 
-    /*     * ****************************************************************************************************************
-     * ***********************************************    Setter    ****************************************************
+    /* ***************************************************************************************************************
+     * ***********************************************    Setter    **************************************************
      * *************************************************************************************************************** */
 
     /**
      * Sets the clientId
-     * @param String $arg
+     * @param String $clientId
      */
-    public function setClientId($arg)
+    public function setClientId($clientId = null)
     {
-        $this->_clientId = $arg;
+        $this->_clientId = $clientId;
     }
 
     /**
      * Sets the paymentId
-     * @param String $arg
+     * @param String $paymentId
      */
-    public function setPaymentId($arg)
+    public function setPaymentId($paymentId = null)
     {
-        $this->_paymentId = $arg;
+        $this->_paymentId = $paymentId;
     }
 
     /**
      * This method sets the token
-     * @param String $arg
+     * @param String $token
      */
-    public function setToken($arg)
+    public function setToken($token = null)
     {
-        $this->_token = $arg;
+        $this->_token = $token;
     }
 
     /**
      * Sets the authorizedAmount
-     * @param String $arg
+     * @param String $authorizedAmount
      */
-    public function setAuthorizedAmount($arg)
+    public function setAuthorizedAmount($authorizedAmount = null)
     {
-        $this->_authorizedAmount = $arg;
+        $this->_authorizedAmount = $authorizedAmount;
     }
 
     /**
      * This method sets the amount
-     * @param String $arg
+     * @param String $amount
      */
-    public function setAmount($arg)
+    public function setAmount($amount = null)
     {
-        $this->_amount = $arg;
+        $this->_amount = $amount;
     }
 
     /**
      * Sets the currency
-     * @param String $arg
+     * @param String $currency
      */
-    public function setCurrency($arg)
+    public function setCurrency($currency = null)
     {
-        $this->_currency = $arg;
+        $this->_currency = $currency;
     }
 
     /**
      * Sets the Customer name
-     * @param String $arg
+     * @param String $name
      */
-    public function setName($arg)
+    public function setName($name = null)
     {
-        $this->_name = $arg;
+        $this->_name = $name;
     }
 
     /**
      * Sets the Customer Email Adress
-     * @param String $arg
+     * @param String $email
      */
-    public function setEmail($arg)
+    public function setEmail($email = null)
     {
-        $this->_email = $arg;
+        $this->_email = $email;
     }
 
     /**
      * Sets the Description
-     * @param String $arg
+     * @param String $description
      */
-    public function setDescription($arg)
+    public function setDescription($description = null)
     {
-        $this->_description = $arg;
+        $this->_description = $description;
     }
 
     /**
      * Sets the Api URL
      * @param String $apiUrl
      */
-    public function setApiUrl($apiUrl)
+    public function setApiUrl($apiUrl = null)
     {
         $this->_apiUrl = $apiUrl;
     }
 
     /**
      * Sets the Path to the libBase
-     * @param String $path Path to the Lib base. If not set, the default path is set.
+     * @param String $libBase Path to the Lib base. If not set, the default path is set.
      */
-    public function setLibBase($path = null)
+    public function setLibBase($libBase = null)
     {
-        $this->_libBase = $path == null ? dirname(__FILE__) . "/" : $path;
+        $this->_libBase = $libBase == null ? dirname(__FILE__) . "/" : $libBase;
     }
 
     /**
      * Sets up the Logger Object.
-     * <b>The Logger object can be any class implementing a log(String, String) function.</b>
-     * @param any $object
+     * <b>The Logger object can be any class implementing the Services_Paymill_PaymentProcessorInterface.</b>
+     * @param any $logger
      */
-    public function setLogger(Services_Paymill_PaymentProcessorInterface $object = null)
+    public function setLogger(Services_Paymill_PaymentProcessorInterface $logger = null)
     {
-        $this->_logger = $object;
+        $this->_logger = $logger;
     }
 
     /**
      * Sets the Paymill-PrivateKey
      * @param string $privateKey
      */
-    public function setPrivateKey($privateKey)
+    public function setPrivateKey($privateKey = null)
     {
         $this->_privateKey = $privateKey;
     }

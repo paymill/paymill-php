@@ -1,7 +1,7 @@
 <?php
 
-require_once '../lib/Services/PaymentProcessor.php';
-require_once '../lib/Services/PaymentProcessorInterface.php';
+require_once '../lib/Services/Paymill/PaymentProcessor.php';
+require_once '../lib/Services/Paymill/PaymentProcessorInterface.php';
 require_once '../lib/Services/Paymill/Payments.php';
 require_once '../lib/Services/Paymill/Clients.php';
 require_once '../lib/Services/Paymill/Transactions.php';
@@ -11,7 +11,7 @@ require_once 'TestBase.php';
 /**
  * Services_Paymill_Payments test case.
  */
-class PaymentProcessorTest extends Services_Paymill_TestBase implements Services_Paymill_PaymentProcessorInterface
+class Services_Paymill_PaymentProcessorTest extends Services_Paymill_TestBase implements Services_Paymill_PaymentProcessorInterface
 {
 
     /**
@@ -20,7 +20,7 @@ class PaymentProcessorTest extends Services_Paymill_TestBase implements Services
     private $_paymentProcessor;
 
     /**
-     * @var PaymentProcessor
+     * @var actualLoggingMessage
      */
     private $_actualLoggingMessage;
 
@@ -61,7 +61,7 @@ class PaymentProcessorTest extends Services_Paymill_TestBase implements Services
     {
         parent::setUp();
         $this->_actualLoggingMessage = null;
-        $this->_paymentProcessor = new PaymentProcessor($this->_apiTestKey, $this->_apiUrl, null, null, $this);
+        $this->_paymentProcessor = new Services_Paymill_PaymentProcessor($this->_apiTestKey, $this->_apiUrl, null, null, $this);
         $this->_clientObject = new Services_Paymill_Clients($this->_apiTestKey, $this->_apiUrl);
         $this->_paymentObject = new Services_Paymill_Payments($this->_apiTestKey, $this->_apiUrl);
         $this->_transactionObject = new Services_Paymill_Transactions($this->_apiTestKey, $this->_apiUrl);
@@ -176,7 +176,7 @@ class PaymentProcessorTest extends Services_Paymill_TestBase implements Services
      */
     public function testProcessPaymentWithWrongApiUrl()
     {
-        $this->_paymentProcessor = new PaymentProcessor($this->_apiTestKey, $this->_apiUrl . '/', null, null, $this);
+        $this->_paymentProcessor = new Services_Paymill_PaymentProcessor($this->_apiTestKey, $this->_apiUrl . '/', null, null, $this);
         $this->_paymentProcessor->setAmount(1000);
         $this->_paymentProcessor->setCurrency('EUR');
         $this->_paymentProcessor->setEmail('John@doe.net');
@@ -198,7 +198,7 @@ class PaymentProcessorTest extends Services_Paymill_TestBase implements Services
     public function testProcessPaymentWithSpaceInApikey()
     {
         $this->_apiTestKey = $this->_apiTestKey . " ";
-        $this->_paymentProcessor = new PaymentProcessor($this->_apiTestKey, $this->_apiUrl, null, null, $this);
+        $this->_paymentProcessor = new Services_Paymill_PaymentProcessor($this->_apiTestKey, $this->_apiUrl, null, null, $this);
         $this->_paymentProcessor->setAmount(1000);
         $this->_paymentProcessor->setCurrency('EUR');
         $this->_paymentProcessor->setEmail('John@doe.net');

@@ -58,7 +58,6 @@ class Services_Paymill_PaymentProcessor
         $this->_email = $params['email'];
         $this->_description = $params['description'];
         $this->setLogger($loggingClassInstance);
-        $this->_initiatePhpWrapperClasses();
     }
 
     /**
@@ -265,9 +264,11 @@ class Services_Paymill_PaymentProcessor
      */
     final public function processPayment()
     {
+        $this->_initiatePhpWrapperClasses();
         if (!$this->_validateParameter()) {
             return false;
         }
+
         try {
             $this->_createClient();
             $this->_createPayment();

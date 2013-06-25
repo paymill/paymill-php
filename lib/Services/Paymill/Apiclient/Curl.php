@@ -81,7 +81,8 @@ class Services_Paymill_Apiclient_Curl implements Services_Paymill_Apiclient_Inte
 
                 return array("data" => array(
                         "error" => $errorMessage,
-                        "response_code" => $responseCode
+                        "response_code" => $responseCode,
+                        "http_status_code" => $httpStatusCode
                         ));
             }
 

@@ -1,7 +1,7 @@
 <?php
 
 require_once '../lib/Services/Paymill/PaymentProcessor.php';
-require_once '../lib/Services/Paymill/PaymentProcessorInterface.php';
+require_once '../lib/Services/Paymill/LoggingInterface.php';
 require_once '../lib/Services/Paymill/Payments.php';
 require_once '../lib/Services/Paymill/Clients.php';
 require_once '../lib/Services/Paymill/Transactions.php';
@@ -11,7 +11,7 @@ require_once 'TestBase.php';
 /**
  * Services_Paymill_Payments test case.
  */
-class Services_Paymill_PaymentProcessorTest extends Services_Paymill_TestBase implements Services_Paymill_PaymentProcessorInterface
+class Services_Paymill_PaymentProcessorTest extends Services_Paymill_TestBase implements Services_Paymill_LoggingInterface
 {
 
     /**
@@ -67,7 +67,6 @@ class Services_Paymill_PaymentProcessorTest extends Services_Paymill_TestBase im
         $this->_transactionObject = new Services_Paymill_Transactions($this->_apiTestKey, $this->_apiUrl);
 
         $this->_paymentProcessor->setAmount(1000);
-        $this->_paymentProcessor->setAuthorizedAmount(1000);
         $this->_paymentProcessor->setCurrency('EUR');
         $this->_paymentProcessor->setDescription('Deuterium Cartridge');
         $this->_paymentProcessor->setEmail('John@doe.net');
@@ -231,71 +230,6 @@ class Services_Paymill_PaymentProcessorTest extends Services_Paymill_TestBase im
     }
 
     /**
-     * tests the fallback for 3DSecure
-     *
-     * The authorized amount is higher than the actual Basketamount
-     * example: Added a credit/coupon after creating the token
-     *
-     * The difference will be refunded
-     */
-    public function testHigherAuthorizedAmount()
-    {
-        $this->_paymentProcessor->setAuthorizedAmount(1500);
-        $this->_paymentProcessor->setAmount(1000);
-        $this->assertTrue($this->ProcessPayment(), $this->_debugMessage);
-
-        $transaction = $this->_paymentProcessor->getTransactionId();
-        $this->assertInternalType('string', $transaction);
-
-        $transaction = $this->_transactionObject->getOne($transaction);
-        $this->assertInternalType('array', $transaction);
-
-        $this->assertArrayHasKey('origin_amount', $transaction);
-        $this->assertEquals(1500, $transaction['origin_amount']);
-        $this->assertArrayHasKey('amount', $transaction);
-        $this->assertEquals("1000", $transaction['amount']);
-
-        $this->_paymentObject->delete($this->_paymentId);
-        $this->_clientObject->delete($this->_clientId);
-    }
-
-    /**
-     * tests the fallback for 3DSecure
-     *
-     * The authorized amount is lower than the actual Basketamount
-     * example: Added a payment surcharge after creating the token
-     */
-    public function testLowerAuthorizedAmount()
-    {
-        $this->_paymentProcessor->setAuthorizedAmount(1000);
-        $this->_paymentProcessor->setAmount(1500);
-        $this->assertTrue($this->ProcessPayment(), $this->_debugMessage);
-
-        $transactionId = $this->_paymentProcessor->getTransactionId();
-        $this->assertInternalType('string', $transactionId);
-        $transaction = $this->_transactionObject->getOne($transactionId);
-        $this->assertInternalType('array', $transaction);
-        $this->assertArrayHasKey('origin_amount', $transaction);
-        $this->assertArrayHasKey('amount', $transaction);
-
-        $this->assertEquals(1000, $transaction['origin_amount']);
-        $this->assertEquals("1000", $transaction['amount']);
-
-        $secondTransactionId = $this->_paymentProcessor->getSecondTransactionId();
-        $this->assertInternalType('string', $secondTransactionId);
-        $secondTransaction = $this->_transactionObject->getOne($secondTransactionId);
-        $this->assertInternalType('array', $secondTransaction);
-        $this->assertArrayHasKey('origin_amount', $secondTransaction);
-        $this->assertArrayHasKey('amount', $secondTransaction);
-
-        $this->assertEquals(500, $secondTransaction['origin_amount']);
-        $this->assertEquals("500", $secondTransaction['amount']);
-
-        $this->_paymentObject->delete($this->_paymentId);
-        $this->_clientObject->delete($this->_clientId);
-    }
-
-    /**
      * tests the toArray-function
      */
     public function testToArray()
@@ -307,7 +241,6 @@ class Services_Paymill_PaymentProcessorTest extends Services_Paymill_TestBase im
         $this->assertInstanceOf('Services_Paymill_PaymentProcessorTest', $toArrayResult['logger']);
         $this->assertEquals(dirname(realpath('../lib/Services/Paymill/PaymentProcessor.php')) . DIRECTORY_SEPARATOR, $toArrayResult['libbase']);
         $this->assertEquals(1000, $toArrayResult['amount']);
-        $this->assertEquals(1000, $toArrayResult['authorizedamount']);
         $this->assertEquals('EUR', $toArrayResult['currency']);
         $this->assertEquals('Deuterium Cartridge', $toArrayResult['description']);
         $this->assertEquals('John@doe.net', $toArrayResult['email']);
@@ -330,6 +263,20 @@ class Services_Paymill_PaymentProcessorTest extends Services_Paymill_TestBase im
         $response = $this->_paymentProcessor->getLastResponse();
         $this->assertInternalType('array', $response);
         $this->assertEquals($expectedResult, $response);
+    }
+
+    /**
+     * tests the getTransactionId-function
+     */
+    public function testGetTransactionId()
+    {
+        $this->assertTrue($this->ProcessPayment());
+        $transactionId = $this->_paymentProcessor->getTransactionId();
+        $this->assertInternalType('string', $transactionId);
+        $result = $this->_transactionObject->getOne($transactionId);
+        $this->assertInternalType('array', $result);
+        $this->assertEquals('20000', $result['response_code']);
+        $this->assertEquals($transactionId, $result['id']);
     }
 
 }

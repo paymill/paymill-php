@@ -1,6 +1,6 @@
 <?php
 
-interface Services_Paymill_PaymentProcessorInterface
+interface Services_Paymill_LoggingInterface
 {
 
     /**

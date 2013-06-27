@@ -255,7 +255,8 @@ class Services_Paymill_PaymentProcessorTest extends Services_Paymill_TestBase im
     {
         $expectedResult = array(
             'error' => 'Token not Found',
-            'response_code' => ''
+            'response_code' => '',
+            'http_status_code'=>'404'
         );
 
         $this->_paymentProcessor->setToken('wrongToken');

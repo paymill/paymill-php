@@ -30,6 +30,9 @@ class Services_Paymill_PaymentProcessor
     //Fast Checkout Variables
     private $_clientId = null;
     private $_paymentId = null;
+    
+    //Source
+    private $_source;
 
     /**
      * Creates an object of the PaymentProcessor class.
@@ -123,7 +126,8 @@ class Services_Paymill_PaymentProcessor
                     'currency' => $this->_currency,
                     'description' => $this->_description,
                     'payment' => $this->_paymentId,
-                    'client' => $this->_clientId
+                    'client' => $this->_clientId,
+                    'source' => $this->_source
                 )
         );
         $this->_validateResult($transaction, 'Transaction');
@@ -296,7 +300,8 @@ class Services_Paymill_PaymentProcessor
             'currency' => $this->_currency,
             'description' => $this->_description,
             'email' => $this->_email,
-            'name' => $this->_name
+            'name' => $this->_name,
+            'source' => $this->_source
         );
     }
 
@@ -459,5 +464,14 @@ class Services_Paymill_PaymentProcessor
     {
         $this->_privateKey = $privateKey;
     }
-
+    
+    /**
+     * Set the request source
+     * (Modulversion_Shopname_Shopversion)
+     * @param string $source
+     */
+    public function setSource($source)
+    {
+        $this->_source = $source;
+    }
 }

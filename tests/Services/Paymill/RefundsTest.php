@@ -14,7 +14,7 @@ class Services_Paymill_RefundsTest extends Services_Paymill_TestBase
      * @var Services_Paymill_Refunds
      */
     private $_refunds;
-    
+
     /**
      * @var Services_Paymill_Transactions
      */
@@ -41,12 +41,12 @@ class Services_Paymill_RefundsTest extends Services_Paymill_TestBase
 
         parent::tearDown();
     }
-    
+
     /**
      * Tests Services_Paymill_Refunds->create()
      */
     public function testCreateWithWrongTransactionid()
-    {        
+    {
         try {
             $params = array(
                 'transactionId' => 'wrong_test_transactionid',
@@ -59,12 +59,12 @@ class Services_Paymill_RefundsTest extends Services_Paymill_TestBase
             $this->assertEquals(404, $e->getCode() );
         }
     }
-    
+
     /**
      * Tests Services_Paymill_Refunds->create()
      */
     public function testCreateWithoutNullAmount()
-    {        
+    {
         try {
             $transactionParams = array(
                 'amount'      => 4200,
@@ -84,7 +84,7 @@ class Services_Paymill_RefundsTest extends Services_Paymill_TestBase
             $this->assertEquals(412, $e->getCode() );
         }
     }
-    
+
     /**
      * Tests Services_Paymill_Refunds->create()
      */
@@ -104,16 +104,16 @@ class Services_Paymill_RefundsTest extends Services_Paymill_TestBase
         );
 
         $refund = $this->_refunds->create($params);
-        
-        $this->assertInternalType('array', $refund['data']);
-        $this->assertArrayHasKey('id', $refund['data']);
-        $this->assertEquals($refund['data']['amount'], 4200);
 
-        $refundId = $refund['data']['id'];
-        
+        $this->assertInternalType('array', $refund);
+        $this->assertArrayHasKey('id', $refund);
+        $this->assertEquals($refund['amount'], 4200);
+
+        $refundId = $refund['id'];
+
         return $refundId;
     }
-    
+
     /**
      * Tests Services_Paymill_Refunds->create()
      */
@@ -133,16 +133,16 @@ class Services_Paymill_RefundsTest extends Services_Paymill_TestBase
         );
 
         $refund = $this->_refunds->create($params);
-        
-        $this->assertEquals($refund['data']['transaction']['id'], $transaction['id']);
-        $this->assertEquals($refund['data']['transaction']['amount'], 1000);
-        $this->assertEquals($refund['data']['transaction']['status'], 'partial_refunded');
+
+        $this->assertEquals($refund['transaction']['id'], $transaction['id']);
+        $this->assertEquals($refund['transaction']['amount'], 1000);
+        $this->assertEquals($refund['transaction']['status'], 'partial_refunded');
 
         $transactionId = $transaction['id'];
-        
+
         return $transactionId;
     }
-    
+
     /**
      * Tests Services_Paymill_Refunds->create()
      * @depends testRefundWithLessAmount
@@ -156,9 +156,9 @@ class Services_Paymill_RefundsTest extends Services_Paymill_TestBase
 
         $refund = $this->_refunds->create($params);
 
-        $this->assertEquals($refund['data']['transaction']['id'], $transactionId);
-        $this->assertEquals($refund['data']['transaction']['amount'], 0);
-        $this->assertEquals($refund['data']['transaction']['status'], 'refunded');
+        $this->assertEquals($refund['transaction']['id'], $transactionId);
+        $this->assertEquals($refund['transaction']['amount'], 0);
+        $this->assertEquals($refund['transaction']['status'], 'refunded');
     }
 
     /**
@@ -181,12 +181,12 @@ class Services_Paymill_RefundsTest extends Services_Paymill_TestBase
     public function testGetOne($refundId)
     {
         $refund = $this->_refunds->getOne($refundId);
-        
+
         $this->assertInternalType('array', $refund);
         $this->assertArrayHasKey('id', $refund);
         $this->assertEquals($refund['id'],$refundId);
     }
-    
+
     /**
      * Tests Services_Paymill_Refunds->getOne()
      */
@@ -199,7 +199,7 @@ class Services_Paymill_RefundsTest extends Services_Paymill_TestBase
             $this->assertEquals(404, $e->getCode() );
         }
     }
-    
+
     /**
      * Tests Services_Paymill_Refunds->update()
      */
@@ -212,7 +212,7 @@ class Services_Paymill_RefundsTest extends Services_Paymill_TestBase
             $this->assertEquals(404, $e->getCode() );
         }
     }
-    
+
     /**
      * Tests Services_Paymill_Refunds->delete()
      */
@@ -225,6 +225,6 @@ class Services_Paymill_RefundsTest extends Services_Paymill_TestBase
             $this->assertEquals(404, $e->getCode() );
         }
     }
-    
-    
+
+
 }

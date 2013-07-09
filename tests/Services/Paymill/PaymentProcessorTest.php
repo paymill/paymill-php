@@ -98,10 +98,11 @@ class Services_Paymill_PaymentProcessorTest extends Services_Paymill_TestBase im
 
     /**
      * Processes the Payment
+     * @param boolean $preauth
      */
-    protected function ProcessPayment()
+    protected function ProcessPayment($captureNow = true)
     {
-        $result = $this->_paymentProcessor->processPayment();
+        $result = $this->_paymentProcessor->processPayment($captureNow);
         $this->_clientId = $this->_paymentProcessor->getClientId();
         $this->_paymentId = $this->_paymentProcessor->getPaymentId();
         return $result;
@@ -274,6 +275,23 @@ class Services_Paymill_PaymentProcessorTest extends Services_Paymill_TestBase im
         $this->assertTrue($this->ProcessPayment());
         $transactionId = $this->_paymentProcessor->getTransactionId();
         $this->assertInternalType('string', $transactionId);
+        $result = $this->_transactionObject->getOne($transactionId);
+        $this->assertInternalType('array', $result);
+        $this->assertEquals('20000', $result['response_code']);
+        $this->assertEquals($transactionId, $result['id']);
+    }
+
+    /**
+     * tests the Capture-function
+     */
+    public function testCapture()
+    {
+        $this->assertTrue($this->ProcessPayment(false));
+        $preauthId = $this->_paymentProcessor->getPreauthId();
+        $this->assertInternalType('string', $preauthId);
+
+        $this->_paymentProcessor->capture();
+        $transactionId = $this->_paymentProcessor->getTransactionId();
         $result = $this->_transactionObject->getOne($transactionId);
         $this->assertInternalType('array', $result);
         $this->assertEquals('20000', $result['response_code']);

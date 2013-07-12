@@ -242,6 +242,7 @@ class Services_Paymill_PaymentProcessorTest extends Services_Paymill_TestBase im
         $this->assertInstanceOf('Services_Paymill_PaymentProcessorTest', $toArrayResult['logger']);
         $this->assertEquals(dirname(realpath('../lib/Services/Paymill/PaymentProcessor.php')) . DIRECTORY_SEPARATOR, $toArrayResult['libbase']);
         $this->assertEquals(1000, $toArrayResult['amount']);
+        $this->assertEquals(0, $toArrayResult['differentAmount']);
         $this->assertEquals('EUR', $toArrayResult['currency']);
         $this->assertEquals('Deuterium Cartridge', $toArrayResult['description']);
         $this->assertEquals('John@doe.net', $toArrayResult['email']);

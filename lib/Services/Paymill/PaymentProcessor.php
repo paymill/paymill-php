@@ -196,7 +196,7 @@ class Services_Paymill_PaymentProcessor
      */
     private function _validateParameter()
     {
-        if(isNull($this->_preAuthAmount)){
+        if($this->_preAuthAmount == null){
             $this->_preAuthAmount = $this->_amount;
         }
 

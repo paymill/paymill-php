@@ -22,7 +22,7 @@ class Services_Paymill_PaymentProcessor
     //Process Payment relevant
     private $_token;                //Token generated for the Transaction
     private $_amount;               //Current Amount
-    private $_differentAmount;
+    private $_preAuthAmount;
     private $_currency;             //Currency (of both amounts)
     private $_name;                 //Customername
     private $_email;                //Customer Email Adress
@@ -56,7 +56,7 @@ class Services_Paymill_PaymentProcessor
         $this->setPrivateKey($privateKey);
         $this->setApiUrl($apiUrl);
         $this->setLibBase($libBase);
-        $this->_differentAmount = 0;
+        $this->_preAuthAmount = $params['preauthamount'];
         $this->_token = $params['token'];
         $this->_amount = $params['amount'];
         $this->_currency = $params['currency'];
@@ -148,7 +148,7 @@ class Services_Paymill_PaymentProcessor
     {
         $preAuth = $this->_preauthObject->create(
                 array(
-                    'amount' => $this->_amount + $this->_differentAmount,
+                    'amount' => $this->_preAuthAmount,
                     'currency' => $this->_currency,
                     'description' => $this->_description,
                     'payment' => $this->_paymentId,
@@ -196,6 +196,10 @@ class Services_Paymill_PaymentProcessor
      */
     private function _validateParameter()
     {
+        if(isNull($this->_preAuthAmount)){
+            $this->_preAuthAmount = $this->_amount;
+        }
+
         $validation = true;
         $parameter = array(
             "token" => $this->_token,
@@ -337,7 +341,7 @@ class Services_Paymill_PaymentProcessor
             'logger' => $this->_logger,
             'token' => $this->_token,
             'amount' => $this->_amount,
-            'differentAmount' => $this->_differentAmount,
+            'preauthamount' => $this->_preAuthAmount,
             'currency' => $this->_currency,
             'description' => $this->_description,
             'email' => $this->_email,
@@ -430,14 +434,14 @@ class Services_Paymill_PaymentProcessor
     {
         $this->_token = $token;
     }
-    
+
     /**
-     * This method sets the differentAmount
-     * @param String $differentAmount
+     * This method sets the preAuthAmount
+     * @param String $preAuthAmount
      */
-    public function setDifferentAmount($differentAmount = null)
+    public function setPreAuthAmount($preAuthAmount = null)
     {
-        $this->_differentAmount = $differentAmount;
+        $this->_preAuthAmount = $preAuthAmount;
     }
 
     /**

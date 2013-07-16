@@ -123,15 +123,15 @@ class Services_Paymill_PaymentProcessor
      */
     private function _createTransaction()
     {
-        $transaction = $this->_transactionsObject->create(
-                array(
-                    'amount' => $this->_amount,
-                    'currency' => $this->_currency,
-                    'description' => $this->_description,
-                    'preauthorization' => $this->_preauthId,
-                    'source' => $this->_source
-                )
+        $parameter = array(
+            'amount' => $this->_amount,
+            'currency' => $this->_currency,
+            'description' => $this->_description,
+            'preauthorization' => $this->_preauthId,
+            'source' => $this->_source
         );
+        $this->_preauthId != null ? $parameter['preauthorization'] = $this->_preauthId : $parameter['payment'] = $this->_paymentId ;
+        $transaction = $this->_transactionsObject->create($parameter);
         $this->_validateResult($transaction, 'Transaction');
 
         $this->_transactionId = $transaction['id'];
@@ -196,7 +196,7 @@ class Services_Paymill_PaymentProcessor
      */
     private function _validateParameter()
     {
-        if($this->_preAuthAmount == null){
+        if ($this->_preAuthAmount == null) {
             $this->_preAuthAmount = $this->_amount;
         }
 
@@ -292,6 +292,15 @@ class Services_Paymill_PaymentProcessor
         }
     }
 
+    private function _processPreAuthCapture($captureNow)
+    {
+        $this->_createPreauthorization();
+        if ($captureNow) {
+            $this->_createTransaction();
+        }
+        return true;
+    }
+
     /**
      * Executes the Payment Process
      *
@@ -307,9 +316,12 @@ class Services_Paymill_PaymentProcessor
         try {
             $this->_createClient();
             $this->_createPayment();
-            $this->_createPreauthorization();
-            if($captureNow){
+
+            //creates a transaction if there is no difference between the amount
+            if ($this->_preAuthAmount === $this->_amount && $captureNow) {
                 $this->_createTransaction();
+            } else {
+                $this->_processPreAuthCapture($captureNow);
             }
             return true;
         } catch (Exception $ex) {
@@ -319,15 +331,16 @@ class Services_Paymill_PaymentProcessor
         }
     }
 
-    final public function capture(){
+    final public function capture()
+    {
         $this->_initiatePhpWrapperClasses();
-        if(!isset($this->_amount) || !isset($this->_currency) || !isset($this->_preauthId)){
+        if (!isset($this->_amount) || !isset($this->_currency) || !isset($this->_preauthId)) {
             return false;
         }
         return $this->_createTransaction();
     }
 
-        /**
+    /**
      * Returns the objects data
      *
      * @return array

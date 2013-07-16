@@ -79,6 +79,13 @@ class Services_Paymill_PaymentProcessorTest extends Services_Paymill_TestBase im
      */
     protected function tearDown()
     {
+
+        if (isset($this->_paymentId)) {
+            $this->_paymentObject->delete($this->_paymentId);
+        }
+        if (isset($this->_clientId)) {
+            $this->_clientObject->delete($this->_clientId);
+        }
         $this->_paymentProcessor = null;
         $this->_actualLoggingMessage = null;
         $this->_paymentObject = null;
@@ -146,8 +153,6 @@ class Services_Paymill_PaymentProcessorTest extends Services_Paymill_TestBase im
     public function testProcessPayment()
     {
         $this->assertTrue($this->ProcessPayment());
-        $this->_paymentObject->delete($this->_paymentId);
-        $this->_clientObject->delete($this->_clientId);
     }
 
     /**
@@ -166,9 +171,6 @@ class Services_Paymill_PaymentProcessorTest extends Services_Paymill_TestBase im
         $this->assertTrue($this->_paymentProcessor->processPayment(), $this->_actualLoggingMessage);
         $this->assertEquals($this->_paymentProcessor->getClientId(), $this->_clientId, 'ClientId doesn´t match.');
         $this->assertEquals($this->_paymentProcessor->getPaymentId(), $this->_paymentId, 'PaymentId doesn´t match.');
-
-        $this->_paymentObject->delete($this->_paymentId);
-        $this->_clientObject->delete($this->_clientId);
     }
 
     /**
@@ -186,8 +188,6 @@ class Services_Paymill_PaymentProcessorTest extends Services_Paymill_TestBase im
 
         $this->assertFalse($this->ProcessPayment());
         $this->assertEquals('Exception thrown from paymill wrapper.', $this->_actualLoggingMessage);
-        $this->_paymentObject->delete($this->_paymentId);
-        $this->_clientObject->delete($this->_clientId);
     }
 
     /**
@@ -212,8 +212,6 @@ class Services_Paymill_PaymentProcessorTest extends Services_Paymill_TestBase im
 
         $this->assertFalse($this->ProcessPayment());
         $this->assertEquals('Exception thrown from paymill wrapper.', $this->_actualLoggingMessage);
-        $this->_paymentObject->delete($this->_paymentId);
-        $this->_clientObject->delete($this->_clientId);
     }
 
     /**
@@ -226,8 +224,6 @@ class Services_Paymill_PaymentProcessorTest extends Services_Paymill_TestBase im
 
         $this->assertFalse($this->ProcessPayment());
         $this->assertEquals('Exception thrown from paymill wrapper.', $this->_actualLoggingMessage);
-        $this->_paymentObject->delete($this->_paymentId);
-        $this->_clientObject->delete($this->_clientId);
     }
 
     /**
@@ -242,7 +238,7 @@ class Services_Paymill_PaymentProcessorTest extends Services_Paymill_TestBase im
         $this->assertInstanceOf('Services_Paymill_PaymentProcessorTest', $toArrayResult['logger']);
         $this->assertEquals(dirname(realpath('../lib/Services/Paymill/PaymentProcessor.php')) . DIRECTORY_SEPARATOR, $toArrayResult['libbase']);
         $this->assertEquals(1000, $toArrayResult['amount']);
-        $this->assertEquals(0, $toArrayResult['differentAmount']);
+        $this->assertEquals(0, $toArrayResult['preauthamount']);
         $this->assertEquals('EUR', $toArrayResult['currency']);
         $this->assertEquals('Deuterium Cartridge', $toArrayResult['description']);
         $this->assertEquals('John@doe.net', $toArrayResult['email']);
@@ -258,7 +254,7 @@ class Services_Paymill_PaymentProcessorTest extends Services_Paymill_TestBase im
         $expectedResult = array(
             'error' => 'Token not Found',
             'response_code' => '',
-            'http_status_code'=>'404'
+            'http_status_code' => '404'
         );
 
         $this->_paymentProcessor->setToken('wrongToken');
@@ -297,6 +293,48 @@ class Services_Paymill_PaymentProcessorTest extends Services_Paymill_TestBase im
         $this->assertInternalType('array', $result);
         $this->assertEquals('20000', $result['response_code']);
         $this->assertEquals($transactionId, $result['id']);
+    }
+
+    /**
+     * tests the creation of a preauth and a transaction.
+     *
+     * The amounts differ from each other so it won't create a standalone transaction
+     */
+    public function testPreAuthAndCapture()
+    {
+        $this->_paymentProcessor->setPreAuthAmount(1100);
+
+        $this->assertTrue($this->ProcessPayment());
+        $this->assertInternalType('string', $this->_paymentProcessor->getPreauthId());
+
+        $transactionId = $this->_paymentProcessor->getTransactionId();
+        $result = $this->_transactionObject->getOne($transactionId);
+        $this->assertInternalType('array', $result);
+        $this->assertEquals('20000', $result['response_code']);
+        $this->assertEquals($transactionId, $result['id']);
+        $this->assertArrayHasKey('preauthorization', $result);
+        $this->assertInternalType('array', $result['preauthorization']);
+        $this->assertArrayHasKey('id', $result['preauthorization']);
+        $this->assertEquals($this->_paymentProcessor->getPreauthId(), $result['preauthorization']['id']);
+    }
+
+    /**
+     * tests the DirectTransaction with same amount
+     *
+     * should create a transaction instead of preauth & capture
+     */
+    public function testDirectTransaction()
+    {
+        $this->assertTrue($this->ProcessPayment());
+        $this->assertNull($this->_paymentProcessor->getPreauthId());
+
+        $transactionId = $this->_paymentProcessor->getTransactionId();
+        $result = $this->_transactionObject->getOne($transactionId);
+        $this->assertInternalType('array', $result);
+        $this->assertEquals('20000', $result['response_code']);
+        $this->assertEquals($transactionId, $result['id']);
+        $this->assertArrayHasKey('preauthorization', $result);
+        $this->assertNull($result['preauthorization']);
     }
 
 }

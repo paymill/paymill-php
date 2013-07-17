@@ -108,8 +108,6 @@ class Services_Paymill_Apiclient_CurlTest extends Services_Paymill_TestBase
         $this->assertArrayHasKey('error', $result['data']);
         $this->assertEquals(40000, $result['data']['response_code']);
         $this->assertEquals('General problem with data.', $result['data']['error']);
-
-
     }
 
 }

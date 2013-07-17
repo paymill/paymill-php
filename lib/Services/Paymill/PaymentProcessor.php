@@ -127,7 +127,6 @@ class Services_Paymill_PaymentProcessor
             'amount' => $this->_amount,
             'currency' => $this->_currency,
             'description' => $this->_description,
-            'preauthorization' => $this->_preauthId,
             'source' => $this->_source
         );
         $this->_preauthId != null ? $parameter['preauthorization'] = $this->_preauthId : $parameter['payment'] = $this->_paymentId ;

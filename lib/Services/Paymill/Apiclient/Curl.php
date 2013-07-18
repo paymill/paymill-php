@@ -52,11 +52,21 @@ class Services_Paymill_Apiclient_Curl implements Services_Paymill_Apiclient_Inte
      *
      * @param string $apiKey
      * @param string $apiEndpoint
+     * @param array $extracURL
+     *   Extra cURL options. The array is keyed by the name of the cURL
+     *   options.
      */
-    public function __construct($apiKey, $apiEndpoint)
+    public function __construct($apiKey, $apiEndpoint, $extracURL = array())
     {
         $this->_apiKey = $apiKey;
         $this->_apiUrl = $apiEndpoint;
+        /**
+         * Proxy support. The proxy can be SOCKS5 or HTTP.
+         * Also the connection could be tunneled through.
+         */
+        if (!empty($extracURL)) {
+            $this->_extraOptions;
+        }
     }
 
     /**
@@ -121,6 +131,11 @@ class Services_Paymill_Apiclient_Curl implements Services_Paymill_Apiclient_Inte
             CURLOPT_SSL_VERIFYPEER => true,
             CURLOPT_CAINFO => realpath(dirname(__FILE__)) . DIRECTORY_SEPARATOR . 'paymill.crt',
         );
+
+        // Add extra options to cURL if defined.
+        if (!empty($this->_extraOptions)) {
+            $curlOpts += $this->_extraOptions;
+        }
 
         if (Services_Paymill_Apiclient_Interface::HTTP_GET === $method) {
             if (0 !== count($params)) {

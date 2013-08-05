@@ -68,7 +68,7 @@ class Services_Paymill_Apiclient_Curl implements Services_Paymill_Apiclient_Inte
          * Also the connection could be tunneled through.
          */
         if (!empty($extracURL)) {
-            $this->_extraOptions;
+            $this->_extraOptions = $extracURL;
         }
     }
 

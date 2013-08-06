@@ -182,4 +182,15 @@ class Services_Paymill_PaymentsTest extends Services_Paymill_TestBase
         $this->assertCount(0,$payment);
     }
 
+    /**
+     * Tests Services_Paymill_Payments->update()
+     * @expectedException        Services_Paymill_Exception
+     * @expectedExceptionMessage Services_Paymill_Payments does not support Services_Paymill_Payments::update
+     * @expectedExceptionCode    404
+     */
+    public function testUpdate()
+    {
+        $payment = $this->_payments->update();
+    }
+
 }

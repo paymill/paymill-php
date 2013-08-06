@@ -17,7 +17,7 @@ defined('API_HOST')
  * can be overriden with environment variable API_TEST_KEY
  */
 if (!defined('API_TEST_KEY') && getenv('API_TEST_KEY'))
-    define('API_TEST_KEY', API_TEST_KEY);
+    define('API_TEST_KEY', getenv('API_TEST_KEY'));
 
 define('TOKEN', '098f6bcd4621d373cade4e832627b4f6');
 

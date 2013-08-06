@@ -1,4 +1,7 @@
 <?php
+
+include_once('../vendor/autoload.php');
+
 /**
  * $apiHost should be set to default unit test host for external users
  * can be overriden with environment variable PAYMILL_TEST_API_HOST
@@ -14,7 +17,9 @@ defined('API_HOST')
  * can be overriden with environment variable API_TEST_KEY
  */
 if (!defined('API_TEST_KEY') && getenv('API_TEST_KEY'))
-    define('API_TEST_KEY', getenv('API_TEST_KEY'));
+    define('API_TEST_KEY', API_TEST_KEY);
+
+define('TOKEN', '098f6bcd4621d373cade4e832627b4f6');
 
 /**
  * Define path to application directory
@@ -24,6 +29,6 @@ defined('APPLICATION_PATH')
 
 // Ensure library/ is on include_path
 set_include_path(implode(PATH_SEPARATOR, array(
-        realpath(APPLICATION_PATH . '/../lib'),
+        realpath(APPLICATION_PATH),
         get_include_path(),
 )));

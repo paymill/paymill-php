@@ -1,24 +1,9 @@
 <?php
 
 /**
- * @see Services_Paymill_Exception
- */
-require_once '../lib/Services/Paymill/Exception.php';
-
-/**
- * @see Services_Paymill_Customer
- */
-require_once '../lib/Services/Paymill/Clients.php';
-
-/**
- * @see Services_Paymill_BaseTest
- */
-require_once 'TestBase.php';
-
-/**
  * Services_Paymill_Customer test case.
  */
-class Services_Paymill_ClientsTest extends Services_Paymill_TestBase
+class Services_Paymill_ClientsTest extends PHPUnit_Framework_TestCase
 {
     /**
      * @var Services_Paymill_Clients
@@ -30,8 +15,7 @@ class Services_Paymill_ClientsTest extends Services_Paymill_TestBase
      */
     protected function setUp()
     {
-        parent::setUp ();
-        $this->_clients = new Services_Paymill_Clients($this->_apiTestKey,  $this->_apiUrl);
+        $this->_clients = new Services_Paymill_Clients(API_TEST_KEY,  API_HOST);
     }
 
     /**
@@ -40,7 +24,6 @@ class Services_Paymill_ClientsTest extends Services_Paymill_TestBase
     protected function tearDown()
     {
         $this->_clients = null;
-        parent::tearDown ();
     }
 
     /**
@@ -51,7 +34,7 @@ class Services_Paymill_ClientsTest extends Services_Paymill_TestBase
         $email = 'john.bigboote@example.org';
         $client = $this->_clients->create(array('email' => $email));
 
-        $this->assertArrayHasKey('email', $client, $this->getMessages($email));
+        $this->assertArrayHasKey('email', $client);
         $this->assertEquals($email, $client['email']);
 
         return $client['id'];
@@ -66,7 +49,7 @@ class Services_Paymill_ClientsTest extends Services_Paymill_TestBase
         $filters = array('count'=>10,'offset'=>0,);
         $clients = $this->_clients->get($filters);
         $this->assertInternalType('array', $clients);
-        $this->assertGreaterThanOrEqual(1, count($clients), $this->getMessages($clients));
+        $this->assertGreaterThanOrEqual(1, count($clients));
         $this->assertArrayHasKey('id', $clients[0]);
     }
 

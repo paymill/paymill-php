@@ -1,19 +1,10 @@
 <?php
 
-require_once '../lib/Services/Paymill/PaymentProcessor.php';
-require_once '../lib/Services/Paymill/LoggingInterface.php';
-require_once '../lib/Services/Paymill/Payments.php';
-require_once '../lib/Services/Paymill/Clients.php';
-require_once '../lib/Services/Paymill/Transactions.php';
-
-require_once 'TestBase.php';
-
 /**
  * Services_Paymill_Payments test case.
  */
-class Services_Paymill_PaymentProcessorTest extends Services_Paymill_TestBase implements Services_Paymill_LoggingInterface
+class Services_Paymill_PaymentProcessorTest extends PHPUnit_Framework_TestCase implements Services_Paymill_LoggingInterface
 {
-
     /**
      * @var PaymentProcessor
      */
@@ -59,8 +50,9 @@ class Services_Paymill_PaymentProcessorTest extends Services_Paymill_TestBase im
      */
     protected function setUp()
     {
-        parent::setUp();
         $this->_actualLoggingMessage = null;
+        $this->_apiTestKey = API_TEST_KEY;
+        $this->_apiUrl = API_HOST;
         $this->_paymentProcessor = new Services_Paymill_PaymentProcessor($this->_apiTestKey, $this->_apiUrl, null, null, $this);
         $this->_clientObject = new Services_Paymill_Clients($this->_apiTestKey, $this->_apiUrl);
         $this->_paymentObject = new Services_Paymill_Payments($this->_apiTestKey, $this->_apiUrl);
@@ -71,7 +63,7 @@ class Services_Paymill_PaymentProcessorTest extends Services_Paymill_TestBase im
         $this->_paymentProcessor->setDescription('Deuterium Cartridge');
         $this->_paymentProcessor->setEmail('John@doe.net');
         $this->_paymentProcessor->setName('John Doe');
-        $this->_paymentProcessor->setToken($this->getToken());
+        $this->_paymentProcessor->setToken(TOKEN);
     }
 
     /**
@@ -79,7 +71,6 @@ class Services_Paymill_PaymentProcessorTest extends Services_Paymill_TestBase im
      */
     protected function tearDown()
     {
-
         if (isset($this->_paymentId)) {
             $this->_paymentObject->delete($this->_paymentId);
         }
@@ -90,7 +81,6 @@ class Services_Paymill_PaymentProcessorTest extends Services_Paymill_TestBase im
         $this->_actualLoggingMessage = null;
         $this->_paymentObject = null;
         $this->_clientObject = null;
-        parent::tearDown();
     }
 
     /**
@@ -184,7 +174,7 @@ class Services_Paymill_PaymentProcessorTest extends Services_Paymill_TestBase im
         $this->_paymentProcessor->setEmail('John@doe.net');
         $this->_paymentProcessor->setName('John Doe');
         $this->_paymentProcessor->setDescription('Deuterium Cartridge');
-        $this->_paymentProcessor->setToken($this->getToken());
+        $this->_paymentProcessor->setToken(TOKEN);
 
         $this->assertFalse($this->ProcessPayment());
         $this->assertEquals('Exception thrown from paymill wrapper.', $this->_actualLoggingMessage);
@@ -204,7 +194,7 @@ class Services_Paymill_PaymentProcessorTest extends Services_Paymill_TestBase im
         $this->_paymentProcessor->setEmail('John@doe.net');
         $this->_paymentProcessor->setName('John Doe');
         $this->_paymentProcessor->setDescription('Deuterium Cartridge');
-        $this->_paymentProcessor->setToken($this->getToken());
+        $this->_paymentProcessor->setToken(TOKEN);
 
         $this->markTestIncomplete(
                 'This testcase can not be reproduced.'
@@ -243,7 +233,7 @@ class Services_Paymill_PaymentProcessorTest extends Services_Paymill_TestBase im
         $this->assertEquals('Deuterium Cartridge', $toArrayResult['description']);
         $this->assertEquals('John@doe.net', $toArrayResult['email']);
         $this->assertEquals('John Doe', $toArrayResult['name']);
-        $this->assertEquals($this->getToken(), $toArrayResult['token']);
+        $this->assertEquals(TOKEN, $toArrayResult['token']);
     }
 
     /**
@@ -336,5 +326,4 @@ class Services_Paymill_PaymentProcessorTest extends Services_Paymill_TestBase im
         $this->assertArrayHasKey('preauthorization', $result);
         $this->assertNull($result['preauthorization']);
     }
-
 }

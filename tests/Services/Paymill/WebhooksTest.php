@@ -1,13 +1,9 @@
 <?php
 
-require_once '../lib/Services/Paymill/Webhooks.php';
-
-require_once 'TestBase.php';
-
 /**
  * Services_Paymill_Webhooks test case.
  */
-class Services_Paymill_WebhooksTest extends Services_Paymill_TestBase
+class Services_Paymill_WebhooksTest extends PHPUnit_Framework_TestCase
 {
     /**
      * @var Services_Paymill_Webhooks
@@ -21,9 +17,7 @@ class Services_Paymill_WebhooksTest extends Services_Paymill_TestBase
      */
     protected function setUp()
     {
-        parent::setUp();
-
-        $this->_webhook     = new Services_Paymill_Webhooks($this->_apiTestKey,  $this->_apiUrl);
+        $this->_webhook     = new Services_Paymill_Webhooks(API_TEST_KEY,  API_HOST);
         $this->_email       = 'dummy@example.com';
         $this->_url         = 'http://example.com/dummyCallback';
     }
@@ -34,10 +28,7 @@ class Services_Paymill_WebhooksTest extends Services_Paymill_TestBase
     protected function tearDown()
     {
         $this->_webhook = null;
-
-        parent::tearDown();
     }
-
 
     /**
      * Tests Services_Paymill_Webhooks->create()
@@ -53,7 +44,7 @@ class Services_Paymill_WebhooksTest extends Services_Paymill_TestBase
         $webhook = $this->_webhook->create($params);
 
         $this->assertInternalType('array', $webhook);
-        $this->assertArrayHasKey('id', $webhook, $this->getMessages($webhook));
+        $this->assertArrayHasKey('id', $webhook);
         $this->assertNotEmpty($webhook['id']);
         $this->assertEquals($this->_url, $webhook['url']);
         $this->assertContains('subscription.created', $webhook['event_types']);
@@ -78,7 +69,7 @@ class Services_Paymill_WebhooksTest extends Services_Paymill_TestBase
         $webhook = $this->_webhook->create($params);
 
         $this->assertInternalType('array', $webhook);
-        $this->assertArrayHasKey('id', $webhook, $this->getMessages($webhook));
+        $this->assertArrayHasKey('id', $webhook);
         $this->assertNotEmpty($webhook['id']);
         $this->assertEquals($this->_email, $webhook['email']);
         $this->assertContains('subscription.created', $webhook['event_types']);
@@ -130,7 +121,7 @@ class Services_Paymill_WebhooksTest extends Services_Paymill_TestBase
 
         $webhook = $this->_webhook->update($params);
         $this->assertInternalType('array', $webhook);
-        $this->assertArrayHasKey('id', $webhook, $this->getMessages($webhook));
+        $this->assertArrayHasKey('id', $webhook);
         $this->assertNotEmpty($webhook['id']);
         $this->assertContains('subscription.failed', $webhook['event_types']);
         $this->assertContains('transaction.failed', $webhook['event_types']);

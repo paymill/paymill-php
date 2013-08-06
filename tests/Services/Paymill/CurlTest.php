@@ -1,16 +1,10 @@
 <?php
 
-require_once '../lib/Services/Paymill/Apiclient/Curl.php';
-require_once '../lib/Services/Paymill/Exception.php';
-
-require_once 'TestBase.php';
-
 /**
  * Services_Paymill_Apiclient_Curl test case.
  */
-class Services_Paymill_Apiclient_CurlTest extends Services_Paymill_TestBase
+class Services_Paymill_Apiclient_CurlTest extends PHPUnit_Framework_TestCase
 {
-
     /**
      *
      * @var Services_Paymill_Apiclient_Curl
@@ -22,9 +16,7 @@ class Services_Paymill_Apiclient_CurlTest extends Services_Paymill_TestBase
      */
     protected function setUp()
     {
-        parent::setUp();
-
-        $this->_curlClient = new Services_Paymill_Apiclient_Curl($this->_apiTestKey, $this->_apiUrl);
+        $this->_curlClient = new Services_Paymill_Apiclient_Curl(API_TEST_KEY,  API_HOST);
     }
 
     /**
@@ -32,9 +24,7 @@ class Services_Paymill_Apiclient_CurlTest extends Services_Paymill_TestBase
      */
     protected function tearDown()
     {
-
         $this->_curlClient = null;
-        parent::tearDown();
     }
 
     /**
@@ -68,7 +58,7 @@ class Services_Paymill_Apiclient_CurlTest extends Services_Paymill_TestBase
     public function testAuthenticationError()
     {
         $this->_apiTestKey = 'INVALID_API_KEY';
-        $this->_curlClient = new Services_Paymill_Apiclient_Curl($this->_apiTestKey, $this->_apiUrl);
+        $this->_curlClient = new Services_Paymill_Apiclient_Curl(API_TEST_KEY,  API_HOST);
         try {
             $resp = $this->_curlClient->request('clients/', array(), Services_Paymill_Apiclient_Interface::HTTP_GET);
         } catch (Exception $e) {
@@ -82,7 +72,7 @@ class Services_Paymill_Apiclient_CurlTest extends Services_Paymill_TestBase
     {
         // Create a Mock Object for the Observer class
         // mocking only the update() method.
-        $curlMock = $this->getMock('Services_Paymill_Apiclient_Curl', array('_requestApi'), array($this->_apiTestKey, $this->_apiUrl));
+        $curlMock = $this->getMock('Services_Paymill_Apiclient_Curl', array('_requestApi'), array(API_TEST_KEY,  API_HOST));
 
         // Set up the expectation for the update() method
         // to be called only once and with the string 'something'
@@ -101,7 +91,7 @@ class Services_Paymill_Apiclient_CurlTest extends Services_Paymill_TestBase
                         )));
 
         $result = $curlMock->request(
-                null, array("token" => $this->getToken()), Services_Paymill_Apiclient_Interface::HTTP_POST
+                null, array("token" => TOKEN), Services_Paymill_Apiclient_Interface::HTTP_POST
         );
 
         $this->assertArrayHasKey('response_code', $result['data']);
@@ -109,5 +99,4 @@ class Services_Paymill_Apiclient_CurlTest extends Services_Paymill_TestBase
         $this->assertEquals(40000, $result['data']['response_code']);
         $this->assertEquals('General problem with data.', $result['data']['error']);
     }
-
 }

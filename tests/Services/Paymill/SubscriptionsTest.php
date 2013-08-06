@@ -1,36 +1,10 @@
 <?php
 
 /**
- * @see Services_Paymill_Subscription
-*/
-require_once '../lib/Services/Paymill/Subscriptions.php';
-
-/**
- * @see Services_Paymill_Exception
- */
-require_once '../lib/Services/Paymill/Exception.php';
-
-/**
- * @see Services_Paymill_BaseTest
- */
-require_once 'TestBase.php';
-
-/**
- * @see Services_Paymill_Customer
- */
-require_once '../lib/Services/Paymill/Clients.php';
-
-/**
- * @see Services_Paymill_Plan
- */
-require_once '../lib/Services/Paymill/Offers.php';
-
-/**
  * Services_Paymill_Subscription test case.
  */
-class Services_Paymill_SubscriptionsTest extends Services_Paymill_TestBase
+class Services_Paymill_SubscriptionsTest extends PHPUnit_Framework_TestCase
 {
-
     /**
      * @var Services_Paymill_Subscriptions
      */
@@ -51,7 +25,8 @@ class Services_Paymill_SubscriptionsTest extends Services_Paymill_TestBase
      */
     protected function setUp()
     {
-        parent::setUp();
+        $this->_apiTestKey = API_TEST_KEY;
+        $this->_apiUrl = API_HOST;
         $this->_subscriptions = new Services_Paymill_Subscriptions($this->_apiTestKey,  $this->_apiUrl);
         $this->_clients = new Services_Paymill_Clients($this->_apiTestKey,  $this->_apiUrl);
         $this->_offers = new Services_Paymill_Offers($this->_apiTestKey,  $this->_apiUrl);
@@ -65,7 +40,6 @@ class Services_Paymill_SubscriptionsTest extends Services_Paymill_TestBase
         $this->_subscriptions = null;
         $this->_offers = null;
         $this->_clients = null;
-        parent::tearDown();
     }
 
     /**
@@ -73,7 +47,6 @@ class Services_Paymill_SubscriptionsTest extends Services_Paymill_TestBase
      */
     public function testCreateWithToken()
     {   
-        $token = $this->getToken();
         $params = array(
                 'name' => 'Test subscription',
                 'amount' => '333',
@@ -82,7 +55,7 @@ class Services_Paymill_SubscriptionsTest extends Services_Paymill_TestBase
                 'currency' => 'eur',
         );
         $offer = $this->_offers->create($params);
-        $item = $this->_subscriptions->create(array('offer' => $offer['id'], 'token' => $token) );
+        $item = $this->_subscriptions->create(array('offer' => $offer['id'], 'token' => TOKEN) );
 
         $this->assertArrayHasKey('id', $item);
         

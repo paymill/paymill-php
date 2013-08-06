@@ -1,15 +1,10 @@
 <?php
 
-require_once '../lib/Services/Paymill/Payments.php';
-
-require_once 'TestBase.php';
-
 /**
  * Services_Paymill_Payments test case.
  */
-class Services_Paymill_PaymentsTest extends Services_Paymill_TestBase
+class Services_Paymill_PaymentsTest extends PHPUnit_Framework_TestCase
 {
-
     /**
      * @var Services_Paymill_Payments
      */
@@ -20,8 +15,8 @@ class Services_Paymill_PaymentsTest extends Services_Paymill_TestBase
      */
     protected function setUp()
     {
-        parent::setUp();
-
+        $this->_apiTestKey = API_TEST_KEY;
+        $this->_apiUrl = API_HOST;
         $this->_payments = new Services_Paymill_Payments($this->_apiTestKey,  $this->_apiUrl);
     }
 
@@ -31,8 +26,6 @@ class Services_Paymill_PaymentsTest extends Services_Paymill_TestBase
     protected function tearDown()
     {
         $this->_payments = null;
-
-        parent::tearDown();
     }
 
     /**
@@ -66,15 +59,14 @@ class Services_Paymill_PaymentsTest extends Services_Paymill_TestBase
      */
     public function testCreateCc()
     {
-        $token = $this->getToken();
-        $payment = $this->_payments->create(array("token"=>$token));
+        $payment = $this->_payments->create(array("token"=> TOKEN));
 
         $this->assertInternalType('array', $payment);
-        $this->assertArrayHasKey("id", $payment, $this->getMessages($payment));
-        $this->assertEquals("creditcard", $payment["type"], $this->getMessages($payment));
-        $this->assertEquals($payment['last4'],'1111', $this->getMessages($payment));
-        $this->assertEquals($payment['expire_month'],'12', $this->getMessages($payment));
-        $this->assertEquals($payment['expire_year'],'2014', $this->getMessages($payment));
+        $this->assertArrayHasKey("id", $payment);
+        $this->assertEquals("creditcard", $payment["type"]);
+        $this->assertEquals($payment['last4'],'1111');
+        $this->assertEquals($payment['expire_month'],'12');
+        $this->assertEquals($payment['expire_year'],'2014');
 
         $paymentId = $payment['id'];
 
@@ -192,5 +184,4 @@ class Services_Paymill_PaymentsTest extends Services_Paymill_TestBase
     {
         $payment = $this->_payments->update();
     }
-
 }

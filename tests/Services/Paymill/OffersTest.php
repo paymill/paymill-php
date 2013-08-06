@@ -1,24 +1,9 @@
 <?php
 
 /**
- * @see Services_Paymill_Plan
-*/
-require_once '../lib/Services/Paymill/Offers.php';
-
-/**
- * @see Services_Paymill_Exception
- */
-require_once '../lib/Services/Paymill/Exception.php';
-
-/**
- * @see Services_Paymill_BaseTest
- */
-require_once 'TestBase.php';
-
-/**
  * Services_Paymill_Plan test case.
  */
-class Services_Paymill_OffersTest extends Services_Paymill_TestBase
+class Services_Paymill_OffersTest extends PHPUnit_Framework_TestCase
 {
     /**
      *
@@ -31,8 +16,7 @@ class Services_Paymill_OffersTest extends Services_Paymill_TestBase
      */
     protected function setUp()
     {
-        parent::setUp ();
-        $this->_offers = new Services_Paymill_Offers($this->_apiTestKey, $this->_apiUrl);
+        $this->_offers = new Services_Paymill_Offers(API_TEST_KEY,  API_HOST);
     }
 
     /**
@@ -41,7 +25,6 @@ class Services_Paymill_OffersTest extends Services_Paymill_TestBase
     protected function tearDown()
     {
         $this->_offers = null;
-        parent::tearDown ();
     }
 
     /**
@@ -124,5 +107,4 @@ class Services_Paymill_OffersTest extends Services_Paymill_TestBase
         $this->assertInternalType('array', $offer);
         $this->assertCount(0,$offer);
     }
-
 }

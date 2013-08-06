@@ -1,15 +1,10 @@
 <?php
 
-require_once '../lib/Services/Paymill/Refunds.php';
-
-require_once 'TestBase.php';
-
 /**
  * Services_Paymill_Transaction test case.
  */
-class Services_Paymill_RefundsTest extends Services_Paymill_TestBase
+class Services_Paymill_RefundsTest extends PHPUnit_Framework_TestCase
 {
-
     /**
      * @var Services_Paymill_Refunds
      */
@@ -25,8 +20,8 @@ class Services_Paymill_RefundsTest extends Services_Paymill_TestBase
      */
     protected function setUp()
     {
-        parent::setUp();
-
+        $this->_apiTestKey = API_TEST_KEY;
+        $this->_apiUrl = API_HOST;
         $this->_refunds = new Services_Paymill_Refunds($this->_apiTestKey,  $this->_apiUrl);
         $this->_transactions = new Services_Paymill_Transactions($this->_apiTestKey,  $this->_apiUrl);
     }
@@ -38,8 +33,6 @@ class Services_Paymill_RefundsTest extends Services_Paymill_TestBase
     {
         $this->_refunds = null;
         $this->_transactions = null;
-
-        parent::tearDown();
     }
 
     /**
@@ -70,7 +63,7 @@ class Services_Paymill_RefundsTest extends Services_Paymill_TestBase
                 'amount'      => 4200,
                 'currency'    => 'eur',
                 'description' => 'Deuterium Cartridge',
-                'token'       => $this->getToken()
+                'token'       => TOKEN
             );
             $transaction = $this->_transactions->create($transactionParams);
 
@@ -94,7 +87,7 @@ class Services_Paymill_RefundsTest extends Services_Paymill_TestBase
             'amount'      => 4200,
             'currency'    => 'eur',
             'description' => 'Deuterium Cartridge',
-            'token'       => $this->getToken()
+            'token'       => TOKEN
         );
         $transaction = $this->_transactions->create($transactionParams);
 
@@ -123,7 +116,7 @@ class Services_Paymill_RefundsTest extends Services_Paymill_TestBase
             'amount' => 4200,
             'currency'=> 'eur',
             'description' => 'Deuterium Cartridge',
-            'token' => $this->getToken()
+            'token' => TOKEN
         );
         $transaction = $this->_transactions->create($transactionParams);
 
@@ -225,6 +218,4 @@ class Services_Paymill_RefundsTest extends Services_Paymill_TestBase
             $this->assertEquals(404, $e->getCode() );
         }
     }
-
-
 }

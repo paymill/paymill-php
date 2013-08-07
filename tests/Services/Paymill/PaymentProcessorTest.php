@@ -326,4 +326,85 @@ class Services_Paymill_PaymentProcessorTest extends PHPUnit_Framework_TestCase i
         $this->assertArrayHasKey('preauthorization', $result);
         $this->assertNull($result['preauthorization']);
     }
+
+    /**
+     * tests _validateResult with wrong response code
+     *
+     * @expectedException Exception
+     * @expectedExceptionMessage Invalid Result Exception: Invalid ResponseCode
+     */
+    public function testValidateResultInvalidResponseCode()
+    {
+        $method = new ReflectionMethod($this->_paymentProcessor, '_validateResult');
+        $method->setAccessible(true);
+
+        $transaction['data']['response_code'] = 30000;
+        $type = true;
+        $output = $method->invoke($this->_paymentProcessor, $transaction, $type);
+    }
+
+    /**
+     * tests _validateResult for invalid transaction status
+     *
+     * @expectedException Exception
+     * @expectedExceptionMessage Invalid Result Exception: Transaction could not be issued
+     */
+    public function testValidateResultInvalidStatus()
+    {
+        $method = new ReflectionMethod($this->_paymentProcessor, '_validateResult');
+        $method->setAccessible(true);
+
+        $transaction['id'] = 1;
+        $transaction['data']['id'] = 1;
+        $transaction['data']['response_code'] = 20000;
+        $type = 'Transaction';
+        $output = $method->invoke($this->_paymentProcessor, $transaction, $type);
+    }
+
+    /**
+     * tests _validateResult for invalid order state
+     *
+     * @expectedException Exception
+     * @expectedExceptionMessage Invalid Result Exception: Invalid Orderstate
+     */
+    public function testValidateResultInvalidOrderstate()
+    {
+        $method = new ReflectionMethod($this->_paymentProcessor, '_validateResult');
+        $method->setAccessible(true);
+
+        $transaction['id'] = 1;
+        $transaction['data']['id'] = 1;
+        $transaction['data']['response_code'] = 20000;
+        $transaction['status'] = 'open';
+        $type = 'Transaction';
+        $output = $method->invoke($this->_paymentProcessor, $transaction, $type);
+    }
+
+    /**
+     * tests _validateResult for unknown errors
+     *
+     * @expectedException Exception
+     * @expectedExceptionMessage Invalid Result Exception: Unknown Error 
+     */
+    public function testValidateResultUnknownError()
+    {
+        $method = new ReflectionMethod($this->_paymentProcessor, '_validateResult');
+        $method->setAccessible(true);
+
+        $transaction['id'] = 1;
+        $transaction['data']['id'] = 1;
+        $transaction['data']['response_code'] = 20000;
+        $transaction['status'] = 'something strange';
+        $type = 'Transaction';
+        $output = $method->invoke($this->_paymentProcessor, $transaction, $type);
+    }
+
+    /**
+     * tests _validateResult for unknown errors
+     */
+    public function testValidateResultCapture()
+    {
+        $payment = new Services_Paymill_PaymentProcessor($this->_apiTestKey, $this->_apiUrl, null, null, $this);
+        $this->assertFalse($payment->capture());
+    }
 }

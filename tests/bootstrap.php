@@ -1,6 +1,6 @@
 <?php
 
-include_once('../vendor/autoload.php');
+include_once('vendor/autoload.php');
 
 /**
  * $apiHost should be set to default unit test host for external users

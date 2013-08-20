@@ -9,9 +9,13 @@ Paymill-PHP
 Getting started with Paymill
 ----------------------------
 
-1.  Include the required PHP file from the paymill PHP library. For example via: 
+1.  If you don't use Composer in your project, then include the required PHP file from the paymill PHP library. For example via: 
 
         require_once 'lib/Services/Paymill/Transactions.php';
+    
+    If you use Composer then add this line to "require" in the composer.json file for the latest stable release and update your dependencies.
+    
+        "paymill/paymill": "v2.4.0"
 
 2.  Instantiate the class, for example the Services_Paymill_Transactions class, with the following parameters:
 

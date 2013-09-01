@@ -8,4 +8,5 @@ env:
   global: 
      secure: "StaRWxgVW55YXMetUfL91rGDHJCBC0e3Nv9qYx5jg2aa9H0BIYhJ8vYtDXbKFEeGXWRnlLdPVclzRiIMdYQTZaBrjHxWVzE9N5stIyIq/Ik5hvkRs3h78ICSsDJB7SAun+aYv4vV/2kR44B0YiOhWZehV3IhAWO1Csd4HDjiQHY="
 language: php
-before_script: composer install
+before_install: composer self-update
+install: composer install

@@ -1,6 +1,6 @@
 <?php
 
-namespace Paymill\Lib\Models\Response;
+namespace Paymill\Models\Response;
 
 /**
  * Preauthorization Model
@@ -8,8 +8,7 @@ namespace Paymill\Lib\Models\Response;
  * itself a bit later, then use preauthorizations. This is NOT possible with direct debit.
  * A preauthorization is valid for 7 days.
  */
-class Preauthorization
-        extends Base
+class Preauthorization extends Base
 {
     /**
      * @var integer

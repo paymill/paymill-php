@@ -1,6 +1,6 @@
 <?php
 
-namespace Paymill\Lib\Models\Response;
+namespace Paymill\Models\Response;
 
 /**
  * Transaction Model
@@ -10,8 +10,7 @@ namespace Paymill\Lib\Models\Response;
  * transaction. You can issue/create, list and display transactions in detail. Refunds can be done in an extra entity.
  * @tutorial https://paymill.com/de-de/dokumentation/referenz/api-referenz/#document-transactions
  */
-class Transaction
-        extends Base
+class Transaction extends Base
 {
 
     /**

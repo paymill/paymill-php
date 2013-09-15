@@ -1,6 +1,6 @@
 <?php
 
-namespace Paymill\Lib\Models\Request;
+namespace Paymill\Models\Request;
 
 /**
  * Transaction Model
@@ -289,5 +289,4 @@ class Transaction extends Base
 
         return $parameterArray;
     }
-
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace Paymill\Lib\API;
+namespace Paymill\API;
 
 /**
  * Interface

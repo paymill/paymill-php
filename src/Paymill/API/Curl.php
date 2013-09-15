@@ -1,6 +1,6 @@
 <?php
 
-namespace Paymill\Lib\API;
+namespace Paymill\API;
 
 /**
  * It's incorrect to test for the function itself. Since we know exactly when the

@@ -1,6 +1,6 @@
 <?php
 
-namespace Paymill\Lib\Models\Request;
+namespace Paymill\Models\Request;
 
 /**
  * Subscription Model
@@ -178,5 +178,4 @@ class Subscription extends Base
 
         return $parameterArray;
     }
-
 }

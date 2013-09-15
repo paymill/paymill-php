@@ -1,6 +1,6 @@
 <?php
 
-namespace Paymill\Lib\Models\Request;
+namespace Paymill\Models\Request;
 
 /**
  * Preauthorization Model
@@ -151,5 +151,4 @@ class Preauthorization extends Base
 
         return $parameterArray;
     }
-
 }

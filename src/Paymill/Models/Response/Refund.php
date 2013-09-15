@@ -1,6 +1,6 @@
 <?php
 
-namespace Paymill\Lib\Models\Response;
+namespace Paymill\Models\Response;
 
 /**
  * Refund Model

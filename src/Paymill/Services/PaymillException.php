@@ -1,13 +1,12 @@
 <?php
-namespace Paymill\Lib\Services;
+namespace Paymill\Services;
 
-use Exception;
-use Paymill\Lib\Models\Response\Error;
+use Paymill\Models\Response\Error;
 
 /**
  * PaymillException
  */
-class PaymillException extends Exception
+class PaymillException extends \Exception
 {
     private $_errorModel;
 

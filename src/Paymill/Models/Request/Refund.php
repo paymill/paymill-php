@@ -1,14 +1,13 @@
 <?php
 
-namespace Paymill\Lib\Models\Request;
+namespace Paymill\Models\Request;
 
 /**
  * Refund Model
  * Refunds are own objects with own calls for existing transactions.
  * The refunded amount will be credited to the account of the client.
  */
-class Refund
-        extends Base
+class Refund extends Base
 {
     /**
      * @var string
@@ -92,5 +91,4 @@ class Refund
 
         return $parameterArray;
     }
-
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace Paymill\Lib\Models\Request;
+namespace Paymill\Models\Request;
 
 /**
  * Abstract Model class for request models
@@ -70,7 +70,4 @@ abstract class Base
         $this->_filter = $filter;
         return $this;
     }
-
-
-
 }

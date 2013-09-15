@@ -1,6 +1,6 @@
 <?php
 
-namespace Paymill\Lib\Models\Response;
+namespace Paymill\Models\Response;
 
 /**
  * Client Response Model
@@ -10,8 +10,7 @@ namespace Paymill\Lib\Models\Response;
  * if there is no client ID transmitted.
  * @tutorial https://paymill.com/de-de/dokumentation/referenz/api-referenz/#document-clients
  */
-class Client
-        extends Base
+class Client extends Base
 {
     /**
      * Email address of the customer

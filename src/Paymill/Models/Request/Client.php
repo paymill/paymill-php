@@ -1,6 +1,6 @@
 <?php
 
-namespace Paymill\Lib\Models\Request;
+namespace Paymill\Models\Request;
 
 /**
  * Client Model
@@ -97,5 +97,4 @@ class Client extends Base
 
         return $parameterArray;
     }
-
 }

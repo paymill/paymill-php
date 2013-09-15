@@ -1,6 +1,6 @@
 <?php
 
-namespace Paymill\Lib\Models\Request;
+namespace Paymill\Models\Request;
 
 /**
  * Payment Model
@@ -10,8 +10,7 @@ namespace Paymill\Lib\Models\Request;
  * and needn’t to care about the security problematic of informations like credit card data.
  * @tutorial https://paymill.com/de-de/dokumentation/referenz/api-referenz/#document-payments
  */
-class Payment
-        extends Base
+class Payment extends Base
 {
     /**
      * @var string
@@ -96,5 +95,4 @@ class Payment
 
         return $parameterArray;
     }
-
 }

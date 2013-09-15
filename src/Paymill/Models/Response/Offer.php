@@ -1,45 +1,51 @@
 <?php
 
-namespace Paymill\Lib\Models\Request;
+namespace Paymill\Models\Response;
 
 /**
  * Offer Model
- * An offer is a recurring plan which a user can subscribe to.
+ * An offer is a recurring plan which a user can subscribe to. 
  * You can create different offers with different plan attributes e.g. a monthly or a yearly based paid offer/plan.
  * @tutorial https://paymill.com/de-de/dokumentation/referenz/api-referenz/#document-offers
  */
 class Offer extends Base
 {
     /**
+     * Name of the offer
      * @var string
      */
     private $_name;
+    
     /**
-     * @var integer
+     * Every interval the specified amount will be charged. Only integer values are allowed (e.g. 42.00 = 4200)
+     * @var integer 
      */
     private $_amount;
+    
     /**
+     * ISO 4217 formatted currency code
      * @var string
      */
     private $_currency;
     
     /**
-     * @var string
+     * Defining how often the client should be charged. Format: number DAY | WEEK | MONTH | YEAR Example: 2 DAY
+     * @var string 
      */
     private $_interval;
     
     /**
-     * @var integer
+     * Give it a try or charge directly
+     * @var integer|null
      */
     private $_trialPeriodDays;
-
+    
     /**
-     * Creates an instance of the offer request model
+     * Number of active and inactive subscribers
+     * @var array
+     * @example subscriptionCount = array(active => [integer or string], inactive => [integer or string])
      */
-    public function __construct()
-    {
-        $this->_serviceResource = 'Offers/';
-    }
+    private $_subscriptionCount = array();
 
     /**
      * Returns Your name for this offer
@@ -53,7 +59,7 @@ class Offer extends Base
     /**
      * Sets Your name for this offer
      * @param string $name
-     * @return \Paymill\Lib\Models\Request\Offer
+     * @return \Paymill\Lib\Models\Response\Offer
      */
     public function setName($name)
     {
@@ -74,11 +80,11 @@ class Offer extends Base
      * Sets the amount.
      * Every interval the specified amount will be charged. Only integer values are allowed (e.g. 42.00 = 4200)
      * @param integer $amount
-     * @return \Paymill\Lib\Models\Request\Offer
+     * @return \Paymill\Lib\Models\Response\Offer
      */
     public function setAmount($amount)
     {
-        $this->_amount = (int) $amount;
+        $this->_amount = (int)$amount;
         return $this;
     }
 
@@ -92,10 +98,10 @@ class Offer extends Base
     }
 
     /**
-     * Sets the interval defining how often the client should be charged.
+     * Sets the interval defining how often the client should be charged. 
      * @example Format: number DAY | WEEK | MONTH | YEAR Example: 2 DAY
      * @param string $interval
-     * @return \Paymill\Lib\Models\Request\Offer
+     * @return \Paymill\Lib\Models\Response\Offer
      */
     public function setInterval($interval)
     {
@@ -115,11 +121,33 @@ class Offer extends Base
     /**
      * Sets the number of days to try
      * @param integer $trialPeriodDays
-     * @return \Paymill\Lib\Models\Request\Offer
+     * @return \Paymill\Lib\Models\Response\Offer
      */
     public function setTrialPeriodDays($trialPeriodDays)
     {
         $this->_trialPeriodDays = $trialPeriodDays;
+        return $this;
+    }
+
+    /**
+     * Returns the subscriptionCount array
+     * @return array
+     */
+    public function getSubscriptionCount()
+    {
+        return $this->_subscriptionCount;
+    }
+
+    /**
+     * Sets the subscriptionCount array
+     * @param string|integer $active
+     * @param string|integer $inactive
+     * @return \Paymill\Lib\Models\Response\Offer
+     */
+    public function setSubscriptionCount($active, $inactive)
+    {
+        $this->_subscriptionCount['active'] = $active;
+        $this->_subscriptionCount['inactive'] = $inactive;
         return $this;
     }
 
@@ -135,45 +163,12 @@ class Offer extends Base
     /**
      * Sets the currency
      * @param string $currency
-     * @return \Paymill\Lib\Models\Request\Offer
+     * @return Offer
      */
     public function setCurrency($currency)
     {
         $this->_currency = $currency;
         return $this;
-    }
-
-    /**
-     * Returns an array of parameters customized for the argumented methodname
-     * @param string $method
-     * @return array
-     */
-    public function parameterize($method)
-    {
-        $parameterArray = array();
-        switch ($method) {
-            case 'create':
-                $parameterArray['amount'] = $this->getAmount();
-                $parameterArray['currency'] = $this->getCurrency();
-                $parameterArray['interval'] = $this->getInterval();
-                $parameterArray['name'] = $this->getName();
-                $parameterArray['trial_period_days'] = $this->getTrialPeriodDays();
-                break;
-            case 'update':
-                $parameterArray['name'] = $this->getName();
-                break;
-            case 'getOne':
-                $parameterArray['count'] = 1;
-                $parameterArray['offset'] = 0;
-                break;
-            case 'getAll':
-            $parameterArray = $this->getFilter();
-                break;
-            case 'delete':
-                break;
-        }
-
-        return $parameterArray;
     }
 
 }

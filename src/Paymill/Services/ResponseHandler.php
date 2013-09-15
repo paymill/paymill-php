@@ -1,9 +1,9 @@
 <?php
 
-namespace Paymill\Lib\Services;
+namespace Paymill\Services;
 
-use Paymill\Lib\Models\Response as Models;
-use Paymill\Lib\Models\Response\Error;
+use Paymill\Models\Response as Models;
+use Paymill\Models\Response\Error;
 
 /**
  * ResponseHandler
@@ -375,5 +375,4 @@ class ResponseHandler
         }
         return $returnValue;
     }
-
 }

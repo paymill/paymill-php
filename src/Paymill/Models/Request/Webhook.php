@@ -1,6 +1,6 @@
 <?php
 
-namespace Paymill\Lib\Models\Request;
+namespace Paymill\Models\Request;
 
 /**
  * Webhook Model
@@ -10,8 +10,7 @@ namespace Paymill\Lib\Models\Request;
  * You can manage your webhooks via the API as explained below or you can use the web interface inside our cockpit.
  * @tutorial https://paymill.com/de-de/dokumentation/referenz/api-referenz/#document-webhooks
  */
-class Webhook
-        extends Base
+class Webhook extends Base
 {
     /**
      * @var string
@@ -139,5 +138,4 @@ class Webhook
 
         return $parameterArray;
     }
-
 }

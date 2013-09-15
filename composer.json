@@ -1,10 +1,10 @@
 {
     "name": "paymill/paymill",
-    "description": "PAYMILL API SDK library for integration of payments on your website",
-    "keywords": ["payments", "paymill", "credit card", "direct debit"],
-    "homepage": "https://github.com/paymill/paymill-php",
     "type": "library",
+    "description": "",
+    "keywords": ["payment", "provider"],
     "license": "MIT",
+    "homepage": "https://www.paymill.de",
     "authors": [
         {
             "name": "Paymill GmbH",

@@ -313,15 +313,24 @@ class Services_Paymill_PaymentProcessor
         }
 
         try {
+            $this->_log('Create client with following data', $this->toArray());
             $this->_createClient();
+            $this->_log('Client API Response', $this->getLastResponse());
+            $this->_log('Create payment with following data', $this->toArray());
             $this->_createPayment();
+            $this->_log('Payment API Response', $this->getLastResponse());
 
             //creates a transaction if there is no difference between the amount
             if ($this->_preAuthAmount === $this->_amount && $captureNow) {
+                $this->_log('Create transaction with following data', $this->toArray());
                 $this->_createTransaction();
+                $this->_log('Transaction API Response', $this->getLastResponse());
             } else {
+                $this->_log('Create pre-auth with following data', $this->toArray());
                 $this->_processPreAuthCapture($captureNow);
+                $this->_log('Pre-Auth API Response', $this->getLastResponse());
             }
+            
             return true;
         } catch (Exception $ex) {
             // paymill wrapper threw an exception

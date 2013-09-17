@@ -359,7 +359,6 @@ class Services_Paymill_PaymentProcessor
             'apiurl' => $this->_apiUrl,
             'libbase' => $this->_libBase,
             'privatekey' => $this->_privateKey,
-            'logger' => $this->_logger,
             'token' => $this->_token,
             'amount' => $this->_amount,
             'preauthamount' => $this->_preAuthAmount,
@@ -369,6 +368,11 @@ class Services_Paymill_PaymentProcessor
             'name' => $this->_name,
             'source' => $this->_source
         );
+    }
+    
+    public function getLogger()
+    {
+        return $this->_logger;
     }
 
     /*     * **************************************************************************************************************

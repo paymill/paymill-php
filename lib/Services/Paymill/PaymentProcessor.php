@@ -313,22 +313,22 @@ class Services_Paymill_PaymentProcessor
         }
 
         try {
-            $this->_log('Create client with following data', $this->toArray());
+            $this->_log('Create client with following data', print_r($this->toArray(), true));
             $this->_createClient();
-            $this->_log('Client API Response', $this->getLastResponse());
-            $this->_log('Create payment with following data', $this->toArray());
+            $this->_log('Client API Response', print_r($this->_clientsObject->getResponse(), true));
+            $this->_log('Create payment with following data', print_r($this->toArray(), true));
             $this->_createPayment();
-            $this->_log('Payment API Response', $this->getLastResponse());
+            $this->_log('Payment API Response', print_r($this->_paymentsObject->getResponse(), true));
 
             //creates a transaction if there is no difference between the amount
             if ($this->_preAuthAmount === $this->_amount && $captureNow) {
-                $this->_log('Create transaction with following data', $this->toArray());
+                $this->_log('Create transaction with following data', print_r($this->toArray(), true));
                 $this->_createTransaction();
-                $this->_log('Transaction API Response', $this->getLastResponse());
+                $this->_log('Transaction API Response', print_r($this->getLastResponse(), true));
             } else {
-                $this->_log('Create pre-auth with following data', $this->toArray());
+                $this->_log('Create pre-auth with following data', print_r($this->toArray(), true));
                 $this->_processPreAuthCapture($captureNow);
-                $this->_log('Pre-Auth API Response', $this->getLastResponse());
+                $this->_log('Pre-Auth API Response', print_r($this->getLastResponse(), true));
             }
             
             return true;

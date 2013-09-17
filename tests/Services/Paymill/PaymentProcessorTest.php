@@ -225,7 +225,6 @@ class Services_Paymill_PaymentProcessorTest extends PHPUnit_Framework_TestCase i
         $toArrayResult = $this->_paymentProcessor->toArray();
         $this->assertEquals($this->_apiTestKey, $toArrayResult['privatekey']);
         $this->assertEquals($this->_apiUrl, $toArrayResult['apiurl']);
-        $this->assertInstanceOf('Services_Paymill_PaymentProcessorTest', $toArrayResult['logger']);
         $this->assertEquals(1000, $toArrayResult['amount']);
         $this->assertEquals(0, $toArrayResult['preauthamount']);
         $this->assertEquals('EUR', $toArrayResult['currency']);

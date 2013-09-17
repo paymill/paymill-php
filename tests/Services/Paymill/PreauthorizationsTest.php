@@ -1,14 +1,9 @@
 <?php
 
-require_once '../lib/Services/Paymill/Preauthorizations.php';
-require_once '../lib/Services/Paymill/Payments.php';
-
-require_once 'TestBase.php';
-
 /**
  * Services_Paymill_Preauthorizations test case.
  */
-class Services_Paymill_PreauthorizationsTest extends Services_Paymill_TestBase
+class Services_Paymill_PreauthorizationsTest extends PHPUnit_Framework_TestCase
 {
     /**
      * @var Services_Paymill_Preauthorizations
@@ -30,8 +25,8 @@ class Services_Paymill_PreauthorizationsTest extends Services_Paymill_TestBase
      */
     protected function setUp()
     {
-        parent::setUp();
-
+        $this->_apiTestKey = API_TEST_KEY;
+        $this->_apiUrl = API_HOST;
         $this->_preauthorization = new Services_Paymill_Preauthorizations($this->_apiTestKey,  $this->_apiUrl);
         $this->_transaction = new Services_Paymill_Transactions($this->_apiTestKey,  $this->_apiUrl);
         $this->_payments = new Services_Paymill_Payments($this->_apiTestKey,  $this->_apiUrl);
@@ -56,13 +51,13 @@ class Services_Paymill_PreauthorizationsTest extends Services_Paymill_TestBase
     {
         $params = array('amount' => 30,
                         'currency'=> 'gbp',
-                        'token' => $this->getToken()
+                        'token' => TOKEN
                         );
 
         $preauthorization = $this->_preauthorization->create($params);
 
         $this->assertInternalType('array', $preauthorization);
-        $this->assertArrayHasKey('id', $preauthorization, $this->getMessages($preauthorization));
+        $this->assertArrayHasKey('id', $preauthorization);
         $this->assertNotEmpty($preauthorization['id']);
         $this->assertEquals($preauthorization['amount'], 30);
 
@@ -86,7 +81,7 @@ class Services_Paymill_PreauthorizationsTest extends Services_Paymill_TestBase
         $transaction = $this->_transaction->create($params);
 
         $this->assertInternalType('array', $transaction);
-        $this->assertArrayHasKey('id', $transaction, $this->getMessages($transaction));
+        $this->assertArrayHasKey('id', $transaction);
         $this->assertNotEmpty($transaction['id']);
         $this->assertEquals($transaction['amount'], 30);
         $this->assertEquals($transaction['description'], 'Lancashire Cheese');

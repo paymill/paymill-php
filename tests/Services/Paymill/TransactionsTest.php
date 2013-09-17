@@ -1,14 +1,9 @@
 <?php
 
-require_once '../lib/Services/Paymill/Transactions.php';
-require_once '../lib/Services/Paymill/Payments.php';
-
-require_once 'TestBase.php';
-
 /**
  * Services_Paymill_Transactions test case.
  */
-class Services_Paymill_TransactionsTest extends Services_Paymill_TestBase
+class Services_Paymill_TransactionsTest extends PHPUnit_Framework_TestCase 
 {
     /**
      * @var Services_Paymill_Transactions
@@ -25,8 +20,8 @@ class Services_Paymill_TransactionsTest extends Services_Paymill_TestBase
      */
     protected function setUp()
     {
-        parent::setUp();
-
+        $this->_apiTestKey = API_TEST_KEY;
+        $this->_apiUrl = API_HOST;
         $this->_transaction = new Services_Paymill_Transactions($this->_apiTestKey,  $this->_apiUrl);
         $this->_payments = new Services_Paymill_Payments($this->_apiTestKey,  $this->_apiUrl);
     }
@@ -37,10 +32,7 @@ class Services_Paymill_TransactionsTest extends Services_Paymill_TestBase
     protected function tearDown()
     {
         $this->_transaction = null;
-
-        parent::tearDown();
     }
-
 
     /**
      * Tests Services_Paymill_Transactions->create()
@@ -50,13 +42,13 @@ class Services_Paymill_TransactionsTest extends Services_Paymill_TestBase
         $params = array('amount' => 999,
                         'currency'=> 'eur',
                         'description' => 'Deuterium Cartridge',
-                        'token' => $this->getToken()
+                        'token' => TOKEN
                         );
 
         $transaction = $this->_transaction->create($params);
 
         $this->assertInternalType('array', $transaction);
-        $this->assertArrayHasKey('id', $transaction, $this->getMessages($transaction));
+        $this->assertArrayHasKey('id', $transaction);
         $this->assertNotEmpty($transaction['id']);
         $this->assertEquals($transaction['amount'], 999);
         $this->assertEquals($transaction['description'], 'Deuterium Cartridge');

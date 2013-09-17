@@ -26,10 +26,11 @@ abstract class Services_Paymill_Base
      *
      * @param string $apiKey merchant api key
      * @param string $apiEndpoint endpoint URL for the api
+     * @param array $extraData extra data for the client, e.g., proxy settings.
      */
-    public function __construct($apiKey, $apiEndpoint)
+    public function __construct($apiKey, $apiEndpoint, $extraData = array())
     {
-        $this->_httpClient = new Services_Paymill_Apiclient_Curl($apiKey, $apiEndpoint);
+        $this->_httpClient = new Services_Paymill_Apiclient_Curl($apiKey, $apiEndpoint, $extraData);
     }
 
     /**

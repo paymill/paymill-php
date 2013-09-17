@@ -1,11 +1,5 @@
 <?php
 
-/**
- * This class acts as an easy to use gateway for the paymill phph wrapper.
- * @version    1.0.0
- * @category   PayIntelligent
- * @copyright  Copyright (c) 2013 PayIntelligent GmbH (http://payintelligent.de)
- */
 class Services_Paymill_PaymentProcessor
 {
 
@@ -218,23 +212,14 @@ class Services_Paymill_PaymentProcessor
 
         foreach ($arrayMask as $mask => $type) {
             if (is_null($parameter[$mask])) {
-                $validation = false;
                 $this->_log("The Parameter $mask is missing.", var_export($parameter, true));
-            } else {
-                switch ($type) {
-                    case 'string':
-                        if (!is_string($parameter[$mask])) {
-                            $this->_log("The Parameter $mask is not a string.", var_export($parameter, true));
-                            $validation = false;
-                        }
-                        break;
-                    case 'integer':
-                        if (!is_integer($parameter[$mask])) {
-                            $this->_log("The Parameter $mask is not an integer.", var_export($parameter, true));
-                            $validation = false;
-                        }
-                        break;
-                }
+                $validation = false;
+            } elseif($type === 'string' && !is_string($parameter[$mask])) {
+                $this->_log("The Parameter $mask is not a string.", var_export($parameter, true));
+                $validation = false;
+            } elseif ($type === 'integer' && !is_integer($parameter[$mask])) {
+                $this->_log("The Parameter $mask is not an integer.", var_export($parameter, true));
+                $validation = false;
             }
 
             if (!$validation) {
@@ -266,28 +251,23 @@ class Services_Paymill_PaymentProcessor
             $this->_log("$type created.", isset($transaction['id']) ? $transaction['id'] : $transaction['data']['id']);
         }
 
-        // check result
-        if ($type == 'Transaction') {
-            if (is_array($transaction) && array_key_exists('status', $transaction)) {
-                if ($transaction['status'] == "closed") {
-                    // transaction was successfully issued
-                    return true;
-                } elseif ($transaction['status'] == "open") {
-                    // transaction was issued but status is open for any reason
-                    $this->_log("Status is open.", var_export($transaction, true));
-                    throw new Exception("Invalid Result Exception: Invalid Orderstate");
-                } else {
-                    // another error occured
-                    $this->_log("Unknown error." . var_export($transaction, true));
-                    throw new Exception("Invalid Result Exception: Unknown Error");
-                }
-            } else {
-                // another error occured
-                $this->_log("$type could not be issued.", var_export($transaction, true));
-                throw new Exception("Invalid Result Exception: $type could not be issued.");
-            }
-        } else {
+        if($type != 'Transaction') {
             return true;
+        } elseif (!array_key_exists('status', $transaction)) {
+            // another error occured
+            $this->_log("$type could not be issued.", var_export($transaction, true));
+            throw new Exception("Invalid Result Exception: $type could not be issued");
+        } elseif ($transaction['status'] == "closed") {
+            // transaction was successfully issued
+            return true;
+        } elseif ($transaction['status'] == "open") {
+            // transaction was issued but status is open for any reason
+            $this->_log("Status is open.", var_export($transaction, true));
+            throw new Exception("Invalid Result Exception: Invalid Orderstate");
+        } else {
+            // another error occured
+            $this->_log("Unknown error." . var_export($transaction, true));
+            throw new Exception("Invalid Result Exception: Unknown Error");
         }
     }
 

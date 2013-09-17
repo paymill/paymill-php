@@ -1,0 +1,38 @@
+<phpunit bootstrap="tests/bootstrap.php">
+
+    <testsuites>
+        <testsuite name="integration">
+            <file>./tests/Services/Paymill/ClientsTest.php</file>
+            <file>./tests/Services/Paymill/CurlTest.php</file>
+            <file>./tests/Services/Paymill/OffersTest.php</file>
+            <file>./tests/Services/Paymill/PaymentProcessorTest.php</file>
+            <file>./tests/Services/Paymill/PaymentsTest.php</file>
+            <file>./tests/Services/Paymill/PreauthorizationsTest.php</file>
+            <file>./tests/Services/Paymill/RefundsTest.php</file>
+            <file>./tests/Services/Paymill/SubscriptionsTest.php</file>
+            <file>./tests/Services/Paymill/TransactionsTest.php</file>
+            <file>./tests/Services/Paymill/WebhooksTest.php</file>
+        </testsuite>
+
+        <testsuite name="unit">
+            <file>./tests/Services/Paymill/ClientsUnitTest.php</file>
+            <file>./tests/Services/Paymill/CurlUnitTest.php</file>
+            <file>./tests/Services/Paymill/OffersUnitTest.php</file>
+            <file>./tests/Services/Paymill/PaymentProcessorUnitTest.php</file>
+            <file>./tests/Services/Paymill/PaymentsUnitTest.php</file>
+            <file>./tests/Services/Paymill/PreauthorizationsUnitTest.php</file>
+            <file>./tests/Services/Paymill/RefundsUnitTest.php</file>
+            <file>./tests/Services/Paymill/SubscriptionsUnitTest.php</file>
+            <file>./tests/Services/Paymill/TransactionsUnitTest.php</file>
+            <file>./tests/Services/Paymill/WebhooksUnitTest.php</file>
+        </testsuite>
+    </testsuites>
+
+    <logging>
+        <log type="coverage-text" target="php://stdout" showUncoveredFiles="false"/>
+        <!--<log type="coverage-html" target="../build/coverage" title="PHP" charset="UTF-8" yui="true" highlight="true" lowUpperBound="35" highLowerBound="70"/>-->
+        <!--<log type="coverage-clover" target="../build/logs/clover.xml"/>-->
+        <log type="junit" target="../build/logs/junit.xml" logIncompleteSkipped="false"/>
+    </logging>
+
+</phpunit>

@@ -6,25 +6,46 @@ Paymill-PHP
 Getting started with Paymill
 ----------------------------
 
-1.  Include the required PHP file from the paymill PHP library. For example via: 
+1.  Include the required autoloader:
+    ```php
+        require_once 'autoloader.php';
+    ```
 
-        require_once 'lib/Services/Paymill/Transactions.php';
-
-2.  Instantiate the class, for example the Services_Paymill_Transactions class, with the following parameters:
-
+2.  Instantiate the request class with the following parameters:
     $apiKey: First parameter is always your private API (test) Key
 
-    $apiEndpoint: Second parameter is to configure the API Endpoint (with ending /), e.g. "https://api.paymill.de/v2/"
-	
-        $transactionsObject = new Services_Paymill_Transactions($apiKey, $apiEndpoint);
+    ```php
+        $paymillService = new Request($apiKey);
+    ```
+3.  Instantiate the model class with the parameters described in the API-reference:
+    ```php
+        $PaymentModel = new Payment();
+        $PaymentModel->setToken("098f6bcd4621d373cade4e832627b4f6");
+    ```
+4.  Use your desired function:
 
-3.  Make the appropriate call on the class instance. For additional parameters please refer to the API-Reference:
+    ```php
+        $PaymentModelResponse = $paymillService->create($PaymentModel);
+        $paymentId = $PaymentModelResponse->getId();
+    ```
 
-        $transactionsObject->create($params);
+    It recommend to wrap it into a "try/catch" to handle exceptions like this:
+    ```php
+        try{
+            $PaymentModelResponse = $paymillService->create($PaymentModel);
+            $paymentId = $PaymentModelResponse->getId();
+        }catch(PaymillException $exception){
+            $errorModel = $exception->getErrorModel();
+            //Do something with the error informations below
+            //$errorModel->getResponseCode()
+            //$errorModel->getHttpStatusCode()
+            //$errorModel->getErrorMessage()
+        }
+    ```
 
 API versions
 --------------
 
 The master branch reflects the newest API version, which is v2 for now. In order to use an older version just checkout the corresponding tag.
-	
+
 For further information, please refer to our official PHP library reference: https://www.paymill.com/en-gb/documentation-3/reference/api-reference/index.html

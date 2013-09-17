@@ -2,9 +2,9 @@
 
 namespace Paymill\Test\Integration;
 
-use Paymill\Lib\API\Curl;
-use Paymill\Lib\Models as Models;
-use Paymill\Lib\Services\Request;
+use Paymill\API\Curl;
+use Paymill\Models as Models;
+use Paymill\Services\Request;
 use PHPUnit_Framework_TestCase;
 
 /**
@@ -13,12 +13,12 @@ use PHPUnit_Framework_TestCase;
 class PaymentTest extends PHPUnit_Framework_TestCase
 {
     /**
-     * @var \Paymill\Lib\Services\Request
+     * @var \Paymill\Services\Request
      */
     private $_service;
 
     /**
-     * @var \Paymill\Lib\Models\Request\Payment
+     * @var \Paymill\Models\Request\Payment
      */
     private $_model;
 
@@ -51,7 +51,7 @@ class PaymentTest extends PHPUnit_Framework_TestCase
     {
         $this->_model->setToken("098f6bcd4621d373cade4e832627b4f6");
         $result = $this->_service->create($this->_model);
-        $this->assertInstanceOf('Paymill\Lib\Models\Response\Payment', $result);
+        $this->assertInstanceOf('Paymill\Models\Response\Payment', $result);
         return $result;
     }
 
@@ -59,7 +59,7 @@ class PaymentTest extends PHPUnit_Framework_TestCase
      * @test
      * @codeCoverageIgnore
      * @depends createPayment
-     * @expectedException \Paymill\Lib\Services\PaymillException
+     * @expectedException \Paymill\Services\PaymillException
      * @expectedExceptionMessage Method not Found
      */
     public function updatePayment($model)
@@ -77,7 +77,7 @@ class PaymentTest extends PHPUnit_Framework_TestCase
     {
         $this->_model->setId($model->getId());
         $result = $this->_service->getOne($this->_model);
-        $this->assertInstanceOf('Paymill\Lib\Models\Response\Payment', $result, var_export($result, true));
+        $this->assertInstanceOf('Paymill\Models\Response\Payment', $result, var_export($result, true));
         $this->assertEquals($model->getId(), $result->getId());
     }
 

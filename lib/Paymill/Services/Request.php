@@ -142,7 +142,7 @@ class Request
      */
     private function _request(Base $model, $method)
     {
-        if(!is_a($this->_connectionClass, '\Paymill\Lib\API\CommunicationAbstract')){
+        if(!is_a($this->_connectionClass, '\Paymill\API\CommunicationAbstract')){
             throw new PaymillException(null,'The connenction class is missing!');
         }
         $httpMethod = $this->_getHTTPMethod($method);
@@ -169,7 +169,7 @@ class Request
             $convertedResponse = $errorModel->setErrorMessage($e->getMessage());
         }
 
-        if (is_a($convertedResponse, '\Paymill\Lib\Models\Response\Error')) {
+        if (is_a($convertedResponse, '\Paymill\Models\Response\Error')) {
             throw new PaymillException(
             $convertedResponse, $convertedResponse->getErrorMessage(), $convertedResponse->getHttpStatusCode()
             );

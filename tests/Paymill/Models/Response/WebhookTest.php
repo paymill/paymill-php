@@ -2,18 +2,18 @@
 
 namespace Paymill\Test\Unit\Models\Response;
 
-use Paymill\Lib\Models\Response as Response;
+use Paymill\Models\Response as Response;
 use PHPUnit_Framework_TestCase;
 
 /**
- * Paymill\Lib\Models\Response\Webhook test case.
+ * Paymill\Models\Response\Webhook test case.
  */
 class WebhookTest
         extends PHPUnit_Framework_TestCase
 {
 
     /**
-     * @var \Paymill\Lib\Models\Response\Webhook
+     * @var \Paymill\Models\Response\Webhook
      */
     private $_webhook;
 

@@ -2,7 +2,7 @@
 
 namespace Paymill\Test\Unit\Models\Response;
 
-use Paymill\Lib\Models\Response\Error;
+use Paymill\Models\Response\Error;
 use PHPUnit_Framework_TestCase;
 
 /**

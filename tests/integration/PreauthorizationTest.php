@@ -2,9 +2,9 @@
 
 namespace Paymill\Test\Integration;
 
-use Paymill\Lib\API\Curl;
-use Paymill\Lib\Models as Models;
-use Paymill\Lib\Services\Request;
+use Paymill\API\Curl;
+use Paymill\Models as Models;
+use Paymill\Services\Request;
 use PHPUnit_Framework_TestCase;
 
 /**
@@ -14,11 +14,11 @@ class PreauthorizationTest extends PHPUnit_Framework_TestCase
 {
 
     /**
-     * @var \Paymill\Lib\Services\Request
+     * @var \Paymill\Services\Request
      */
     private $_service;
     /**
-     * @var \Paymill\Lib\Models\Request\Preauthorization
+     * @var \Paymill\Models\Request\Preauthorization
      */
     private $_model;
 
@@ -53,7 +53,7 @@ class PreauthorizationTest extends PHPUnit_Framework_TestCase
             ->setAmount(100)
             ->setCurrency('EUR');
         $result = $this->_service->create($this->_model);
-        $this->assertInstanceOf('Paymill\Lib\Models\Response\Preauthorization', $result);
+        $this->assertInstanceOf('Paymill\Models\Response\Preauthorization', $result);
         return $result;
     }
 
@@ -71,7 +71,7 @@ class PreauthorizationTest extends PHPUnit_Framework_TestCase
 
         $result = $this->_service->update($this->_model);
 
-        $this->assertInstanceOf('Paymill\Lib\Models\Response\Error', $result, var_export($result, true));
+        $this->assertInstanceOf('Paymill\Models\Response\Error', $result, var_export($result, true));
         $this->assertEquals('Preauthorization was not found', $result->getErrorMessage());
     }
 
@@ -83,7 +83,7 @@ class PreauthorizationTest extends PHPUnit_Framework_TestCase
     public function getOnePreauthorization($model)
     {
         $this->_model->setId($model->getId());
-        $this->assertInstanceOf('Paymill\Lib\Models\Response\Preauthorization', $result = $this->_service->getOne($this->_model), var_export($result, true));
+        $this->assertInstanceOf('Paymill\Models\Response\Preauthorization', $result = $this->_service->getOne($this->_model), var_export($result, true));
         $this->assertEquals($model->getId(), $result->getId());
     }
 

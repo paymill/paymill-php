@@ -1,6 +1,6 @@
 <?php
 
-namespace Paymill\Lib\Models\Response;
+namespace Paymill\Models\Response;
 
 /**
  * Abstract Model class for response models
@@ -10,25 +10,25 @@ abstract class Base
 
     /**
      * Unique identifier
-     * @var string 
+     * @var string
      */
     protected $_id;
 
     /**
      * Unix timestamp of the creation
-     * @var integer 
+     * @var integer
      */
     protected $_createdAt;
 
     /**
      * Unix timestamp of the last update
-     * @var integer 
+     * @var integer
      */
     protected $_updatedAt;
 
     /**
      * Identifier for the App which created this object instance
-     * @var string|null 
+     * @var string|null
      */
     protected $_appId = null;
 

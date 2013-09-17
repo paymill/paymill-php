@@ -2,9 +2,9 @@
 
 namespace Paymill\Test\Integration;
 
-use Paymill\Lib\API\Curl;
-use Paymill\Lib\Models as Models;
-use Paymill\Lib\Services\Request;
+use Paymill\API\Curl;
+use Paymill\Models as Models;
+use Paymill\Services\Request;
 use PHPUnit_Framework_TestCase;
 
 /**
@@ -13,12 +13,12 @@ use PHPUnit_Framework_TestCase;
 class RefundTest extends PHPUnit_Framework_TestCase
 {
     /**
-     * @var \Paymill\Lib\Services\Request
+     * @var \Paymill\Services\Request
      */
     private $_service;
 
     /**
-     * @var \Paymill\Lib\Models\Request\Refund
+     * @var \Paymill\Models\Request\Refund
      */
     private $_model;
 
@@ -54,13 +54,13 @@ class RefundTest extends PHPUnit_Framework_TestCase
             ->setCurrency('EUR')
             ->setToken("098f6bcd4621d373cade4e832627b4f6");
         $transactionModelResponse = $this->_service->create($transactionModel);
-        $this->assertInstanceOf('Paymill\Lib\Models\Response\Transaction', $transactionModelResponse, var_export($transactionModelResponse, true));
+        $this->assertInstanceOf('Paymill\Models\Response\Transaction', $transactionModelResponse, var_export($transactionModelResponse, true));
 
         $this->_model->setAmount(100)
             ->setDescription('EUR')
             ->setId($transactionModelResponse->getId());
         $result = $this->_service->create($this->_model);
-        $this->assertInstanceOf('Paymill\Lib\Models\Response\Refund', $result, var_export($result, true));
+        $this->assertInstanceOf('Paymill\Models\Response\Refund', $result, var_export($result, true));
         return $result;
     }
 
@@ -68,7 +68,7 @@ class RefundTest extends PHPUnit_Framework_TestCase
      * @test
      * @codeCoverageIgnore
      * @depends createRefund
-     * @expectedException \Paymill\Lib\Services\PaymillException
+     * @expectedException \Paymill\Services\PaymillException
      * @expectedExceptionMessage Method not Found
      */
     public function updateRefund($model)
@@ -85,7 +85,7 @@ class RefundTest extends PHPUnit_Framework_TestCase
     public function getOneRefund($model)
     {
         $this->_model->setId($model->getId());
-        $this->assertInstanceOf('Paymill\Lib\Models\Response\Refund', $result = $this->_service->getOne($this->_model), var_export($result, true));
+        $this->assertInstanceOf('Paymill\Models\Response\Refund', $result = $this->_service->getOne($this->_model), var_export($result, true));
         $this->assertEquals($model->getId(), $result->getId());
     }
 
@@ -122,14 +122,14 @@ class RefundTest extends PHPUnit_Framework_TestCase
      * @depends createRefund
      * @depends getOneRefund
      * @depends updateRefund
-     * @expectedException \Paymill\Lib\Services\PaymillException
+     * @expectedException \Paymill\Services\PaymillException
      * @expectedExceptionMessage Method not Found
      */
     public function deleteRefund($model)
     {
         $this->_model->setId($model->getId());
         $result = $this->_service->delete($this->_model);
-        $this->assertInstanceOf('Paymill\Lib\Models\Response\Error', $result, var_export($result, true));
+        $this->assertInstanceOf('Paymill\Models\Response\Error', $result, var_export($result, true));
         $this->assertEquals('Method not Found', $result->getErrorMessage());
     }
 

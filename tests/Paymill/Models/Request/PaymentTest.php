@@ -2,11 +2,11 @@
 
 namespace Paymill\Test\Unit\Models\Request;
 
-use Paymill\Lib\Models\Request as Request;
+use Paymill\Models\Request as Request;
 use PHPUnit_Framework_TestCase;
 
 /**
- * Paymill\Lib\Models\Request\Payment test case.
+ * Paymill\Models\Request\Payment test case.
  */
 class PaymentTest extends PHPUnit_Framework_TestCase
 {

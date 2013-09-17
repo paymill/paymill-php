@@ -2,11 +2,11 @@
 
 namespace Paymill\Test\Unit\Models\Response;
 
-use Paymill\Lib\Models\Response as Response;
+use Paymill\Models\Response as Response;
 use PHPUnit_Framework_TestCase;
 
 /**
- * Paymill\Lib\Models\Response\Client test case.
+ * Paymill\Models\Response\Client test case.
  */
 class ClientTest
         extends PHPUnit_Framework_TestCase

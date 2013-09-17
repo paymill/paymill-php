@@ -2,11 +2,11 @@
 
 namespace Paymill\Test\Unit\Models\Request;
 
-use Paymill\Lib\Models\Request as Request;
+use Paymill\Models\Request as Request;
 use PHPUnit_Framework_TestCase;
 
 /**
- * Paymill\Lib\Models\Request\Webhook test case.
+ * Paymill\Models\Request\Webhook test case.
  */
 class WebhookTest extends PHPUnit_Framework_TestCase
 {

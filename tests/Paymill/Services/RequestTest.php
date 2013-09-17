@@ -2,15 +2,15 @@
 
 namespace Paymill\Test\Unit\Services;
 
-use Paymill\Lib\Services;
-use Paymill\Lib\API;
-use Paymill\Lib\Models\Request;
-use Paymill\Lib\Models\Response;
+use Paymill\Services;
+use Paymill\API;
+use Paymill\Models\Request;
+use Paymill\Models\Response;
 use PHPUnit_Framework_TestCase;
 use PHPUnit_Framework_MockObject_MockObject;
 
 /**
- * Paymill\Lib\Services\Request test case.
+ * Paymill\Services\Request test case.
  */
 class RequestTest
         extends PHPUnit_Framework_TestCase
@@ -39,7 +39,7 @@ class RequestTest
         parent::setUp();
         $this->_request = new Services\Request();
         $this->_client = new Request\Client();
-        $this->_curlObjectMock = $this->getMock('Paymill\Lib\API\Curl', array('requestApi'), array(API_TEST_KEY));
+        $this->_curlObjectMock = $this->getMock('Paymill\API\Curl', array('requestApi'), array(API_TEST_KEY));
     }
 
     /**
@@ -70,13 +70,13 @@ class RequestTest
     public function setConnectionClassWithinConstructorTest()
     {
         $this->_request = new Services\Request(API_TEST_KEY);
-        $this->assertInstanceOf('Paymill\Lib\Services\Request', $this->_request);
+        $this->assertInstanceOf('Paymill\Services\Request', $this->_request);
     }
 
     /**
      * Test the setter for the connection class
      * @test
-     * @expectedException \Paymill\Lib\Services\PaymillException
+     * @expectedException \Paymill\Services\PaymillException
      * @expectedExceptionMessage The connenction class is missing!
      */
     public function missingConnectionClassTest()
@@ -369,7 +369,7 @@ class RequestTest
     /**
      * Tests the exception trigger in the create request method
      * @test
-     * @expectedException \Paymill\Lib\Services\PaymillException
+     * @expectedException \Paymill\Services\PaymillException
      * @expectedExceptionMessage Undefined Error. This should not happen!
      */
     public function createExceptionTest()
@@ -386,7 +386,7 @@ class RequestTest
     /**
      * Tests the exception trigger in the update request method
      * @test
-     * @expectedException \Paymill\Lib\Services\PaymillException
+     * @expectedException \Paymill\Services\PaymillException
      * @expectedExceptionMessage Undefined Error. This should not happen!
      */
     public function updateExceptionTest()
@@ -403,7 +403,7 @@ class RequestTest
     /**
      * Tests the exception trigger in the delete request method
      * @test
-     * @expectedException \Paymill\Lib\Services\PaymillException
+     * @expectedException \Paymill\Services\PaymillException
      * @expectedExceptionMessage Undefined Error. This should not happen!
      */
     public function deleteExceptionTest()
@@ -420,7 +420,7 @@ class RequestTest
     /**
      * Tests the exception trigger in the getAll request method
      * @test
-     * @expectedException \Paymill\Lib\Services\PaymillException
+     * @expectedException \Paymill\Services\PaymillException
      * @expectedExceptionMessage Undefined Error. This should not happen!
      */
     public function getAllExceptionTest()
@@ -438,7 +438,7 @@ class RequestTest
     /**
      * Tests the exception trigger in the getOne request method
      * @test
-     * @expectedException \Paymill\Lib\Services\PaymillException
+     * @expectedException \Paymill\Services\PaymillException
      * @expectedExceptionMessage Undefined Error. This should not happen!
      */
     public function getOneExceptionTest()
@@ -455,7 +455,7 @@ class RequestTest
     /**
      * Tests the getter for the last response array
      * @test
-     * @param \Paymill\Lib\Services\Request $request
+     * @param \Paymill\Services\Request $request
      * @depends getOneTest
      */
     public function getLastResponseTest($request)

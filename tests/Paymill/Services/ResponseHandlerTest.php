@@ -2,8 +2,8 @@
 
 namespace Paymill\Test\Unit\Services;
 
-use Paymill\Lib\Models as Models;
-use Paymill\Lib\Services\ResponseHandler;
+use Paymill\Models as Models;
+use Paymill\Services\ResponseHandler;
 use PHPUnit_Framework_TestCase;
 
 /**
@@ -54,7 +54,7 @@ class ResponseHandlerTest extends PHPUnit_Framework_TestCase
 
     /**
      *
-     * @var \Paymill\Lib\Services\ResponseHandler
+     * @var \Paymill\Services\ResponseHandler
      */
     private $_responseHandler;
 
@@ -107,7 +107,7 @@ class ResponseHandlerTest extends PHPUnit_Framework_TestCase
             "app_id" => null
         );
         $subject = $this->_responseHandler->convertResponse($response, "clients/");
-        $this->assertInstanceOf("\Paymill\Lib\Models\Response\Client", $subject, var_export($subject, true));
+        $this->assertInstanceOf("\Paymill\Models\Response\Client", $subject, var_export($subject, true));
     }
 
     /**
@@ -158,7 +158,7 @@ class ResponseHandlerTest extends PHPUnit_Framework_TestCase
             'subscription' => null);
 
         $subject = $this->_responseHandler->convertResponse($response, "clients/");
-        $this->assertInstanceOf("\Paymill\Lib\Models\Response\Client", $subject, var_export($subject, true));
+        $this->assertInstanceOf("\Paymill\Models\Response\Client", $subject, var_export($subject, true));
         $this->assertInternalType("array", $subject->getPayment(), var_export($subject, true));
     }
 
@@ -184,7 +184,7 @@ class ResponseHandlerTest extends PHPUnit_Framework_TestCase
             "app_id" => null
         );
         $subject = $this->_responseHandler->convertResponse($response, "payments/");
-        $this->assertInstanceOf("\Paymill\Lib\Models\Response\Payment", $subject, var_export($subject, true));
+        $this->assertInstanceOf("\Paymill\Models\Response\Payment", $subject, var_export($subject, true));
     }
 
     /**
@@ -249,7 +249,7 @@ class ResponseHandlerTest extends PHPUnit_Framework_TestCase
             "app_id" => null
         );
         $subject = $this->_responseHandler->convertResponse($response, "transactions/");
-        $this->assertInstanceOf("\Paymill\Lib\Models\Response\Transaction", $subject, var_export($subject, true));
+        $this->assertInstanceOf("\Paymill\Models\Response\Transaction", $subject, var_export($subject, true));
     }
 
     /**
@@ -360,7 +360,7 @@ class ResponseHandlerTest extends PHPUnit_Framework_TestCase
         );
 
         $subject = $this->_responseHandler->convertResponse($response, "preauthorizations/");
-        $this->assertInstanceOf("\Paymill\Lib\Models\Response\Preauthorization", $subject, var_export($subject, true));
+        $this->assertInstanceOf("\Paymill\Models\Response\Preauthorization", $subject, var_export($subject, true));
     }
 
     /**
@@ -436,7 +436,7 @@ class ResponseHandlerTest extends PHPUnit_Framework_TestCase
             "app_id" => null
         );
         $subject = $this->_responseHandler->convertResponse($response, "refunds/");
-        $this->assertInstanceOf("\Paymill\Lib\Models\Response\Refund", $subject, var_export($subject, true));
+        $this->assertInstanceOf("\Paymill\Models\Response\Refund", $subject, var_export($subject, true));
     }
 
     /**
@@ -462,7 +462,7 @@ class ResponseHandlerTest extends PHPUnit_Framework_TestCase
             "app_id" => null
         );
         $subject = $this->_responseHandler->convertResponse($response, "offers/");
-        $this->assertInstanceOf("\Paymill\Lib\Models\Response\Offer", $subject, var_export($subject, true));
+        $this->assertInstanceOf("\Paymill\Models\Response\Offer", $subject, var_export($subject, true));
     }
 
     /**
@@ -536,7 +536,7 @@ class ResponseHandlerTest extends PHPUnit_Framework_TestCase
             "app_id" => null
         );
         $subject = $this->_responseHandler->convertResponse($response, "subscriptions/");
-        $this->assertInstanceOf("\Paymill\Lib\Models\Response\Subscription", $subject, var_export($subject, true));
+        $this->assertInstanceOf("\Paymill\Models\Response\Subscription", $subject, var_export($subject, true));
     }
 
     /**
@@ -559,7 +559,7 @@ class ResponseHandlerTest extends PHPUnit_Framework_TestCase
             "app_id" => null
         );
         $subject = $this->_responseHandler->convertResponse($response, "webhooks/");
-        $this->assertInstanceOf("\Paymill\Lib\Models\Response\Webhook", $subject, var_export($subject, true));
+        $this->assertInstanceOf("\Paymill\Models\Response\Webhook", $subject, var_export($subject, true));
     }
 
     /**
@@ -582,7 +582,7 @@ class ResponseHandlerTest extends PHPUnit_Framework_TestCase
             "app_id" => null
         );
         $subject = $this->_responseHandler->convertResponse($response, "webhooks/");
-        $this->assertInstanceOf("\Paymill\Lib\Models\Response\Webhook", $subject, var_export($subject, true));
+        $this->assertInstanceOf("\Paymill\Models\Response\Webhook", $subject, var_export($subject, true));
     }
 
     /**
@@ -618,7 +618,7 @@ class ResponseHandlerTest extends PHPUnit_Framework_TestCase
             }
             $response['body']['data']['response_code'] = $responseCode;
             $subject = $this->_responseHandler->convertResponse($response, "transactions/");
-            $this->assertInstanceOf("\Paymill\Lib\Models\Response\Error", $subject);
+            $this->assertInstanceOf("\Paymill\Models\Response\Error", $subject);
             $this->assertEquals($responseCode, $subject->getResponseCode(), "ResponseCode:" . $responseCode . "==" . $subject->getResponseCode() . "\n");
             $this->assertEquals($errorMessage, $subject->getErrorMessage(), "ErrorMessage:" . $errorMessage . "==" . $subject->getErrorMessage() . "\n");
             $response['body']['data']['response_code'] = null;

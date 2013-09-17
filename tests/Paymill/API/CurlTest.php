@@ -5,14 +5,14 @@ namespace Paymill\Test\Unit\API;
 use PHPUnit_Framework_TestCase;
 
 /**
- * Paymill\Lib\API\Curl test case.
+ * Paymill\API\Curl test case.
  */
 class CurlTest
     extends PHPUnit_Framework_TestCase
 {
 
     /**
-     * @var \Paymill\Lib\API\Curl
+     * @var \Paymill\API\Curl
      */
     private $_curlObject;
 
@@ -21,7 +21,7 @@ class CurlTest
      */
     protected function setUp()
     {
-        $this->_curlObject = $this->getMock('Paymill\Lib\API\Curl', array('_curlExec', '_curlInfo', '_curlError'), array(API_TEST_KEY));
+        $this->_curlObject = $this->getMock('Paymill\API\Curl', array('_curlExec', '_curlInfo', '_curlError'), array(API_TEST_KEY));
         parent::setUp();
     }
 

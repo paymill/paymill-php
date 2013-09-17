@@ -2,18 +2,18 @@
 
 namespace Paymill\Test\Unit\Models\Response;
 
-use Paymill\Lib\Models\Response as Response;
+use Paymill\Models\Response as Response;
 use PHPUnit_Framework_TestCase;
 
 /**
- * Paymill\Lib\Models\Response\Preauthorization test case.
+ * Paymill\Models\Response\Preauthorization test case.
  */
 class PreauthorizationTest
         extends PHPUnit_Framework_TestCase
 {
 
     /**
-     * @var \Paymill\Lib\Models\Response\Preauthorization
+     * @var \Paymill\Models\Response\Preauthorization
      */
     private $_preauthorization;
 

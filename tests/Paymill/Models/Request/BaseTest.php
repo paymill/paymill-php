@@ -2,11 +2,11 @@
 
 namespace Paymill\Test\Unit\Models\Request;
 
-use Paymill\Lib\Models\Request as Request;
+use Paymill\Models\Request as Request;
 use PHPUnit_Framework_TestCase;
 
 /**
- * Paymill\Lib\Models\Request\Base test case.
+ * Paymill\Models\Request\Base test case.
  */
 class BaseTest
         extends PHPUnit_Framework_TestCase
@@ -14,7 +14,7 @@ class BaseTest
 
     /**
      * Payment Model object to test inherited methods
-     * @var \Paymill\Lib\Models\Request\Client
+     * @var \Paymill\Models\Request\Client
      */
     private $_model;
 
@@ -57,7 +57,7 @@ class BaseTest
 
     /**
      * Tests the parameter return from parameterize('getAll')
-     * @param \Paymill\Lib\Models\Request\Client $model
+     * @param \Paymill\Models\Request\Client $model
      * @test
      * @depends setGetTest
      */

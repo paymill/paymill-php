@@ -2,18 +2,18 @@
 
 namespace Paymill\Test\Unit\Models\Response;
 
-use Paymill\Lib\Models\Response as Response;
+use Paymill\Models\Response as Response;
 use PHPUnit_Framework_TestCase;
 
 /**
- * Paymill\Lib\Models\Response\Payment test case.
+ * Paymill\Models\Response\Payment test case.
  */
 class PaymentTest
         extends PHPUnit_Framework_TestCase
 {
 
     /**
-     * @var \Paymill\Lib\Models\Response\Payment
+     * @var \Paymill\Models\Response\Payment
      */
     private $_payment;
 

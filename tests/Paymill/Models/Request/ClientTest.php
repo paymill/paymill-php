@@ -2,11 +2,11 @@
 
 namespace Paymill\Test\Unit\Models\Request;
 
-use Paymill\Lib\Models\Request as Request;
+use Paymill\Models\Request as Request;
 use PHPUnit_Framework_TestCase;
 
 /**
- * Paymill\Lib\Models\Request\Client test case.
+ * Paymill\Models\Request\Client test case.
  */
 class ClientTest
         extends PHPUnit_Framework_TestCase
@@ -56,7 +56,7 @@ class ClientTest
      * Test the Parameterize function of the model
      * @test
      * @depends setGetTest
-     * @param \Paymill\Lib\Models\Request\Client $client
+     * @param \Paymill\Models\Request\Client $client
      */
     public function parameterizeTest($client)
     {

@@ -2,9 +2,9 @@
 
 namespace Paymill\Test\Integration;
 
-use Paymill\Lib\API\Curl;
-use Paymill\Lib\Models as Models;
-use Paymill\Lib\Services\Request;
+use Paymill\API\Curl;
+use Paymill\Models as Models;
+use Paymill\Services\Request;
 use PHPUnit_Framework_TestCase;
 
 /**
@@ -13,12 +13,12 @@ use PHPUnit_Framework_TestCase;
 class Transaction extends PHPUnit_Framework_TestCase
 {
     /**
-     * @var \Paymill\Lib\Services\Request
+     * @var \Paymill\Services\Request
      */
     private $_service;
 
     /**
-     * @var \Paymill\Lib\Models\Request\Transaction
+     * @var \Paymill\Models\Request\Transaction
      */
     private $_model;
 
@@ -46,7 +46,7 @@ class Transaction extends PHPUnit_Framework_TestCase
     /**
      * @test
      * @codeCoverageIgnore
-     * @expectedException \Paymill\Lib\Services\PaymillException
+     * @expectedException \Paymill\Services\PaymillException
      * @expectedExceptionMessage client OR token OR payment Required
      */
     public function createTransactionWithoutToken()
@@ -66,7 +66,7 @@ class Transaction extends PHPUnit_Framework_TestCase
             ->setCurrency('EUR')
             ->setToken('098f6bcd4621d373cade4e832627b4f6');
         $result = $this->_service->create($this->_model);
-        $this->assertInstanceOf('Paymill\Lib\Models\Response\Transaction', $result);
+        $this->assertInstanceOf('Paymill\Models\Response\Transaction', $result);
         return $result;
     }
 
@@ -80,14 +80,14 @@ class Transaction extends PHPUnit_Framework_TestCase
         $this->_model->setId($model->getId())
             ->setDescription('TEST');
         $result = $this->_service->update($this->_model);
-        $this->assertInstanceOf('Paymill\Lib\Models\Response\Transaction', $result, var_export($result, true));
+        $this->assertInstanceOf('Paymill\Models\Response\Transaction', $result, var_export($result, true));
         $this->assertEquals('TEST', $result->getDescription());
     }
 
     /**
      * @test
      * @codeCoverageIgnore
-     * @expectedException \Paymill\Lib\Services\PaymillException
+     * @expectedException \Paymill\Services\PaymillException
      * @expectedExceptionMessage Transaction not found
      */
     public function updateTransactionWithWrongId()
@@ -106,7 +106,7 @@ class Transaction extends PHPUnit_Framework_TestCase
     {
         $this->_model->setId($model->getId());
         $result = $this->_service->getOne($this->_model);
-        $this->assertInstanceOf('Paymill\Lib\Models\Response\Transaction', $result, var_export($result, true));
+        $this->assertInstanceOf('Paymill\Models\Response\Transaction', $result, var_export($result, true));
         $this->assertEquals($model->getId(), $result->getId());
     }
 
@@ -143,7 +143,7 @@ class Transaction extends PHPUnit_Framework_TestCase
      * @depends createTransactionWithToken
      * @depends getOneTransaction
      * @depends updateTransaction
-     * @expectedException \Paymill\Lib\Services\PaymillException
+     * @expectedException \Paymill\Services\PaymillException
      * @expectedExceptionMessage Method not Found
      */
     public function deleteTransaction($model)

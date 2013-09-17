@@ -2,9 +2,9 @@
 
 namespace Paymill\Test\Integration;
 
-use Paymill\Lib\API\Curl;
-use Paymill\Lib\Models as Models;
-use Paymill\Lib\Services\Request;
+use Paymill\API\Curl;
+use Paymill\Models as Models;
+use Paymill\Services\Request;
 use PHPUnit_Framework_TestCase;
 
 /**
@@ -14,12 +14,12 @@ class Client extends PHPUnit_Framework_TestCase
 {
 
     /**
-     * @var \Paymill\Lib\Services\Request
+     * @var \Paymill\Services\Request
      */
     private $_service;
 
     /**
-     * @var \Paymill\Lib\Models\Request\Client
+     * @var \Paymill\Models\Request\Client
      */
     private $_model;
 
@@ -53,7 +53,7 @@ class Client extends PHPUnit_Framework_TestCase
         $this->_model->setEmail('Plugins@Paymill.de')
             ->setDescription('Test');
         $result = $this->_service->create($this->_model);
-        $this->assertInstanceOf('Paymill\Lib\Models\Response\Client', $result);
+        $this->assertInstanceOf('Paymill\Models\Response\Client', $result);
         return $result;
     }
 
@@ -67,14 +67,14 @@ class Client extends PHPUnit_Framework_TestCase
         $this->_model->setId($model->getId())
             ->setDescription('UpdateSuccessful');
         $result = $this->_service->update($this->_model);
-        $this->assertInstanceOf('Paymill\Lib\Models\Response\Client', $result, var_export($result, true));
+        $this->assertInstanceOf('Paymill\Models\Response\Client', $result, var_export($result, true));
         $this->assertEquals('UpdateSuccessful', $result->getDescription());
     }
 
     /**
      * @test
      * @codeCoverageIgnore
-     * @expectedException \Paymill\Lib\Services\PaymillException
+     * @expectedException \Paymill\Services\PaymillException
      * @expectedExceptionMessage Server Error
      */
     public function updateClientWithWrongId()
@@ -93,7 +93,7 @@ class Client extends PHPUnit_Framework_TestCase
     {
         $this->_model->setId($model->getId());
         $result = $this->_service->getOne($this->_model);
-        $this->assertInstanceOf('Paymill\Lib\Models\Response\Client', $result, var_export($result, true));
+        $this->assertInstanceOf('Paymill\Models\Response\Client', $result, var_export($result, true));
         $this->assertEquals($model->getId(), $result->getId());
     }
 

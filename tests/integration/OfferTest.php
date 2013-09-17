@@ -2,9 +2,9 @@
 
 namespace Paymill\Test\Integration;
 
-use Paymill\Lib\API\Curl;
-use Paymill\Lib\Models as Models;
-use Paymill\Lib\Services\Request;
+use Paymill\API\Curl;
+use Paymill\Models as Models;
+use Paymill\Services\Request;
 use PHPUnit_Framework_TestCase;
 
 /**
@@ -13,12 +13,12 @@ use PHPUnit_Framework_TestCase;
 class OfferTest extends PHPUnit_Framework_TestCase
 {
     /**
-     * @var \Paymill\Lib\Services\Request
+     * @var \Paymill\Services\Request
      */
     private $_service;
 
     /**
-     * @var \Paymill\Lib\Models\Request\Offer
+     * @var \Paymill\Models\Request\Offer
      */
     private $_model;
 
@@ -54,7 +54,7 @@ class OfferTest extends PHPUnit_Framework_TestCase
             ->setInterval('2 DAY')
             ->setName('TestOffer');
         $result = $this->_service->create($this->_model);
-        $this->assertInstanceOf('Paymill\Lib\Models\Response\Offer', $result, var_export($result, true));
+        $this->assertInstanceOf('Paymill\Models\Response\Offer', $result, var_export($result, true));
         return $result;
     }
 
@@ -69,7 +69,7 @@ class OfferTest extends PHPUnit_Framework_TestCase
             ->setName('NewName');
         $result = $this->_service->update($this->_model);
 
-        $this->assertInstanceOf('Paymill\Lib\Models\Response\Offer', $result, var_export($result, true));
+        $this->assertInstanceOf('Paymill\Models\Response\Offer', $result, var_export($result, true));
         $this->assertEquals($model->getId(), $result->getId());
     }
 
@@ -81,7 +81,7 @@ class OfferTest extends PHPUnit_Framework_TestCase
     public function getOneOffer($model)
     {
         $this->_model->setId($model->getId());
-        $this->assertInstanceOf('Paymill\Lib\Models\Response\Offer', $result = $this->_service->getOne($this->_model), var_export($result, true));
+        $this->assertInstanceOf('Paymill\Models\Response\Offer', $result = $this->_service->getOne($this->_model), var_export($result, true));
         $this->assertEquals($model->getId(), $result->getId());
     }
 

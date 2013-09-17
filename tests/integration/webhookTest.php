@@ -2,9 +2,9 @@
 
 namespace Paymill\Test\Integration;
 
-use Paymill\Lib\API\Curl;
-use Paymill\Lib\Models as Models;
-use Paymill\Lib\Services\Request;
+use Paymill\API\Curl;
+use Paymill\Models as Models;
+use Paymill\Services\Request;
 use PHPUnit_Framework_TestCase;
 
 /**
@@ -13,12 +13,12 @@ use PHPUnit_Framework_TestCase;
 class WebhookTest extends PHPUnit_Framework_TestCase
 {
     /**
-     * @var \Paymill\Lib\Services\Request
+     * @var \Paymill\Services\Request
      */
     private $_service;
 
     /**
-     * @var \Paymill\Lib\Models\Request\Webhook
+     * @var \Paymill\Models\Request\Webhook
      */
     private $_model;
 
@@ -56,7 +56,7 @@ class WebhookTest extends PHPUnit_Framework_TestCase
                 'transaction.succeeded', 'subscription.created'
             ));
         $result = $this->_service->create($this->_model);
-        $this->assertInstanceOf('Paymill\Lib\Models\Response\Webhook', $result, var_export($result, true));
+        $this->assertInstanceOf('Paymill\Models\Response\Webhook', $result, var_export($result, true));
         return $result;
     }
 
@@ -71,7 +71,7 @@ class WebhookTest extends PHPUnit_Framework_TestCase
                 'transaction.succeeded', 'subscription.created'
             ));
         $result = $this->_service->create($this->_model);
-        $this->assertInstanceOf('Paymill\Lib\Models\Response\Webhook', $result, var_export($result, true));
+        $this->assertInstanceOf('Paymill\Models\Response\Webhook', $result, var_export($result, true));
         $this->deleteWebhook($result);
     }
 
@@ -86,7 +86,7 @@ class WebhookTest extends PHPUnit_Framework_TestCase
             ->setUrl('http://example.com/dummyCallbackUpdate');
         $result = $this->_service->update($this->_model);
 
-        $this->assertInstanceOf('Paymill\Lib\Models\Response\Webhook', $result, var_export($result, true));
+        $this->assertInstanceOf('Paymill\Models\Response\Webhook', $result, var_export($result, true));
         $this->assertEquals($model->getId(), $result->getId());
     }
 
@@ -98,7 +98,7 @@ class WebhookTest extends PHPUnit_Framework_TestCase
     public function getOneWebhook($model)
     {
         $this->_model->setId($model->getId());
-        $this->assertInstanceOf('Paymill\Lib\Models\Response\Webhook', $result = $this->_service->getOne($this->_model), var_export($result, true));
+        $this->assertInstanceOf('Paymill\Models\Response\Webhook', $result = $this->_service->getOne($this->_model), var_export($result, true));
         $this->assertEquals($model->getId(), $result->getId());
     }
 

@@ -2,11 +2,11 @@
 
 namespace Paymill\Test\Unit\Models\Response;
 
-use Paymill\Lib\Models\Response as Response;
+use Paymill\Models\Response as Response;
 use PHPUnit_Framework_TestCase;
 
 /**
- * Paymill\Lib\Models\Response\Base test case.
+ * Paymill\Models\Response\Base test case.
  */
 class BaseTest
         extends PHPUnit_Framework_TestCase
@@ -14,7 +14,7 @@ class BaseTest
 
     /**
      * Payment Model object to test inherited methods
-     * @var \Paymill\Lib\Models\Response\Payment
+     * @var \Paymill\Models\Response\Payment
      */
     private $_payment;
 

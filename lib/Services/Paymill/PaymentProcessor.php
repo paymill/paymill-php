@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * This class acts as an easy to use gateway for the paymill phph wrapper.
+ * @version    1.0.0
+ * @category   PayIntelligent
+ * @copyright  Copyright (c) 2013 PayIntelligent GmbH (http://payintelligent.de)
+ */
 class Services_Paymill_PaymentProcessor
 {
 
@@ -367,7 +373,6 @@ class Services_Paymill_PaymentProcessor
             'apiurl' => $this->_apiUrl,
             'libbase' => $this->_libBase,
             'privatekey' => $this->_privateKey,
-            'logger' => $this->_logger,
             'token' => $this->_token,
             'amount' => $this->_amount,
             'preauthamount' => $this->_preAuthAmount,

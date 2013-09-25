@@ -3,17 +3,13 @@
 class Services_Paymill_Log
 {
     /**
-     * Magic setter to avoid the use of arrays
+     * Magic setter
      * 
      * @param mixed $name
      * @param mixed $value
      */
     public function __set($name, $value)
-    {
-        if (is_array($value)) {
-            throw new Exception('Use primitve datatypes.');
-        }
-        
+    {        
         $this->$name = $value;
     }
     
@@ -24,8 +20,7 @@ class Services_Paymill_Log
      */
     public function __get($name)
     {
-        if (isset($this->$name))
-        {
+        if (isset($this->$name)) {
             return $this->$name;
         }
         

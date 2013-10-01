@@ -21,7 +21,7 @@ class CurlTest
      */
     protected function setUp()
     {
-        $this->_curlObject = $this->getMock('Paymill\API\Curl', array('_curlExec', '_curlInfo', '_curlError'), array(API_TEST_KEY));
+        $this->_curlObject = $this->getMock('Paymill\API\Curl', array('_curlExec', '_curlInfo', '_curlError'), array("TestToken"));
         parent::setUp();
     }
 

@@ -5,7 +5,7 @@
             <directory>./Integration</directory>
         </testsuite>
         <testsuite name="unit">
-            <directory>./Unit</directory>
+            <directory>./Paymill</directory>
         </testsuite>
     </testsuites>
 

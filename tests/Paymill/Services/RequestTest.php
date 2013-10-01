@@ -39,7 +39,7 @@ class RequestTest
         parent::setUp();
         $this->_request = new Services\Request();
         $this->_client = new Request\Client();
-        $this->_curlObjectMock = $this->getMock('Paymill\API\Curl', array('requestApi'), array(API_TEST_KEY));
+        $this->_curlObjectMock = $this->getMock('Paymill\API\Curl', array('requestApi'), array("TestToken"));
     }
 
     /**
@@ -69,7 +69,7 @@ class RequestTest
      */
     public function setConnectionClassWithinConstructorTest()
     {
-        $this->_request = new Services\Request(API_TEST_KEY);
+        $this->_request = new Services\Request("TestToken");
         $this->assertInstanceOf('Paymill\Services\Request', $this->_request);
     }
 

@@ -1,4 +1,5 @@
 <?php
+
 namespace Paymill\Services;
 
 use Paymill\Models\Response\Error;
@@ -8,7 +9,10 @@ use Paymill\Models\Response\Error;
  */
 class PaymillException extends \Exception
 {
-    private $_errorModel;
+
+    private $_errorMessage;
+    private $_responseCode;
+    private $_httpStatusCode;
 
     /**
      *
@@ -17,24 +21,36 @@ class PaymillException extends \Exception
      * @param int $code
      * @param Exception $previous
      */
-    public function __construct($errorModel = null, $message = null, $code = null, $previous = null)
+    public function __construct($responseCode = null, $message = null, $code = null)
     {
-        $this->_setErrorModel($errorModel);
-        parent::__construct($message, $code, $previous);
+        parent::__construct($message, $code, null);
+        $this->_errorMessage = $message;
+        $this->_responseCode = $responseCode;
+        $this->_httpStatusCode = $code;
     }
 
     /**
-     * @param Error $model
+     * @return string
      */
-    private function _setErrorModel($model){
-        $this->_errorModel = $model;
+    public function getErrorMessage()
+    {
+        return $this->_errorMessage;
     }
 
     /**
-     *
-     * @return Error
+     * @return string
      */
-    public function getErrorModel(){
-        return $this->_errorModel;
+    public function getHttpStatusCode()
+    {
+        return $this->_httpStatusCode;
     }
+
+    /**
+     * @return integer
+     */
+    public function getResponseCode()
+    {
+        return $this->_responseCode;
+    }
+
 }

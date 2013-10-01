@@ -171,7 +171,7 @@ class Request
 
         if (is_a($convertedResponse, '\Paymill\Models\Response\Error')) {
             throw new PaymillException(
-            $convertedResponse, $convertedResponse->getErrorMessage(), $convertedResponse->getHttpStatusCode()
+            $convertedResponse->getResponseCode(), $convertedResponse->getErrorMessage(), $convertedResponse->getHttpStatusCode()
             );
         }
 

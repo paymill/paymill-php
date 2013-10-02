@@ -4,7 +4,7 @@ namespace Paymill\Test\Integration;
 
 use Paymill\API\Curl;
 use Paymill\Models as Models;
-use Paymill\Services\Request;
+use Paymill\Request;
 use PHPUnit_Framework_TestCase;
 
 /**

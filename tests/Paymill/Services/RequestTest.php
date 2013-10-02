@@ -2,22 +2,22 @@
 
 namespace Paymill\Test\Unit\Services;
 
-use Paymill\Services;
-use Paymill\API;
+use Paymill\API\Curl;
 use Paymill\Models\Request;
 use Paymill\Models\Response;
-use PHPUnit_Framework_TestCase;
+use Paymill\Request as RequestService;
 use PHPUnit_Framework_MockObject_MockObject;
+use PHPUnit_Framework_TestCase;
 
 /**
- * Paymill\Services\Request test case.
+ * Paymill\Request test case.
  */
 class RequestTest
         extends PHPUnit_Framework_TestCase
 {
 
     /**
-     * @var Services\Request
+     * @var RequestService
      */
     private $_request;
 
@@ -37,7 +37,7 @@ class RequestTest
     protected function setUp()
     {
         parent::setUp();
-        $this->_request = new Services\Request();
+        $this->_request = new RequestService();
         $this->_client = new Request\Client();
         $this->_curlObjectMock = $this->getMock('Paymill\API\Curl', array('requestApi'), array("TestToken"));
     }
@@ -58,7 +58,7 @@ class RequestTest
      */
     public function setConnectionClassTest()
     {
-        $connector = new API\Curl("This connector will never be used.");
+        $connector = new Curl("This connector will never be used.");
         $request = $this->_request->setConnectionClass($connector);
         $this->assertEquals($request, $this->_request);
     }
@@ -69,8 +69,8 @@ class RequestTest
      */
     public function setConnectionClassWithinConstructorTest()
     {
-        $this->_request = new Services\Request("TestToken");
-        $this->assertInstanceOf('Paymill\Services\Request', $this->_request);
+        $this->_request = new RequestService("TestToken");
+        $this->assertInstanceOf('Paymill\Request', $this->_request);
     }
 
     /**
@@ -81,7 +81,7 @@ class RequestTest
      */
     public function missingConnectionClassTest()
     {
-        $this->_request = new Services\Request();
+        $this->_request = new RequestService();
         $this->_request->getOne($this->_client);
     }
 
@@ -455,7 +455,7 @@ class RequestTest
     /**
      * Tests the getter for the last response array
      * @test
-     * @param \Paymill\Services\Request $request
+     * @param Request $request
      * @depends getOneTest
      */
     public function getLastResponseTest($request)

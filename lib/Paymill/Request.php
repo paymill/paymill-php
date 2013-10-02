@@ -1,11 +1,14 @@
 <?php
 
-namespace Paymill\Services;
+namespace Paymill;
 
+use Exception;
 use Paymill\API\CommunicationAbstract;
 use Paymill\API\Curl;
 use Paymill\Models\Request\Base;
 use Paymill\Models\Response\Error;
+use Paymill\Services\PaymillException;
+use Paymill\Services\ResponseHandler;
 
 /**
  * Base
@@ -164,7 +167,7 @@ class Request
             } else {
                 $convertedResponse = $responseHandler->convertResponse($response, $model->getServiceResource());
             }
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             $errorModel = new Error();
             $convertedResponse = $errorModel->setErrorMessage($e->getMessage());
         }

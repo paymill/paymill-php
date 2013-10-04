@@ -147,12 +147,18 @@ class ResponseHandler
         $model->setId($response['id']);
         $model->setType($response['type']);
         $model->setClient($this->_convertResponseToModel($response['client'], "client"));
-        $model->setCardType($response['card_type']);
-        $model->setCountry($response['country']);
-        $model->setExpireMonth($response['expire_month']);
-        $model->setExpireYear($response['expire_year']);
-        $model->setCardHolder($response['card_holder']);
-        $model->setLastFour($response['last4']);
+        if ($response['type'] === "creditcard") {
+            $model->setCardType($response['card_type']);
+            $model->setCountry($response['country']);
+            $model->setExpireMonth($response['expire_month']);
+            $model->setExpireYear($response['expire_year']);
+            $model->setCardHolder($response['card_holder']);
+            $model->setLastFour($response['last4']);
+        } else if ($response['type'] === "debit") {
+            $model->setCode($response['code']);
+            $model->setHolder($response['holder']);
+            $model->setAccount($response['account']);
+        }
         $model->setCreatedAt($response['created_at']);
         $model->setUpdatedAt($response['updated_at']);
         $model->setAppId($response['app_id']);
@@ -375,4 +381,5 @@ class ResponseHandler
         }
         return $returnValue;
     }
+
 }

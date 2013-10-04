@@ -2,10 +2,10 @@
 
     <testsuites>
         <testsuite name="integration">
-            <directory>./Integration</directory>
+            <directory>./integration</directory>
         </testsuite>
         <testsuite name="unit">
-            <directory>./Paymill</directory>
+            <directory>./unit</directory>
         </testsuite>
     </testsuites>
 

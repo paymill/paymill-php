@@ -40,7 +40,7 @@ class PaymillException extends \Exception
     /**
      * @return string
      */
-    public function getHttpStatusCode()
+    public function getStatusCode()
     {
         return $this->_httpStatusCode;
     }

@@ -35,11 +35,10 @@ Getting started with Paymill
             $PaymentModelResponse = $paymillService->create($PaymentModel);
             $paymentId = $PaymentModelResponse->getId();
         }catch(PaymillException $exception){
-            $errorModel = $exception->getErrorModel();
             //Do something with the error informations below
-            //$errorModel->getResponseCode()
-            //$errorModel->getHttpStatusCode()
-            //$errorModel->getErrorMessage()
+            //$exception->getResponseCode();
+            //$exception->getHttpStatusCode();
+            //$exception->getErrorMessage();
         }
     ```
 

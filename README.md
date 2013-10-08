@@ -6,6 +6,13 @@ Paymill-PHP
 [![Total Downloads](https://poser.pugx.org/paymill/paymill/downloads.png)](https://packagist.org/packages/paymill/paymill)
 
 
+How to test
+-----------
+There are different credit card numbers, frontend and backend error codes, which can be used for testing.
+For more information, please read our testing reference.
+https://www.paymill.com/en-gb/documentation-3/reference/testing/
+
+
 Getting started with Paymill
 ----------------------------
 

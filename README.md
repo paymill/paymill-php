@@ -1,4 +1,4 @@
-Paymill-PHP
+PAYMILL-PHP
 ===========
 
 [![Build Status](https://travis-ci.org/paymill/paymill-php.png?branch=master)](https://travis-ci.org/paymill/paymill-php)
@@ -13,7 +13,7 @@ For more information, please read our testing reference.
 https://www.paymill.com/en-gb/documentation-3/reference/testing/
 
 
-Getting started with Paymill
+Getting started with PAYMILL
 ----------------------------
 
 1.  If you don't use Composer in your project, then include the required PHP file from the paymill PHP library. For example via: 

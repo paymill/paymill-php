@@ -1,0 +1,14 @@
+<phpunit bootstrap="bootstrap.php">
+    <testsuites>
+        <testsuite name="integration">
+            <directory>./integration</directory>
+        </testsuite>
+        <testsuite name="unit">
+            <directory>./unit</directory>
+        </testsuite>
+    </testsuites>
+
+    <logging>
+        <log type="coverage-text" target="php://stdout" showUncoveredFiles="false"/>
+    </logging>
+</phpunit>

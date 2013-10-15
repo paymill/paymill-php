@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<project name="jenkins_test" default="build" basedir=".">
-    <property name="source" value="Paymill/Lib/"/>
-
+<project name="paymill-php" default="build" basedir=".">
     <target name="clean" description="Clean up and create artifact directories">
         <delete dir="${basedir}/build/api"/>
         <delete dir="${basedir}/build/code-browser"/>
@@ -17,47 +15,10 @@
         <mkdir dir="${basedir}/build/pdepend"/>
     </target>
 
-    <target name="phpunit" description="Run unit tests using PHPUnit and generates junit.xml and clover.xml">
+    <target name="test" description="Run unit tests using PHPUnit">
         <exec executable="phpunit" dir="tests" failonerror="true">
             <env key="API_TEST_KEY" value="f90d23dcc2a8f9639a45cb65dceabbd2"/>
             <arg line="--testsuite=unit" />
-        </exec>
-    </target>
-
-    <target name="parallelTasks" description="Run the pdepend, phpmd, phpcpd, phpcs, phpdoc and phploc tasks in parallel using a maximum of 2 threads.">
-        <parallel threadCount="2">
-            <sequential>
-                <antcall target="pdepend"/>
-                <antcall target="phpmd"/>
-            </sequential>
-            <antcall target="phpcpd"/>
-            <antcall target="phpcs"/>
-            <antcall target="phpdoc"/>
-            <antcall target="phploc"/>
-        </parallel>
-    </target>
-
-    <target name="pdepend" description="Generate jdepend.xml and software metrics charts using PHP_Depend">
-        <exec executable="pdepend">
-            <arg line="--jdepend-xml=${basedir}/build/logs/jdepend.xml
-            --jdepend-chart=${basedir}/build/pdepend/dependencies.svg
-            --overview-pyramid=${basedir}/build/pdepend/overview-pyramid.svg
-            ${source}" />
-        </exec>
-    </target>
-
-    <target name="phpmd" description="Generate pmd.xml using PHPMD">
-        <exec executable="phpmd">
-            <arg line="${source}
-            xml
-            codesize,design,naming,unusedcode
-            --reportfile ${basedir}/build/logs/pmd.xml" />
-        </exec>
-    </target>
-
-    <target name="phpcpd" description="Generate pmd-cpd.xml using PHPCPD">
-        <exec executable="phpcpd">
-            <arg line="--log-pmd ${basedir}/build/logs/pmd-cpd.xml ${source}" />
         </exec>
     </target>
 
@@ -90,5 +51,5 @@
         </exec>
     </target>
 
-    <target name="build" depends="clean,parallelTasks,phpunit,phpcb"/>
+    <target name="build" depends="clean,test"/>
 </project>

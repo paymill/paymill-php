@@ -1,6 +1,6 @@
 <?php
 
-require_once 'autoloader.php';
+require_once '../vendor/autoload.php';
 /**
  * $apiHost should be set to default unit test host for external users
  * can be overwritten with environment variable PAYMILL_TEST_API_HOST

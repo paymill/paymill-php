@@ -6,45 +6,48 @@ Paymill-PHP
 Getting started with Paymill
 ----------------------------
 
-1.  Include the required autoloader:
-    ```php
-        require_once 'autoloader.php';
-    ```
+Please include this library via Composer in your composer.json and execute **composer update** to refresh the autoload.php.
 
-2.  Instantiate the request class with the following parameters:
+```
+{
+    "require": {
+        "paymill/paymill": "v3.0.0"
+    }
+}
+```
+
+1.  Instantiate the request class with the following parameters:
     $apiKey: First parameter is always your private API (test) Key
 
     ```php
-        $paymillService = new Request($apiKey);
+        $service = new Request($apiKey);
     ```
-3.  Instantiate the model class with the parameters described in the API-reference:
+2.  Instantiate the model class with the parameters described in the API-reference:
     ```php
-        $PaymentModel = new Payment();
-        $PaymentModel->setToken("098f6bcd4621d373cade4e832627b4f6");
+        $payment = new Payment();
+        $payment->setToken("098f6bcd4621d373cade4e832627b4f6");
     ```
-4.  Use your desired function:
+3.  Use your desired function:
 
     ```php
-        $PaymentModelResponse = $paymillService->create($PaymentModel);
-        $paymentId = $PaymentModelResponse->getId();
+        $paymentResponse = $service->create($payment);
+        $paymentId = $paymentResponse->getId();
     ```
 
     It recommend to wrap it into a "try/catch" to handle exceptions like this:
     ```php
         try{
-            $PaymentModelResponse = $paymillService->create($PaymentModel);
-            $paymentId = $PaymentModelResponse->getId();
-        }catch(PaymillException $exception){
+            $paymentResponse = $service->create($payment);
+            $paymentId = $paymentResponse->getId();
+        }catch(PaymillException $e){
             //Do something with the error informations below
-            //$exception->getResponseCode();
-            //$exception->getHttpStatusCode();
-            //$exception->getErrorMessage();
+            $e->getResponseCode();
+            $e->getStatusCode();
+            $e->getErrorMessage();
         }
     ```
 
-API versions
+Documentation
 --------------
-
-The master branch reflects the newest API version, which is v2 for now. In order to use an older version just checkout the corresponding tag.
 
 For further information, please refer to our official PHP library reference: https://www.paymill.com/en-gb/documentation-3/reference/api-reference/index.html

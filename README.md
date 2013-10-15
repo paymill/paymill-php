@@ -1,7 +1,9 @@
 PAYMILL-PHP
 ===========
 
-[![Build Status](https://travis-ci.org/paymill/paymill-php.png?branch=master)](https://travis-ci.org/paymill/paymill-php)
+[![Build Status](https://travis-ci.org/paymill/paymill-php.png)](https://travis-ci.org/paymill/paymill-php)
+[![Latest Stable Version](https://poser.pugx.org/paymill/paymill/v/stable.png)](https://packagist.org/packages/paymill/paymill)
+[![Total Downloads](https://poser.pugx.org/paymill/paymill/downloads.png)](https://packagist.org/packages/paymill/paymill)
 
 How to test
 -----------

@@ -33,6 +33,8 @@ Please include this library via Composer in your composer.json and execute **com
     ```
 2.  Instantiate the model class with the parameters described in the API-reference:
     ```php
+        use Paymill\Models\Request\Payment;
+
         $payment = new Payment();
         $payment->setToken("098f6bcd4621d373cade4e832627b4f6");
     ```

@@ -35,6 +35,7 @@ class Services_Paymill_PaymentProcessor
     private $_paymentId = null;
     //Source
     private $_source;
+    private $_errorCode;
 
     /**
      * Creates an object of the PaymentProcessor class.
@@ -56,7 +57,6 @@ class Services_Paymill_PaymentProcessor
         $this->setPrivateKey($privateKey);
         $this->setApiUrl($apiUrl);
         $this->setLibBase($libBase);
-        $this->_preAuthAmount = $params['preauthamount'];
         $this->_token = $params['token'];
         $this->_amount = $params['amount'];
         $this->_currency = $params['currency'];
@@ -108,6 +108,7 @@ class Services_Paymill_PaymentProcessor
                         'client' => $this->_clientId
                     )
             );
+
             $this->_validateResult($payment, 'Payment');
 
             $this->_paymentId = $payment['id'];
@@ -127,9 +128,10 @@ class Services_Paymill_PaymentProcessor
             'amount' => $this->_amount,
             'currency' => $this->_currency,
             'description' => $this->_description,
+            'preauthorization' => $this->_preauthId,
             'source' => $this->_source
         );
-        $this->_preauthId != null ? $parameter['preauthorization'] = $this->_preauthId : $parameter['payment'] = $this->_paymentId ;
+        $this->_preauthId != null ? $parameter['preauthorization'] = $this->_preauthId : $parameter['payment'] = $this->_paymentId;
         $transaction = $this->_transactionsObject->create($parameter);
         $this->_validateResult($transaction, 'Transaction');
 
@@ -256,7 +258,12 @@ class Services_Paymill_PaymentProcessor
         $this->_lastResponse = $transaction;
         if (isset($transaction['data']['response_code']) && $transaction['data']['response_code'] !== 20000) {
             $this->_log("An Error occured: " . $transaction['data']['response_code'], var_export($transaction, true));
-            throw new Exception("Invalid Result Exception: Invalid ResponseCode");
+            throw new Exception("Invalid Result Exception: Invalid ResponseCode", $transaction['data']['response_code']);
+        }
+        
+        if (isset($transaction['response_code']) && $transaction['response_code'] !== 20000) {
+            $this->_log("An Error occured: " . $transaction['response_code'], var_export($transaction, true));
+            throw new Exception("Invalid Result Exception: Invalid ResponseCode", $transaction['response_code']);
         }
 
         if (!isset($transaction['id']) && !isset($transaction['data']['id'])) {
@@ -312,20 +319,29 @@ class Services_Paymill_PaymentProcessor
             return false;
         }
 
+        $this->_log('Process payment with following data', print_r($this->toArray(), true));
+
         try {
+
             $this->_createClient();
+            $this->_log('Client API Response', print_r($this->_clientsObject->getResponse(), true));
             $this->_createPayment();
+            $this->_log('Payment API Response', print_r($this->_paymentsObject->getResponse(), true));
 
             //creates a transaction if there is no difference between the amount
             if ($this->_preAuthAmount === $this->_amount && $captureNow) {
                 $this->_createTransaction();
+                $this->_log('Transaction API Response', print_r($this->getLastResponse(), true));
             } else {
                 $this->_processPreAuthCapture($captureNow);
+                $this->_log('Pre-Auth API Response', print_r($this->getLastResponse(), true));
             }
+
             return true;
         } catch (Exception $ex) {
+            $this->_errorCode = $ex->getCode();
             // paymill wrapper threw an exception
-            $this->_log("Exception thrown from paymill wrapper.", $ex->getMessage());
+            $this->_log("Exception thrown from paymill wrapper. Code: " . $ex->getCode() . " Message: " . $ex->getMessage(), print_r($this->_transactionsObject->getResponse(), true));
             return false;
         }
     }
@@ -350,7 +366,6 @@ class Services_Paymill_PaymentProcessor
             'apiurl' => $this->_apiUrl,
             'libbase' => $this->_libBase,
             'privatekey' => $this->_privateKey,
-            'logger' => $this->_logger,
             'token' => $this->_token,
             'amount' => $this->_amount,
             'preauthamount' => $this->_preAuthAmount,
@@ -414,6 +429,11 @@ class Services_Paymill_PaymentProcessor
     public function getLastResponse()
     {
         return $this->_lastResponse;
+    }
+    
+    public function getErrorCode()
+    {
+        return $this->_errorCode;
     }
 
     /*     * **************************************************************************************************************

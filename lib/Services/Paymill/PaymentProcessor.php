@@ -253,44 +253,44 @@ class Services_Paymill_PaymentProcessor
      * @param string $type
      * @return boolean
      */
-    private function _validateResult($transaction, $type)
+    private function _validateResult($paymillObject, $type)
     {
-        $this->_lastResponse = $transaction;
-        if (isset($transaction['data']['response_code']) && $transaction['data']['response_code'] !== 20000) {
-            $this->_log("An Error occured: " . $transaction['data']['response_code'], var_export($transaction, true));
-            throw new Exception("Invalid Result Exception: Invalid ResponseCode", $transaction['data']['response_code']);
+        $this->_lastResponse = $paymillObject;
+        if (isset($paymillObject['data']['response_code']) && $paymillObject['data']['response_code'] !== 20000) {
+            $this->_log("An Error occured: " . $paymillObject['data']['response_code'], var_export($paymillObject, true));
+            throw new Exception("Invalid Result Exception: Invalid ResponseCode", $paymillObject['data']['response_code']);
         }
         
-        if (isset($transaction['response_code']) && $transaction['response_code'] !== 20000) {
-            $this->_log("An Error occured: " . $transaction['response_code'], var_export($transaction, true));
-            throw new Exception("Invalid Result Exception: Invalid ResponseCode", $transaction['response_code']);
+        if (isset($paymillObject['response_code']) && $paymillObject['response_code'] !== 20000) {
+            $this->_log("An Error occured: " . $paymillObject['response_code'], var_export($paymillObject, true));
+            throw new Exception("Invalid Result Exception: Invalid ResponseCode", $paymillObject['response_code']);
         }
 
-        if (!isset($transaction['id']) && !isset($transaction['data']['id'])) {
-            $this->_log("No $type created.", var_export($transaction, true));
+        if (!isset($paymillObject['id']) && !isset($paymillObject['data']['id'])) {
+            $this->_log("No $type created.", var_export($paymillObject, true));
             throw new Exception("Invalid Result Exception: Invalid Id");
         } else {
-            $this->_log("$type created.", isset($transaction['id']) ? $transaction['id'] : $transaction['data']['id']);
+            $this->_log("$type created.", isset($paymillObject['id']) ? $paymillObject['id'] : $paymillObject['data']['id']);
         }
 
         // check result
         if ($type == 'Transaction') {
-            if (is_array($transaction) && array_key_exists('status', $transaction)) {
-                if ($transaction['status'] == "closed") {
+            if (is_array($paymillObject) && array_key_exists('status', $paymillObject)) {
+                if ($paymillObject['status'] == "closed") {
                     // transaction was successfully issued
                     return true;
-                } elseif ($transaction['status'] == "open") {
+                } elseif ($paymillObject['status'] == "open") {
                     // transaction was issued but status is open for any reason
-                    $this->_log("Status is open.", var_export($transaction, true));
+                    $this->_log("Status is open.", var_export($paymillObject, true));
                     throw new Exception("Invalid Result Exception: Invalid Orderstate");
                 } else {
                     // another error occured
-                    $this->_log("Unknown error." . var_export($transaction, true));
+                    $this->_log("Unknown error." . var_export($paymillObject, true));
                     throw new Exception("Invalid Result Exception: Unknown Error");
                 }
             } else {
                 // another error occured
-                $this->_log("$type could not be issued.", var_export($transaction, true));
+                $this->_log("$type could not be issued.", var_export($paymillObject, true));
                 throw new Exception("Invalid Result Exception: $type could not be issued.");
             }
         } else {

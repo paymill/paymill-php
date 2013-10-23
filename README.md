@@ -14,6 +14,7 @@ https://www.paymill.com/en-gb/documentation-3/reference/testing/
 
 Getting started with PAYMILL
 ----------------------------
+If you don't already use Composer, then you probably should read the installation guide http://getcomposer.org/download/.
 
 Please include this library via Composer in your composer.json and execute **composer update** to refresh the autoload.php.
 

@@ -12,7 +12,6 @@ use PHPUnit_Framework_TestCase;
  */
 class Client extends PHPUnit_Framework_TestCase
 {
-
     /**
      * @var \Paymill\Services\Request
      */

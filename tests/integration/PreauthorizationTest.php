@@ -12,11 +12,11 @@ use PHPUnit_Framework_TestCase;
  */
 class PreauthorizationTest extends PHPUnit_Framework_TestCase
 {
-
     /**
      * @var \Paymill\Services\Request
      */
     private $_service;
+
     /**
      * @var \Paymill\Models\Request\Preauthorization
      */

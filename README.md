@@ -30,27 +30,25 @@ Please include this library via Composer in your composer.json and execute **com
     $apiKey: First parameter is always your private API (test) Key
 
     ```php
-        $service = new Request($apiKey);
+        $request = new Paymill\Request($apiKey);
     ```
 2.  Instantiate the model class with the parameters described in the API-reference:
     ```php
-        use Paymill\Models\Request\Payment;
-
-        $payment = new Payment();
+        $payment = new Paymill\Models\Request\Payment();
         $payment->setToken("098f6bcd4621d373cade4e832627b4f6");
     ```
 3.  Use your desired function:
 
     ```php
-        $paymentResponse = $service->create($payment);
-        $paymentId = $paymentResponse->getId();
+        $response  = $request->create($payment);
+        $paymentId = $response->getId();
     ```
 
     It recommend to wrap it into a "try/catch" to handle exceptions like this:
     ```php
         try{
-            $paymentResponse = $service->create($payment);
-            $paymentId = $paymentResponse->getId();
+            $response  = $request->create($payment);
+            $paymentId = $response->getId();
         }catch(PaymillException $e){
             //Do something with the error informations below
             $e->getResponseCode();

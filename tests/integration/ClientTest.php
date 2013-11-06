@@ -137,4 +137,20 @@ class Client extends PHPUnit_Framework_TestCase
         $this->assertInternalType('array', $result, var_export($result, true));
     }
 
+    /**
+     * @test
+     * @codeCoverageIgnore
+     * @expectedException \Paymill\Services\PaymillException
+     * @expectedExceptionMessage 'PluginsAtPaymillDotde' is no valid email address in the basic format local-part@hostname
+     */
+    public function createClientWithInvalidEmail()
+    {
+        $this->_model->setEmail('PluginsAtPaymillDotde')
+            ->setDescription('Test');
+        $result = $this->_service->create($this->_model);
+        $this->assertInstanceOf('Paymill\Models\Response\Client', $result);
+        return $result;
+    }
+
+
 }

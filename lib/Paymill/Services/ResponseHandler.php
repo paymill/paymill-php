@@ -349,12 +349,13 @@ class ResponseHandler
         } else {
             if (isset($response['body']['error'])) {
                 if (is_array($response['body']['error'])) {
-                    $errorCode = array_shift($response['body']['error']);
+                    $errorCode = $this->getErrorMessageFromArray($response['body']['error']);
                 } elseif (is_string($response['body']['error'])) {
                     $errorCode = $response['body']['error'];
                 }
             }
         }
+
         $errorModel->setErrorMessage($errorCode);
         return $errorModel;
     }
@@ -380,6 +381,16 @@ class ResponseHandler
             }
         }
         return $returnValue;
+    }
+
+    private function getErrorMessageFromArray($errorArray)
+    {
+        $errorMessage = array_shift($errorArray);
+        if (is_array($errorMessage)) {
+            return $this->getErrorMessageFromArray($errorMessage);
+        } else {
+            return $errorMessage;
+        }
     }
 
 }

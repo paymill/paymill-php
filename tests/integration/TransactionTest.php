@@ -47,7 +47,7 @@ class Transaction extends PHPUnit_Framework_TestCase
      * @test
      * @codeCoverageIgnore
      * @expectedException \Paymill\Services\PaymillException
-     * @expectedExceptionMessage client OR token OR payment Required
+     * @expectedExceptionMessage Token, Payment or Preauthorization required
      */
     public function createTransactionWithoutToken()
     {

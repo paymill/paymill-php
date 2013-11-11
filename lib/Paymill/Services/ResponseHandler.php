@@ -234,7 +234,8 @@ class ResponseHandler
         $model->setCreatedAt($response['created_at']);
         $model->setUpdatedAt($response['updated_at']);
         $model->setResponseCode($response['response_code']);
-        $model->setTransaction($this->_convertResponseToModel($response['transaction'],'transaction'));
+        //Refund doesn't have the array index 'transaction' when using getOne
+        $model->setTransaction(isset($response['transaction']) ? $this->_convertResponseToModel($response['transaction'],'transaction'): null);
         $model->setAppId($response['app_id']);
         return $model;
     }

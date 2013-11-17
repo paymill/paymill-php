@@ -2,6 +2,8 @@
 
 namespace Paymill\API;
 
+use Exception;
+
 /**
  * It's incorrect to test for the function itself. Since we know exactly when the
  * json_decode function was introduced. So we test the PHP version instead.

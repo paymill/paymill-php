@@ -261,16 +261,16 @@ class Services_Paymill_PaymentProcessor
             if (empty($paymillObject['data']['response_code'])) {
                 $paymillObject['data']['response_code'] = 0;
             }
-            
+
             throw new Exception("Invalid Result Exception: Invalid ResponseCode", $paymillObject['data']['response_code']);
         }
-        
+
         if (isset($paymillObject['response_code']) && $paymillObject['response_code'] !== 20000) {
             $this->_log("An Error occured: " . $paymillObject['response_code'], var_export($paymillObject, true));
             if (empty($paymillObject['response_code'])) {
                 $paymillObject['response_code'] = 0;
             }
-            
+
             throw new Exception("Invalid Result Exception: Invalid ResponseCode", $paymillObject['response_code']);
         }
 
@@ -306,6 +306,12 @@ class Services_Paymill_PaymentProcessor
         }
     }
 
+    /**
+     * Creates a transaction when capturenow is true otherwise a preauthorisation will be created
+     *
+     * @param boolean $captureNow
+     * @return boolean
+     */
     private function _processPreAuthCapture($captureNow)
     {
         $this->_createPreauthorization();
@@ -354,6 +360,11 @@ class Services_Paymill_PaymentProcessor
         }
     }
 
+    /**
+     * Captures from an existing preauthorisation
+     *
+     * @return boolean
+     */
     final public function capture()
     {
         $this->_initiatePhpWrapperClasses();
@@ -438,7 +449,7 @@ class Services_Paymill_PaymentProcessor
     {
         return $this->_lastResponse;
     }
-    
+
     public function getErrorCode()
     {
         return $this->_errorCode;

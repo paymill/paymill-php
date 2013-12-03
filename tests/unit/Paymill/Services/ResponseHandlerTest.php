@@ -625,4 +625,34 @@ class ResponseHandlerTest extends PHPUnit_Framework_TestCase
         }
     }
 
+    /**
+     * @test
+     */
+    public function ProveConversionToArray(){
+        $response = array();
+        $response['header']['status'] = 200;
+        $response['body']['data'] = array(
+            "id" => "tran_54645bcb98ba7acfe204",
+            "amount" => "4200",
+            "origin_amount" => 4200,
+            "status" => "closed",
+            "description" => null,
+            "livemode" => false,
+            "refunds" => null,
+            "currency" => "EUR",
+            "created_at" => 1349946151,
+            "updated_at" => 1349946151,
+            "short_id" => '0000.1212.3434',
+            "invoices" => array(),
+            "payment" => new Models\Response\Payment(),
+            "client" => new Models\Response\Client(),
+            "preauthorization" => null,
+            "fees" => array(),
+            "app_id" => null
+        );
+        $responseObject = $this->_responseHandler->arrayToObject($response['body']);
+        $this->assertInstanceOf('stdClass', $responseObject);
+        $this->assertEquals($response['body']['data']['id'], $responseObject->data->id);
+    }
+
 }

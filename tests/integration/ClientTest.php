@@ -141,7 +141,7 @@ class Client extends PHPUnit_Framework_TestCase
      * @test
      * @codeCoverageIgnore
      * @expectedException \Paymill\Services\PaymillException
-     * @expectedExceptionMessage 'PluginsAtPaymillDotde' is no valid email address in the basic format local-part@hostname
+     * @expectedExceptionMessage 'PluginsAtPaymillDotde' is not a valid email address.
      */
     public function createClientWithInvalidEmail()
     {

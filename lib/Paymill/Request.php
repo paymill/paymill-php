@@ -110,6 +110,15 @@ class Request
         return $this->_lastResponse;
     }
 
+    public function getJSONObject(){
+        $result = false;
+        $responseHandler = new ResponseHandler();
+        if(is_array($this->_lastResponse)){
+            $result = $responseHandler->arrayToObject($this->_lastResponse['body']);
+        }
+        return $result;
+    }
+
     /**
      *
      * @param string $method

@@ -129,7 +129,7 @@ class ResponseHandler
         $model->setDescription($response['description']);
         $model->setCreatedAt($response['created_at']);
         $model->setUpdatedAt($response['updated_at']);
-        $model->setSubscription($this->_handleRecursive($response['subscription'],'subscription'));
+        $model->setSubscription($this->_handleRecursive($response['subscription'], 'subscription'));
         $model->setAppId($response['app_id']);
         $model->setPayment($this->_handleRecursive($response['payment'], 'payment'));
         return $model;
@@ -235,7 +235,7 @@ class ResponseHandler
         $model->setUpdatedAt($response['updated_at']);
         $model->setResponseCode($response['response_code']);
         //Refund doesn't have the array index 'transaction' when using getOne
-        $model->setTransaction(isset($response['transaction']) ? $this->_convertResponseToModel($response['transaction'],'transaction'): null);
+        $model->setTransaction(isset($response['transaction']) ? $this->_convertResponseToModel($response['transaction'], 'transaction') : null);
         $model->setAppId($response['app_id']);
         return $model;
     }
@@ -272,7 +272,7 @@ class ResponseHandler
     {
         $model = new Models\Subscription();
         $model->setId($response['id']);
-        $model->setOffer($this->_convertResponseToModel($response['offer'],'offer'));
+        $model->setOffer($this->_convertResponseToModel($response['offer'], 'offer'));
         $model->setLivemode($response['livemode']);
         $model->setCancelAtPeriodEnd($response['cancel_at_period_end']);
         $model->setTrialStart($response['trial_start']);
@@ -392,6 +392,17 @@ class ResponseHandler
         } else {
             return $errorMessage;
         }
+    }
+
+    /**
+     * Converts an array into an object
+     *
+     * @param array $array
+     * @return stdClass
+     */
+    public function arrayToObject($array)
+    {
+        return is_array($array) ? (object) array_map(array($this, 'arrayToObject'), $array) : $array;
     }
 
 }

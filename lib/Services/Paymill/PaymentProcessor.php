@@ -78,10 +78,10 @@ class Services_Paymill_PaymentProcessor
             $this->_log("Client using: " . $this->_clientId);
         } else {
             $client = $this->_clientsObject->create(
-                    array(
-                        'email' => $this->_email,
-                        'description' => $this->_description
-                    )
+                array(
+                    'email' => $this->_email,
+                    'description' => $this->_description
+                )
             );
 
             $this->_validateResult($client, 'Client');
@@ -103,10 +103,10 @@ class Services_Paymill_PaymentProcessor
             $this->_log("Payment using: " . $this->_paymentId);
         } else {
             $payment = $this->_paymentsObject->create(
-                    array(
-                        'token' => $this->_token,
-                        'client' => $this->_clientId
-                    )
+                array(
+                    'token' => $this->_token,
+                    'client' => $this->_clientId
+                )
             );
 
             $this->_validateResult($payment, 'Payment');
@@ -148,13 +148,13 @@ class Services_Paymill_PaymentProcessor
     private function _createPreauthorization()
     {
         $preAuth = $this->_preauthObject->create(
-                array(
-                    'amount' => $this->_preAuthAmount,
-                    'currency' => $this->_currency,
-                    'description' => $this->_description,
-                    'payment' => $this->_paymentId,
-                    'client' => $this->_clientId,
-                )
+            array(
+                'amount' => $this->_preAuthAmount,
+                'currency' => $this->_currency,
+                'description' => $this->_description,
+                'payment' => $this->_paymentId,
+                'client' => $this->_clientId,
+            )
         );
         $this->_validateResult($preAuth, 'Preauthorization');
         $this->_preauthId = $preAuth['preauthorization']['id'];
@@ -396,6 +396,23 @@ class Services_Paymill_PaymentProcessor
         );
     }
 
+    /**
+     * Validates the Id by getting the object with the ID from Paymill
+     *
+     * @param string $id
+     * @param Service_Paymill_Base $object
+     * @return boolean
+     */
+    private function isIdValid($id, $object)
+    {
+        $result = $object->getOne($id);
+        if (array_key_exists('id', $result)) {
+            return $result['id'] === $id;
+        } else {
+            return false;
+        }
+    }
+
     /*     * **************************************************************************************************************
      * ***********************************************    Getter    **************************************************
      * *************************************************************************************************************** */
@@ -465,7 +482,10 @@ class Services_Paymill_PaymentProcessor
      */
     public function setClientId($clientId = null)
     {
-        $this->_clientId = $clientId;
+        $this->_initiatePhpWrapperClasses();
+        if ($this->isIdValid($clientId, $this->_clientsObject)) {
+            $this->_clientId = $clientId;
+        }
     }
 
     /**
@@ -474,7 +494,10 @@ class Services_Paymill_PaymentProcessor
      */
     public function setPaymentId($paymentId = null)
     {
-        $this->_paymentId = $paymentId;
+        $this->_initiatePhpWrapperClasses();
+        if ($this->isIdValid($paymentId, $this->_paymentsObject)) {
+            $this->_paymentId = $paymentId;
+        }
     }
 
     /**

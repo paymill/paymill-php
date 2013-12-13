@@ -187,7 +187,7 @@ class Services_Paymill_PaymentProcessorTest extends Services_Paymill_TestBase im
         $this->_paymentProcessor->setToken($this->getToken());
 
         $this->assertFalse($this->ProcessPayment());
-        $this->assertEquals('Exception thrown from paymill wrapper.', $this->_actualLoggingMessage);
+        $this->assertEquals('Exception thrown from paymill wrapper. Code: 0 Message: Invalid Result Exception: Invalid ResponseCode', $this->_actualLoggingMessage);
     }
 
     /**
@@ -223,7 +223,7 @@ class Services_Paymill_PaymentProcessorTest extends Services_Paymill_TestBase im
         $this->_paymentProcessor->setCurrency('EURonen');
 
         $this->assertFalse($this->ProcessPayment());
-        $this->assertEquals('Exception thrown from paymill wrapper.', $this->_actualLoggingMessage);
+        $this->assertEquals('Exception thrown from paymill wrapper. Code: 0 Message: Invalid Result Exception: Invalid ResponseCode', $this->_actualLoggingMessage);
     }
 
     /**
@@ -235,7 +235,6 @@ class Services_Paymill_PaymentProcessorTest extends Services_Paymill_TestBase im
         $toArrayResult = $this->_paymentProcessor->toArray();
         $this->assertEquals($this->_apiTestKey, $toArrayResult['privatekey']);
         $this->assertEquals($this->_apiUrl, $toArrayResult['apiurl']);
-        $this->assertInstanceOf('Services_Paymill_PaymentProcessorTest', $toArrayResult['logger']);
         $this->assertEquals(dirname(realpath('../lib/Services/Paymill/PaymentProcessor.php')) . DIRECTORY_SEPARATOR, $toArrayResult['libbase']);
         $this->assertEquals(1000, $toArrayResult['amount']);
         $this->assertEquals(0, $toArrayResult['preauthamount']);

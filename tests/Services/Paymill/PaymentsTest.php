@@ -46,7 +46,7 @@ class Services_Paymill_PaymentsTest extends Services_Paymill_TestBase
 
         $error = $payment["error"];
         $this->assertArrayHasKey("field", $error);
-        $this->assertEquals("code", $error["field"]);
+        $this->assertEquals("token", $error["field"]);
     }
 
     /**

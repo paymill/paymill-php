@@ -37,7 +37,7 @@ class Error
     /**
      * Sets the error message stored in this model
      * @param string $errorMessage
-     * @return \Paymill\Lib\Models\Response\Error
+     * @return \Paymill\Models\Response\Error
      */
     public function setErrorMessage($errorMessage)
     {
@@ -57,7 +57,7 @@ class Error
     /**
      * Sets the response code
      * @param int $responseCode
-     * @return \Paymill\Lib\Models\Response\Error
+     * @return \Paymill\Models\Response\Error
      */
     public function setResponseCode($responseCode)
     {
@@ -77,7 +77,7 @@ class Error
     /**
      * Sets the status code
      * @param int $httpStatusCode
-     * @return \Paymill\Lib\Models\Response\Error
+     * @return \Paymill\Models\Response\Error
      */
     public function setHttpStatusCode($httpStatusCode)
     {

@@ -44,7 +44,7 @@ abstract class Base
     /**
      * Sets the Unique identifier
      * @param string $id
-     * @return \Paymill\Lib\Models\Response\Base
+     * @return \Paymill\Models\Response\Base
      */
     public function setId($id)
     {
@@ -64,7 +64,7 @@ abstract class Base
     /**
      * Sets the Unix timestamp of the creation
      * @param integer $createdAt
-     * @return \Paymill\Lib\Models\Response\Base
+     * @return \Paymill\Models\Response\Base
      */
     public function setCreatedAt($createdAt)
     {
@@ -84,7 +84,7 @@ abstract class Base
     /**
      * Sets the Unix timestamp of the last update
      * @param integer $updatedAt
-     * @return \Paymill\Lib\Models\Response\Base
+     * @return \Paymill\Models\Response\Base
      */
     public function setUpdatedAt($updatedAt)
     {
@@ -104,7 +104,7 @@ abstract class Base
     /**
      * Sets the identifier of the object which created this object instance
      * @param string|null $appId
-     * @return \Paymill\Lib\Models\Response\Base
+     * @return \Paymill\Models\Response\Base
      */
     public function setAppId($appId)
     {

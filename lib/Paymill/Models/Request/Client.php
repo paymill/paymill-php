@@ -42,7 +42,7 @@ class Client extends Base
     /**
      * Sets the Mail address of this client.
      * @param string $email
-     * @return \Paymill\Lib\Models\Request\Client
+     * @return \Paymill\Models\Request\Client
      */
     public function setEmail($email)
     {
@@ -62,7 +62,7 @@ class Client extends Base
     /**
      * Sets an additional description for this client. We recommend some sort of identifier from your CRM system
      * @param string $description
-     * @return \Paymill\Lib\Models\Request\Client
+     * @return \Paymill\Models\Request\Client
      */
     public function setDescription($description)
     {

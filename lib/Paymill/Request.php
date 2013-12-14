@@ -17,7 +17,7 @@ class Request
 {
 
     /**
-     * @var \Paymill\Lib\API\CommunicationAbstract|Curl
+     * @var \Paymill\API\CommunicationAbstract|Curl
      */
     private $_connectionClass;
     /**
@@ -37,7 +37,7 @@ class Request
     }
 
     /**
-     * @param \Paymill\Lib\API\CommunicationAbstract|Curl $communicationClass
+     * @param \Paymill\API\CommunicationAbstract|Curl $communicationClass
      * @return $this
      */
     public function setConnectionClass(CommunicationAbstract $communicationClass = null)
@@ -48,9 +48,9 @@ class Request
 
     /**
      * Sends a creation request using the provided model
-     * @param \Paymill\Lib\Models\Request\Base $model
+     * @param \Paymill\Models\Request\Base $model
      * @throws PaymillException
-     * @return \Paymill\Lib\Models\Response\Base
+     * @return \Paymill\Models\Response\Base
      */
     public function create($model)
     {
@@ -59,9 +59,9 @@ class Request
 
     /**
      * Sends an update request using the provided model
-     * @param \Paymill\Lib\Models\Request\Base $model
+     * @param \Paymill\Models\Request\Base $model
      * @throws PaymillException
-     * @return \Paymill\Lib\Models\Response\Base
+     * @return \Paymill\Models\Response\Base
      */
     public function update($model)
     {
@@ -70,9 +70,9 @@ class Request
 
     /**
      * Sends a delete request using the provided model
-     * @param \Paymill\Lib\Models\Request\Base $model
+     * @param \Paymill\Models\Request\Base $model
      * @throws PaymillException
-     * @return \Paymill\Lib\Models\Response\Base
+     * @return \Paymill\Models\Response\Base
      */
     public function delete($model)
     {
@@ -81,7 +81,7 @@ class Request
 
     /**
      * Sends a getAll request using the provided model
-     * @param \Paymill\Lib\Models\Request\Base $model
+     * @param \Paymill\Models\Request\Base $model
      * @throws PaymillException
      * @return array
      */
@@ -92,9 +92,9 @@ class Request
 
     /**
      * Sends a getOne request using the provided model
-     * @param \Paymill\Lib\Models\Request\Base $model
+     * @param \Paymill\Models\Request\Base $model
      * @throws PaymillException
-     * @return \Paymill\Lib\Models\Response\Base
+     * @return \Paymill\Models\Response\Base
      */
     public function getOne($model)
     {
@@ -147,10 +147,10 @@ class Request
 
     /**
      * Sends a request based on the provided request model and according to the argumented method
-     * @param \Paymill\Lib\Models\Request\Base $model
+     * @param \Paymill\Models\Request\Base $model
      * @param string $method (Create, update, delete, getAll, getOne)
      * @throws PaymillException
-     * @return \Paymill\Lib\Models\Response\Base|\Paymill\Lib\Models\Response\Error
+     * @return \Paymill\Models\Response\Base|\Paymill\Models\Response\Error
      */
     private function _request(Base $model, $method)
     {

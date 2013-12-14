@@ -39,7 +39,7 @@ class Refund extends Base
     /**
      * Sets the amount
      * @param string $amount
-     * @return \Paymill\Lib\Models\Request\Refund
+     * @return \Paymill\Models\Request\Refund
      */
     public function setAmount($amount)
     {
@@ -59,7 +59,7 @@ class Refund extends Base
     /**
      * Sets the description
      * @param string $description
-     * @return \Paymill\Lib\Models\Request\Refund
+     * @return \Paymill\Models\Request\Refund
      */
     public function setDescription($description)
     {

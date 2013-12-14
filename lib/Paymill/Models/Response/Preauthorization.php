@@ -27,7 +27,7 @@ class Preauthorization extends Base
     /**
      * Sets the amount
      * @param string $amount
-     * @return \Paymill\Lib\Models\Response\Preauthorization
+     * @return \Paymill\Models\Response\Preauthorization
      */
     public function setAmount($amount)
     {
@@ -53,7 +53,7 @@ class Preauthorization extends Base
     /**
      * Sets the currency
      * @param string $currency
-     * @return \Paymill\Lib\Models\Response\Preauthorization
+     * @return \Paymill\Models\Response\Preauthorization
      */
     public function setCurrency($currency)
     {
@@ -79,7 +79,7 @@ class Preauthorization extends Base
     /**
      * Sets the status
      * @param string $status
-     * @return \Paymill\Lib\Models\Response\Preauthorization
+     * @return \Paymill\Models\Response\Preauthorization
      */
     public function setStatus($status)
     {
@@ -105,7 +105,7 @@ class Preauthorization extends Base
     /**
      * Sets the livemode flag of the preAuth object
      * @param boolean $livemode
-     * @return \Paymill\Lib\Models\Response\Preauthorization
+     * @return \Paymill\Models\Response\Preauthorization
      */
     public function setLivemode($livemode)
     {
@@ -131,7 +131,7 @@ class Preauthorization extends Base
     /**
      * Sets the identifier of a payment 
      * @param Payment $payment
-     * @return \Paymill\Lib\Models\Response\Preauthorization
+     * @return \Paymill\Models\Response\Preauthorization
      */
     public function setPayment($payment)
     {
@@ -157,7 +157,7 @@ class Preauthorization extends Base
     /**
      * Sets the identifier of a client
      * @param Client $client
-     * @return \Paymill\Lib\Models\Response\Preauthorization
+     * @return \Paymill\Models\Response\Preauthorization
      */
     public function setClient($client)
     {

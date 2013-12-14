@@ -44,7 +44,7 @@ class Webhook extends Base
     /**
      * Sets the webhook url
      * @param string $url
-     * @return \Paymill\Lib\Models\Response\Webhook
+     * @return \Paymill\Models\Response\Webhook
      */
     public function setUrl($url)
     {
@@ -64,7 +64,7 @@ class Webhook extends Base
     /**
      * Sets the livemode flag of the webhook
      * @param boolean $livemode
-     * @return \Paymill\Lib\Models\Response\Webhook
+     * @return \Paymill\Models\Response\Webhook
      */
     public function setLivemode($livemode)
     {
@@ -90,7 +90,7 @@ class Webhook extends Base
      * we will call every webhook you defined for this event and send detailed information to it.
      * @tutorial https://paymill.com/de-de/dokumentation/referenz/api-referenz/#document-webhooks
      * @param array $eventTypes
-     * @return \Paymill\Lib\Models\Response\Webhook
+     * @return \Paymill\Models\Response\Webhook
      */
     public function setEventTypes($eventTypes)
     {
@@ -111,7 +111,7 @@ class Webhook extends Base
      * Sets the email for the webhook.
      * @param string $email Instead of setting the url parameter you can set the email parameter to create a webhook,
      *  where we send mails to in case of an event.
-     * @return \Paymill\Lib\Models\Response\Webhook
+     * @return \Paymill\Models\Response\Webhook
      */
     public function setEmail($email)
     {

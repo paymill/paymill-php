@@ -119,7 +119,7 @@ class ResponseHandler
      * Creates and fills a clientmodel
      *
      * @param array $response
-     * @return \Paymill\Lib\Models\Response\Client
+     * @return \Paymill\Models\Response\Client
      */
     private function _createClient($response)
     {
@@ -139,7 +139,7 @@ class ResponseHandler
      * Creates and fills a paymentmodel
      *
      * @param array $response
-     * @return \Paymill\Lib\Models\Response\Payment
+     * @return \Paymill\Models\Response\Payment
      */
     private function _createPayment($response)
     {
@@ -169,7 +169,7 @@ class ResponseHandler
      * Creates and fills a transactionmodel
      *
      * @param array $response
-     * @return \Paymill\Lib\Models\Response\Transaction
+     * @return \Paymill\Models\Response\Transaction
      */
     private function _createTransaction($response)
     {
@@ -199,7 +199,7 @@ class ResponseHandler
      * Creates and fills a preauthorizationmodel
      *
      * @param array $response
-     * @return \Paymill\Lib\Models\Response\Preauthorization
+     * @return \Paymill\Models\Response\Preauthorization
      */
     private function _createPreauthorization($response)
     {
@@ -221,7 +221,7 @@ class ResponseHandler
      * Creates and fills a refundmodel
      *
      * @param array $response
-     * @return \Paymill\Lib\Models\Response\Refund
+     * @return \Paymill\Models\Response\Refund
      */
     private function _createRefund($response)
     {
@@ -244,7 +244,7 @@ class ResponseHandler
      * Creates and fills a offermodel
      *
      * @param array $response
-     * @return \Paymill\Lib\Models\Response\Offer
+     * @return \Paymill\Models\Response\Offer
      */
     private function _createOffer($response)
     {
@@ -266,7 +266,7 @@ class ResponseHandler
      * Creates and fills a subscriptionmodel
      *
      * @param array $response
-     * @return \Paymill\Lib\Models\Response\Subscription
+     * @return \Paymill\Models\Response\Subscription
      */
     private function _createSubscription($response)
     {
@@ -291,7 +291,7 @@ class ResponseHandler
      * Creates and fills a webhookmodel
      *
      * @param array $response
-     * @return \Paymill\Lib\Models\Response\Webhook
+     * @return \Paymill\Models\Response\Webhook
      */
     private function _createWebhook($response)
     {

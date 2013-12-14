@@ -26,13 +26,13 @@ class Client extends Base
     
     /**
      * Instance of the payment response model class representing the payment stored in the client data
-     * @var array|\Paymill\Lib\Models\Response\Payment
+     * @var array|\Paymill\Models\Response\Payment
      */
     private $_payment;
     
     /**
      * Instance of the subscription response model class representing the subscription stored in the client
-     * @var \Paymill\Lib\Models\Response\Subscription|null
+     * @var \Paymill\Models\Response\Subscription|null
      */
     private $_subscription;
 
@@ -48,7 +48,7 @@ class Client extends Base
     /**
      * Sets the Mail address of this client.
      * @param string $email
-     * @return \Paymill\Lib\Models\Response\Client
+     * @return \Paymill\Models\Response\Client
      */
     public function setEmail($email)
     {
@@ -68,7 +68,7 @@ class Client extends Base
     /**
      * Sets an additional description for this client. We recommend some sort of identifier from your CRM system
      * @param string $description
-     * @return \Paymill\Lib\Models\Response\Client
+     * @return \Paymill\Models\Response\Client
      */
     public function setDescription($description)
     {
@@ -78,7 +78,7 @@ class Client extends Base
 
     /**
      * Returns a list of payment objects associated with this client
-     * @return \Paymill\Lib\Models\Response\Payment
+     * @return \Paymill\Models\Response\Payment
      */
     public function getPayment()
     {
@@ -87,8 +87,8 @@ class Client extends Base
 
     /**
      * Sets the payment list stored in the client model
-     * @param \Paymill\Lib\Models\Response\Payment $payment
-     * @return \Paymill\Lib\Models\Response\Client
+     * @param \Paymill\Models\Response\Payment $payment
+     * @return \Paymill\Models\Response\Client
      */
     public function setPayment($payment)
     {
@@ -108,7 +108,7 @@ class Client extends Base
     /**
      * Sets the subscription list stored in the client model
      * @param array $subscription
-     * @return \Paymill\Lib\Models\Response\Client
+     * @return \Paymill\Models\Response\Client
      */
     public function setSubscription($subscription)
     {

@@ -87,7 +87,7 @@ class Payment extends Base
     /**
      * Sets the type of the Payment (f. ex. creditcard)
      * @param string $type
-     * @return \Paymill\Lib\Models\Response\Payment
+     * @return \Paymill\Models\Response\Payment
      */
     public function setType($type)
     {
@@ -107,7 +107,7 @@ class Payment extends Base
     /**
      * Sets the identifier of a client (client-object)
      * @param string $client
-     * @return \Paymill\Lib\Models\Response\Payment
+     * @return \Paymill\Models\Response\Payment
      */
     public function setClient($client)
     {
@@ -127,7 +127,7 @@ class Payment extends Base
     /**
      * Sets the card type
      * @param string $cardType
-     * @return \Paymill\Lib\Models\Response\Payment
+     * @return \Paymill\Models\Response\Payment
      */
     public function setCardType($cardType)
     {
@@ -147,7 +147,7 @@ class Payment extends Base
     /**
      * Sets the country
      * @param string $country
-     * @return \Paymill\Lib\Models\Response\Payment
+     * @return \Paymill\Models\Response\Payment
      */
     public function setCountry($country)
     {
@@ -167,7 +167,7 @@ class Payment extends Base
     /**
      * Sets the expiry month
      * @param string $expireMonth
-     * @return \Paymill\Lib\Models\Response\Payment
+     * @return \Paymill\Models\Response\Payment
      */
     public function setExpireMonth($expireMonth)
     {
@@ -187,7 +187,7 @@ class Payment extends Base
     /**
      * Sets the expiry year
      * @param string $expireYear
-     * @return \Paymill\Lib\Models\Response\Payment
+     * @return \Paymill\Models\Response\Payment
      */
     public function setExpireYear($expireYear)
     {
@@ -207,7 +207,7 @@ class Payment extends Base
     /**
      * Sets the card holder name
      * @param string $cardHolder
-     * @return \Paymill\Lib\Models\Response\Payment
+     * @return \Paymill\Models\Response\Payment
      */
     public function setCardHolder($cardHolder)
     {
@@ -227,7 +227,7 @@ class Payment extends Base
     /**
      * Sets the last four digests of the number (account-/cardnumber)
      * @param string $lastFour
-     * @return \Paymill\Lib\Models\Response\Payment
+     * @return \Paymill\Models\Response\Payment
      */
     public function setLastFour($lastFour)
     {
@@ -247,7 +247,7 @@ class Payment extends Base
     /**
      * Sets The used Bank Code
      * @param string $code
-     * @return \Paymill\Lib\Models\Response\Payment
+     * @return \Paymill\Models\Response\Payment
      */
     public function setCode($code)
     {
@@ -267,7 +267,7 @@ class Payment extends Base
     /**
      * Sets the used account number, for security reasons the number is masked
      * @param string $account
-     * @return \Paymill\Lib\Models\Response\Payment
+     * @return \Paymill\Models\Response\Payment
      */
     public function setAccount($account)
     {
@@ -287,7 +287,7 @@ class Payment extends Base
     /**
      * Sets the Name of the account holder
      * @param string $holder
-     * @return \Paymill\Lib\Models\Response\Payment
+     * @return \Paymill\Models\Response\Payment
      */
     public function setHolder($holder)
     {

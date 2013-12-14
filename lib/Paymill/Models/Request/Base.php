@@ -44,7 +44,7 @@ abstract class Base
     /**
      * Sets the unique identifier of this object
      * @param string $id
-     * @return \Paymill\Lib\Models\Request\Base
+     * @return \Paymill\Models\Request\Base
      */
     public function setId($id)
     {
@@ -63,7 +63,7 @@ abstract class Base
     /**
      * Sets the filterArray for getAll
      * @param array $filter
-     * @return \Paymill\Lib\Models\Request\Base
+     * @return \Paymill\Models\Request\Base
      */
     public function setFilter($filter)
     {

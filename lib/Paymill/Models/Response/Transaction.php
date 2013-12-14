@@ -32,7 +32,7 @@ class Transaction extends Base
      * Sets the 'real' amount for the transaction.
      * The number musst be in the smallest currency unit and will be saved as a string
      * @param string $amount
-     * @return \Paymill\Lib\Models\Response\Transaction
+     * @return \Paymill\Models\Response\Transaction
      */
     public function setAmount($amount)
     {
@@ -59,7 +59,7 @@ class Transaction extends Base
      * Sets the origin amount for the transaction.
      * The number musst be in the smallest currency unit and will be saved as a string
      * @param integer $originAmount
-     * @return \Paymill\Lib\Models\Response\Transaction
+     * @return \Paymill\Models\Response\Transaction
      */
     public function setOriginAmount($originAmount)
     {
@@ -85,7 +85,7 @@ class Transaction extends Base
     /**
      * Sets the transaction status
      * @param string $status
-     * @return \Paymill\Lib\Models\Response\Transaction
+     * @return \Paymill\Models\Response\Transaction
      */
     public function setStatus($status)
     {
@@ -110,7 +110,7 @@ class Transaction extends Base
     /**
      * Sets the transaction description
      * @param string $description
-     * @return \Paymill\Lib\Models\Response\Transaction
+     * @return \Paymill\Models\Response\Transaction
      */
     public function setDescription($description)
     {
@@ -135,7 +135,7 @@ class Transaction extends Base
     /**
      * Sets the livemode flag of the transaction
      * @param boolean $livemode
-     * @return \Paymill\Lib\Models\Response\Transaction
+     * @return \Paymill\Models\Response\Transaction
      */
     public function setLivemode($livemode)
     {
@@ -160,7 +160,7 @@ class Transaction extends Base
     /**
      * Sets the refunds stored in the transaction
      * @param array $refunds
-     * @return \Paymill\Lib\Models\Response\Transaction
+     * @return \Paymill\Models\Response\Transaction
      */
     public function setRefunds($refunds)
     {
@@ -185,7 +185,7 @@ class Transaction extends Base
     /**
      * Sets the currency
      * @param string $currency
-     * @return \Paymill\Lib\Models\Response\Transaction
+     * @return \Paymill\Models\Response\Transaction
      */
     public function setCurrency($currency)
     {
@@ -212,7 +212,7 @@ class Transaction extends Base
     /**
      * Sets the response code of the transaction
      * @param integer $responseCode
-     * @return \Paymill\Lib\Models\Response\Transaction
+     * @return \Paymill\Models\Response\Transaction
      */
     public function setResponseCode($responseCode)
     {
@@ -238,7 +238,7 @@ class Transaction extends Base
     /**
      * Sets the transaction short id
      * @param string $shortId
-     * @return \Paymill\Lib\Models\Response\Transaction
+     * @return \Paymill\Models\Response\Transaction
      */
     public function setShortId($shortId)
     {
@@ -264,7 +264,7 @@ class Transaction extends Base
     /**
      * Stores an array of invoices in the transaction
      * @param array $invoices
-     * @return \Paymill\Lib\Models\Response\Transaction
+     * @return \Paymill\Models\Response\Transaction
      */
     public function setInvoices($invoices)
     {
@@ -273,13 +273,13 @@ class Transaction extends Base
     }
 
     /**
-     * @var \Paymill\Lib\Models\Response\Payment 
+     * @var \Paymill\Models\Response\Payment 
      */
     private $_payment;
 
     /**
      * Returns the payment associated with the transaction
-     * @return \Paymill\Lib\Models\Response\Payment
+     * @return \Paymill\Models\Response\Payment
      */
     public function getPayment()
     {
@@ -288,8 +288,8 @@ class Transaction extends Base
 
     /**
      * Sets the Payment for the transcation
-     * @param \Paymill\Lib\Models\Response\Payment $payment
-     * @return \Paymill\Lib\Models\Response\Transaction
+     * @param \Paymill\Models\Response\Payment $payment
+     * @return \Paymill\Models\Response\Transaction
      */
     public function setPayment($payment)
     {
@@ -298,13 +298,13 @@ class Transaction extends Base
     }
 
     /**
-     * @var \Paymill\Lib\Models\Response\Client
+     * @var \Paymill\Models\Response\Client
      */
     private $_client = null;
 
     /**
      * Returns the Client associated with the transaction. If no client is available null will be returned
-     * @return \Paymill\Lib\Models\Response\Client|null
+     * @return \Paymill\Models\Response\Client|null
      */
     public function getClient()
     {
@@ -313,8 +313,8 @@ class Transaction extends Base
 
     /**
      * Sets the Client for the transaction
-     * @param \Paymill\Lib\Models\Response\Client $client
-     * @return \Paymill\Lib\Models\Response\Transaction
+     * @param \Paymill\Models\Response\Client $client
+     * @return \Paymill\Models\Response\Transaction
      */
     public function setClient($client)
     {
@@ -323,13 +323,13 @@ class Transaction extends Base
     }
 
     /**
-     * @var \Paymill\Lib\Models\Response\Preauthorization 
+     * @var \Paymill\Models\Response\Preauthorization 
      */
     private $_preauthorization = null;
 
     /**
      * Returns the Preauthorization associated with the transaction. If no preAuth is available null will be returned
-     * @return \Paymill\Lib\Models\Response\Preauthorization|null
+     * @return \Paymill\Models\Response\Preauthorization|null
      */
     public function getPreauthorization()
     {
@@ -338,8 +338,8 @@ class Transaction extends Base
 
     /**
      * Sets the Preauthorization for the transaction
-     * @param \Paymill\Lib\Models\Response\Preauthorization $preauthorization
-     * @return \Paymill\Lib\Models\Response\Transaction
+     * @param \Paymill\Models\Response\Preauthorization $preauthorization
+     * @return \Paymill\Models\Response\Transaction
      */
     public function setPreauthorization($preauthorization)
     {
@@ -364,7 +364,7 @@ class Transaction extends Base
     /**
      * Sets the Fees array for the transaction
      * @param array $fees
-     * @return \Paymill\Lib\Models\Response\Transaction
+     * @return \Paymill\Models\Response\Transaction
 
      */
     public function setFees($fees)
@@ -391,7 +391,7 @@ class Transaction extends Base
     /**
      * Sets the Fee included in the transaction amount (set by a connected app).
      * @param integer $feeAmount
-     * @return \Paymill\Lib\Models\Response\Transaction
+     * @return \Paymill\Models\Response\Transaction
      */
     public function setFeeAmount($feeAmount)
     {
@@ -416,7 +416,7 @@ class Transaction extends Base
     /**
      * Sets the identifier of the payment from which the fee will be charged (creditcard-object or directdebit-object).
      * @param string $feePayment
-     * @return \Paymill\Lib\Models\Response\Transaction
+     * @return \Paymill\Models\Response\Transaction
      */
     public function setFeePayment($feePayment)
     {

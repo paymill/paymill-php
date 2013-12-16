@@ -51,7 +51,7 @@ class Preauthorization extends Base
     /**
      * Sets the amount
      * @param string $amount
-     * @return \Paymill\Lib\Models\Request\Preauthorization
+     * @return \Paymill\Models\Request\Preauthorization
      */
     public function setAmount($amount)
     {
@@ -71,7 +71,7 @@ class Preauthorization extends Base
     /**
      * Sets the currency
      * @param string $currency
-     * @return \Paymill\Lib\Models\Request\Preauthorization
+     * @return \Paymill\Models\Request\Preauthorization
      */
     public function setCurrency($currency)
     {
@@ -91,7 +91,7 @@ class Preauthorization extends Base
     /**
      * Sets the identifier of a payment
      * @param string $payment
-     * @return \Paymill\Lib\Models\Request\Preauthorization
+     * @return \Paymill\Models\Request\Preauthorization
      */
     public function setPayment($payment)
     {
@@ -111,7 +111,7 @@ class Preauthorization extends Base
     /**
      * Sets the token required for the creation of preAuths
      * @param string $token
-     * @return \Paymill\Lib\Models\Request\Preauthorization
+     * @return \Paymill\Models\Request\Preauthorization
      */
     public function setToken($token)
     {

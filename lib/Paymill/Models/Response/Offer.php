@@ -59,7 +59,7 @@ class Offer extends Base
     /**
      * Sets Your name for this offer
      * @param string $name
-     * @return \Paymill\Lib\Models\Response\Offer
+     * @return \Paymill\Models\Response\Offer
      */
     public function setName($name)
     {
@@ -80,7 +80,7 @@ class Offer extends Base
      * Sets the amount.
      * Every interval the specified amount will be charged. Only integer values are allowed (e.g. 42.00 = 4200)
      * @param integer $amount
-     * @return \Paymill\Lib\Models\Response\Offer
+     * @return \Paymill\Models\Response\Offer
      */
     public function setAmount($amount)
     {
@@ -101,7 +101,7 @@ class Offer extends Base
      * Sets the interval defining how often the client should be charged. 
      * @example Format: number DAY | WEEK | MONTH | YEAR Example: 2 DAY
      * @param string $interval
-     * @return \Paymill\Lib\Models\Response\Offer
+     * @return \Paymill\Models\Response\Offer
      */
     public function setInterval($interval)
     {
@@ -121,7 +121,7 @@ class Offer extends Base
     /**
      * Sets the number of days to try
      * @param integer $trialPeriodDays
-     * @return \Paymill\Lib\Models\Response\Offer
+     * @return \Paymill\Models\Response\Offer
      */
     public function setTrialPeriodDays($trialPeriodDays)
     {
@@ -142,7 +142,7 @@ class Offer extends Base
      * Sets the subscriptionCount array
      * @param string|integer $active
      * @param string|integer $inactive
-     * @return \Paymill\Lib\Models\Response\Offer
+     * @return \Paymill\Models\Response\Offer
      */
     public function setSubscriptionCount($active, $inactive)
     {

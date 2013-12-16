@@ -53,7 +53,7 @@ class Offer extends Base
     /**
      * Sets Your name for this offer
      * @param string $name
-     * @return \Paymill\Lib\Models\Request\Offer
+     * @return \Paymill\Models\Request\Offer
      */
     public function setName($name)
     {
@@ -74,7 +74,7 @@ class Offer extends Base
      * Sets the amount.
      * Every interval the specified amount will be charged. Only integer values are allowed (e.g. 42.00 = 4200)
      * @param integer $amount
-     * @return \Paymill\Lib\Models\Request\Offer
+     * @return \Paymill\Models\Request\Offer
      */
     public function setAmount($amount)
     {
@@ -95,7 +95,7 @@ class Offer extends Base
      * Sets the interval defining how often the client should be charged.
      * @example Format: number DAY | WEEK | MONTH | YEAR Example: 2 DAY
      * @param string $interval
-     * @return \Paymill\Lib\Models\Request\Offer
+     * @return \Paymill\Models\Request\Offer
      */
     public function setInterval($interval)
     {
@@ -115,7 +115,7 @@ class Offer extends Base
     /**
      * Sets the number of days to try
      * @param integer $trialPeriodDays
-     * @return \Paymill\Lib\Models\Request\Offer
+     * @return \Paymill\Models\Request\Offer
      */
     public function setTrialPeriodDays($trialPeriodDays)
     {
@@ -135,7 +135,7 @@ class Offer extends Base
     /**
      * Sets the currency
      * @param string $currency
-     * @return \Paymill\Lib\Models\Request\Offer
+     * @return \Paymill\Models\Request\Offer
      */
     public function setCurrency($currency)
     {

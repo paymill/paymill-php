@@ -11,13 +11,13 @@ class Refund extends Base
 {
     /**
      * Transaction Model Instance
-     * @var \Paymill\Lib\Models\Response\Transaction
+     * @var \Paymill\Models\Response\Transaction
      */
     private $_transaction;
     
     /**
      * Returns the transaction model
-     * @return \Paymill\Lib\Models\Response\Transaction
+     * @return \Paymill\Models\Response\Transaction
      */
     public function getTransaction()
     {
@@ -26,8 +26,8 @@ class Refund extends Base
 
     /**
      * Sets the transaction model
-     * @param \Paymill\Lib\Models\Response\Transaction $transaction
-     * @return \Paymill\Lib\Models\Response\Refund
+     * @param \Paymill\Models\Response\Transaction $transaction
+     * @return \Paymill\Models\Response\Refund
      */
     public function setTransaction($transaction)
     {
@@ -53,7 +53,7 @@ class Refund extends Base
     /**
      * Sets the amount
      * @param integer $amount
-     * @return \Paymill\Lib\Models\Response\Refund
+     * @return \Paymill\Models\Response\Refund
      */
     public function setAmount($amount)
     {
@@ -79,7 +79,7 @@ class Refund extends Base
     /**
      * Sets the Status of the refund
      * @param string $status
-     * @return \Paymill\Lib\Models\Response\Refund
+     * @return \Paymill\Models\Response\Refund
      */
     public function setStatus($status)
     {
@@ -105,7 +105,7 @@ class Refund extends Base
     /**
      * Sets the description of this refund
      * @param string $description
-     * @return \Paymill\Lib\Models\Response\Refund
+     * @return \Paymill\Models\Response\Refund
      */
     public function setDescription($description)
     {
@@ -131,7 +131,7 @@ class Refund extends Base
     /**
      * Sets the Livemode flag of this refund
      * @param boolean $livemode
-     * @return \Paymill\Lib\Models\Response\Refund
+     * @return \Paymill\Models\Response\Refund
      */
     public function setLivemode($livemode)
     {
@@ -156,7 +156,7 @@ class Refund extends Base
     /**
      * Sets the response code
      * @param integer $responseCode
-     * @return \Paymill\Lib\Models\Response\Refund
+     * @return \Paymill\Models\Response\Refund
      */
     public function setResponseCode($responseCode)
     {

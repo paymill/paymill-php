@@ -57,7 +57,7 @@ class Subscription extends Base
     /**
      * Sets the identifier of the offer the subscription is based on
      * @param string $offer
-     * @return \Paymill\Lib\Models\Request\Subscription
+     * @return \Paymill\Models\Request\Subscription
      */
     public function setOffer($offer)
     {
@@ -77,7 +77,7 @@ class Subscription extends Base
     /**
      * Sets a flag determining whether to cancel this subscription immediately or at the end of the current period
      * @param boolean $cancelAtPeriodEnd
-     * @return \Paymill\Lib\Models\Request\Subscription
+     * @return \Paymill\Models\Request\Subscription
      */
     public function setCancelAtPeriodEnd($cancelAtPeriodEnd)
     {
@@ -97,7 +97,7 @@ class Subscription extends Base
     /**
      * Sets the identifier of the payment object registered with this subscription
      * @param string $payment
-     * @return \Paymill\Lib\Models\Request\Subscription
+     * @return \Paymill\Models\Request\Subscription
      */
     public function setPayment($payment)
     {
@@ -117,7 +117,7 @@ class Subscription extends Base
     /**
      * Sets the id of the client associated with this subscription
      * @param string $client
-     * @return \Paymill\Lib\Models\Request\Subscription
+     * @return \Paymill\Models\Request\Subscription
      */
     public function setClient($client)
     {
@@ -137,7 +137,7 @@ class Subscription extends Base
     /**
      * Sets the Unix-Timestamp for the trial period start
      * @param integer $startAt
-     * @return \Paymill\Lib\Models\Request\Subscription
+     * @return \Paymill\Models\Request\Subscription
      */
     public function setStartAt($startAt)
     {

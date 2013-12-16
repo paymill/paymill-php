@@ -78,7 +78,7 @@ class Transaction extends Base
      * Sets the 'real' amount for the transaction.
      * The number musst be in the smallest currency unit and will be saved as a string
      * @param string $amount
-     * @return \Paymill\Lib\Models\Request\Transaction
+     * @return \Paymill\Models\Request\Transaction
      */
     public function setAmount($amount)
     {
@@ -98,7 +98,7 @@ class Transaction extends Base
     /**
      * Sets the transaction description
      * @param string $description
-     * @return \Paymill\Lib\Models\Request\Transaction
+     * @return \Paymill\Models\Request\Transaction
      */
     public function setDescription($description)
     {
@@ -118,7 +118,7 @@ class Transaction extends Base
     /**
      * Sets the currency
      * @param string $currency
-     * @return \Paymill\Lib\Models\Request\Transaction
+     * @return \Paymill\Models\Request\Transaction
      */
     public function setCurrency($currency)
     {
@@ -138,7 +138,7 @@ class Transaction extends Base
     /**
      * Sets the identifier of the Payment for the transcation
      * @param string $payment
-     * @return \Paymill\Lib\Models\Request\Transaction
+     * @return \Paymill\Models\Request\Transaction
      */
     public function setPayment($payment)
     {
@@ -158,7 +158,7 @@ class Transaction extends Base
     /**
      * Sets the identifier of the Client for the transaction
      * @param string $client
-     * @return \Paymill\Lib\Models\Request\Transaction
+     * @return \Paymill\Models\Request\Transaction
      */
     public function setClient($client)
     {
@@ -178,7 +178,7 @@ class Transaction extends Base
     /**
      * Sets the identifier of the Preauthorization for the transaction
      * @param string $preauthorization
-     * @return \Paymill\Lib\Models\Request\Transaction
+     * @return \Paymill\Models\Request\Transaction
      */
     public function setPreauthorization($preauthorization)
     {
@@ -199,7 +199,7 @@ class Transaction extends Base
     /**
      * Sets the Fee included in the transaction amount (set by a connected app).
      * @param integer $feeAmount
-     * @return \Paymill\Lib\Models\Request\Transaction
+     * @return \Paymill\Models\Request\Transaction
      */
     public function setFeeAmount($feeAmount)
     {
@@ -219,7 +219,7 @@ class Transaction extends Base
     /**
      * Sets the identifier of the payment from which the fee will be charged (creditcard-object or directdebit-object).
      * @param string $feePayment
-     * @return \Paymill\Lib\Models\Request\Transaction
+     * @return \Paymill\Models\Request\Transaction
      */
     public function setFeePayment($feePayment)
     {
@@ -241,7 +241,7 @@ class Transaction extends Base
      * Sets the token generated through our JavaScript-Bridge.
      * When this parameter is used, none of the following should be used: payment, preauthorization.
      * @param string $token
-     * @return \Paymill\Lib\Models\Request\Transaction
+     * @return \Paymill\Models\Request\Transaction
      */
     public function setToken($token)
     {

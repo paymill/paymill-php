@@ -57,6 +57,32 @@ Please include this library via Composer in your composer.json and execute **com
         }
     ```
 
+Receiving Response
+--------------
+
+This section shows diffrent ways how to receive a response.
+The followings examples show how to get the Id for a transaction.
+
+1. The default response is one of the response-models.
+```php
+    $response  = $request->create($payment);
+    $response->getId(); 
+```
+
+2. getLastResponse() returns the unconverted response from the API.
+```php
+    $request->create($payment);
+    $response = $request->getLastResponse(); 
+    $response['body']['data']['id'];
+```
+
+3. getJSONObject returns the response as stdClass-Object.
+```php
+    $request->create($payment);
+    $response = $request->getJSONObject(); 
+    $response->data->id;
+```
+
 Documentation
 --------------
 

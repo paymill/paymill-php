@@ -12,6 +12,7 @@ namespace Paymill\Models\Response;
  */
 class Payment extends Base
 {
+
     /**
      * Either one of the following: (creditcard,debit)
      * @var string
@@ -68,6 +69,18 @@ class Payment extends Base
      * @var string
      */
     private $_account;
+
+    /**
+     * The used IBAN - international bank account number
+     * @var string
+     */
+    private $_iban;
+
+    /**
+     * The used BIC - bank identifier code
+     * @var string
+     */
+    private $_bic;
 
     /**
      * Name of the account holder
@@ -295,6 +308,48 @@ class Payment extends Base
         return $this;
     }
 
+    /**
+     * Returns used IBAN
+     *
+     * @return string
+     */
+    public function getIban()
+    {
+        return $this->_iban;
+    }
 
+    /**
+     * Sets the IBAN
+     *
+     * @param string $iban
+     * @return \Paymill\Models\Response\Payment
+     */
+    public function setIban($iban)
+    {
+        $this->_iban = $iban;
+        return $this;
+    }
+
+    /**
+     * Returns used BIC
+     *
+     * @return string
+     */
+    public function getBic()
+    {
+        return $this->_bic;
+    }
+
+    /**
+     * Sets the BIC
+     *
+     * @param string $bic
+     * @return \Paymill\Models\Response\Payment
+     */
+    public function setBic($bic)
+    {
+        $this->_bic = $bic;
+        return $this;
+    }
 
 }

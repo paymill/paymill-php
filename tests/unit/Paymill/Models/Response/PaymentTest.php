@@ -53,8 +53,10 @@ class PaymentTest
         $code = "Test";
         $account = "Test";
         $holder = "Test";
-        
-        
+        $iban = "Test";
+        $bic = "Test";
+
+
         $this->_payment->setType($type)
                 ->setClient($client)
                 ->setCardType($cardType)
@@ -65,9 +67,11 @@ class PaymentTest
                 ->setLastFour($lastFour)
                 ->setCode($code)
                 ->setAccount($account)
-                ->setHolder($holder);
-        
-        
+                ->setHolder($holder)
+                ->setIban($iban)
+                ->setBic($bic);
+
+
         $this->assertEquals($this->_payment->getType(),$type);
         $this->assertEquals($this->_payment->getClient(),$client);
         $this->assertEquals($this->_payment->getCardType(),$cardType);
@@ -79,7 +83,8 @@ class PaymentTest
         $this->assertEquals($this->_payment->getCode(),$code);
         $this->assertEquals($this->_payment->getAccount(),$account);
         $this->assertEquals($this->_payment->getHolder(),$holder);
-        
+        $this->assertEquals($this->_payment->getBic(),$bic);
+        $this->assertEquals($this->_payment->getIban(),$iban);
     }
 
 }

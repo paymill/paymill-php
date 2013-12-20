@@ -155,9 +155,11 @@ class ResponseHandler
             $model->setCardHolder($response['card_holder']);
             $model->setLastFour($response['last4']);
         } else if ($response['type'] === "debit") {
-            $model->setCode($response['code']);
             $model->setHolder($response['holder']);
+            $model->setCode($response['code']);
             $model->setAccount($response['account']);
+            $model->setBic($response['bic']);
+            $model->setIban($response['iban']);
         }
         $model->setCreatedAt($response['created_at']);
         $model->setUpdatedAt($response['updated_at']);

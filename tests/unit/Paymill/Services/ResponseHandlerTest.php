@@ -166,7 +166,7 @@ class ResponseHandlerTest extends PHPUnit_Framework_TestCase
      * Tests the convertResponseModel method with the payment model as outcome
      * @test
      */
-    public function paymentTest()
+    public function paymentCCTest()
     {
         $response['header']['status'] = 200;
         $response['body']['data'] = array(
@@ -185,6 +185,32 @@ class ResponseHandlerTest extends PHPUnit_Framework_TestCase
         );
         $subject = $this->_responseHandler->convertResponse($response, "payments/");
         $this->assertInstanceOf("\Paymill\Models\Response\Payment", $subject, var_export($subject, true));
+    }
+
+    /**
+     * Tests the convertResponseModel method with the payment model as outcome
+     * @test
+     */
+    public function paymentSEPATest()
+    {
+        $response['header']['status'] = 200;
+        $response['body']['data'] = array(
+            "id" => "pay_3af44644dd6d25c820a8",
+            "type" => "debit",
+            "client" => null,
+            "code" => "70090100",
+            "account" => "******7890",
+            "iban" => "DE0870090100******7890",
+            "bic" => "DEUTDEDB110",
+            "holder" => "test",
+            "created_at" => 1349942085,
+            "updated_at" => 1349942085,
+            "app_id" => null
+        );
+        $subject = $this->_responseHandler->convertResponse($response, "payments/");
+        $this->assertInstanceOf("\Paymill\Models\Response\Payment", $subject, var_export($subject, true));
+        $this->assertEquals("DE0870090100******7890", $subject->getIban());
+        $this->assertEquals("DEUTDEDB110", $subject->getBic());
     }
 
     /**

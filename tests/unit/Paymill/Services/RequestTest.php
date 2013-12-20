@@ -460,7 +460,22 @@ class RequestTest
      */
     public function getLastResponseTest($request)
     {
-        $this->assertInternalType("array", $request->getLastResponse());
+        $result = $request->getLastResponse();
+        $this->assertInternalType("array", $result);
+    }
+
+    /**
+     * Tests the getter for the last response array
+     * @test
+     * @param Request $request
+     * @depends getOneTest
+     */
+    public function getLastRequestTest($request)
+    {
+        $result = $request->getLastRequest();
+        $this->assertInternalType("array", $result);
+        $this->assertArrayHasKey("count", $result);
+        $this->assertArrayHasKey("offset", $result);
     }
 
     /**

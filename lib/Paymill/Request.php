@@ -20,10 +20,16 @@ class Request
      * @var \Paymill\API\CommunicationAbstract|Curl
      */
     private $_connectionClass;
+
     /**
      * @var array
      */
     private $_lastResponse;
+
+    /**
+     * @var array
+     */
+    private $_lastRequest;
 
     /**
      * Creates a Request object instance
@@ -110,6 +116,20 @@ class Request
         return $this->_lastResponse;
     }
 
+    /**
+     * Returns the parameter which were used for the last request
+     * @return array
+     */
+    public function getLastRequest()
+    {
+        return $this->_lastRequest;
+    }
+
+    /**
+     * Returns the LastResponse as StdClassObject. Returns false if no request was made earlier.
+     * 
+     * @return false | stdClass
+     */
     public function getJSONObject(){
         $result = false;
         $responseHandler = new ResponseHandler();
@@ -162,6 +182,7 @@ class Request
         $serviceResource = $model->getServiceResource() . $model->getId();
 
         try {
+            $this->_lastRequest = $parameter;
             $response = $this->_connectionClass->requestApi(
                 $serviceResource, $parameter, $httpMethod
             );

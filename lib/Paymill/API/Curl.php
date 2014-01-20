@@ -41,7 +41,7 @@ class Curl extends CommunicationAbstract
      *   Extra cURL options. The array is keyed by the name of the cURL
      *   options.
      */
-    public function __construct($apiKey, $apiEndpoint = 'https://api.paymill.com/v2/', $extracURL = array())
+    public function __construct($apiKey, $apiEndpoint = 'https://api.paymill.com/v2/', array $extracURL = array())
     {
         $this->_apiKey = $apiKey;
         $this->_apiUrl = $apiEndpoint;

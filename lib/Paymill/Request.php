@@ -2,7 +2,7 @@
 
 namespace Paymill;
 
-use Exception;
+use \Exception;
 use Paymill\API\CommunicationAbstract;
 use Paymill\API\Curl;
 use Paymill\Models\Request\Base;
@@ -197,7 +197,7 @@ class Request
             } else {
                 $convertedResponse = $responseHandler->convertResponse($response, $model->getServiceResource());
             }
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             $errorModel = new Error();
             $convertedResponse = $errorModel->setErrorMessage($e->getMessage());
         }

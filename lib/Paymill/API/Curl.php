@@ -2,16 +2,16 @@
 
 namespace Paymill\API;
 
-use Exception;
+use \Exception;
 
 /**
  * It's incorrect to test for the function itself. Since we know exactly when the
  * json_decode function was introduced. So we test the PHP version instead.
  */
 if (version_compare(PHP_VERSION, '5.2.0', '<')) {
-    throw new Exception('Your PHP version is too old: install the PECL JSON extension');
+    throw new \Exception('Your PHP version is too old: install the PECL JSON extension');
 } else if (!function_exists('json_decode')) {
-    throw new Exception('The JSON extension is missing: install it.');
+    throw new \Exception('The JSON extension is missing: install it.');
 }
 
 /**
@@ -19,7 +19,7 @@ if (version_compare(PHP_VERSION, '5.2.0', '<')) {
  *
  */
 if (!extension_loaded('curl')) {
-    throw new Exception('Please install the PHP cURL extension');
+    throw new \Exception('Please install the PHP cURL extension');
 }
 
 /**

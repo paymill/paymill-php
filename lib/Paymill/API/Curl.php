@@ -49,9 +49,7 @@ class Curl extends CommunicationAbstract
          * Proxy support. The proxy can be SOCKS5 or HTTP.
          * Also the connection could be tunneled through.
          */
-        if (!empty($extracURL)) {
-            $this->_extraOptions;
-        }
+        $this->_extraOptions = $extracURL;
     }
 
     /**
@@ -75,7 +73,7 @@ class Curl extends CommunicationAbstract
 
         // Add extra options to cURL if defined.
         if (!empty($this->_extraOptions)) {
-            $curlOpts += $this->_extraOptions;
+            $curlOpts = $this->_extraOptions + $curlOpts;
         }
 
         if ('GET' === $method) {

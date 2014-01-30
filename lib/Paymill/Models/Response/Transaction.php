@@ -365,63 +365,10 @@ class Transaction extends Base
      * Sets the Fees array for the transaction
      * @param array $fees
      * @return \Paymill\Models\Response\Transaction
-
      */
     public function setFees($fees)
     {
         $this->_fees = $fees;
         return $this;
     }
-
-    /**
-     * @var integer
-     */
-    private $_feeAmount;
-
-    /**
-     * Returns the FeeAmount
-     * Fee included in the transaction amount (set by a connected app). Mandatory if feePayment is set
-     * @return integer
-     */
-    public function getFeeAmount()
-    {
-        return $this->_feeAmount;
-    }
-
-    /**
-     * Sets the Fee included in the transaction amount (set by a connected app).
-     * @param integer $feeAmount
-     * @return \Paymill\Models\Response\Transaction
-     */
-    public function setFeeAmount($feeAmount)
-    {
-        $this->_feeAmount = $feeAmount;
-        return $this;
-    }
-
-    /**
-     * @var string 
-     */
-    private $_feePayment;
-
-    /**
-     * Returns the identifier of the payment from which the fee will be charged (creditcard-object or directdebit-object).
-     * @return string
-     */
-    public function getFeePayment()
-    {
-        return $this->_feePayment;
-    }
-
-    /**
-     * Sets the identifier of the payment from which the fee will be charged (creditcard-object or directdebit-object).
-     * @param string $feePayment
-     * @return \Paymill\Models\Response\Transaction
-     */
-    public function setFeePayment($feePayment)
-    {
-        $this->_feePayment = $feePayment;
-        return $this;
-    }
-
 }

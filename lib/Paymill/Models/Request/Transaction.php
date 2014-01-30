@@ -58,6 +58,11 @@ class Transaction extends Base
     private $_feePayment;
 
     /**
+     * @var string
+     */
+    private $_feeCurrency;
+
+    /**
      * Creates an instance of the transaction request model
      */
     function __construct()
@@ -228,6 +233,29 @@ class Transaction extends Base
     }
 
     /**
+     * Set the currency which should be used for collecting the given fee
+     * @param string $feeCurrency (e.g. EUR, USD ...)
+     * @return \Paymill\Models\Response\Transaction
+     */
+    public function setFeeCurrency($feeCurrency)
+    {
+        $this->_feeCurrency = $feeCurrency;
+        return $this;
+
+    }
+
+    /**
+     * returns the set fee currency which is used for the fee collection
+     * @return string
+     */
+    public function getFeeCurrency()
+    {
+        return $this->_feeCurrency;
+    }
+
+
+
+    /**
      * Returns the  token generated through our JavaScript-Bridge.
      * When this parameter is used, none of the following should be used: payment, preauthorization.
      * @return string
@@ -270,8 +298,15 @@ class Transaction extends Base
                 $parameterArray['currency'] = $this->getCurrency();
                 $parameterArray['description'] = $this->getDescription();
                 $parameterArray['client'] = $this->getClient();
-                $parameterArray['fee_amount'] = $this->getFeeAmount();
-                $parameterArray['fee_payment'] = $this->getFeePayment();
+                if (!is_null($this->getFeeAmount())) {
+                    $parameterArray['fee_amount'] = $this->getFeeAmount();
+                }
+                if (!is_null($this->getFeePayment())) {
+                    $parameterArray['fee_payment'] = $this->getFeePayment();
+                }
+                if (!is_null($this->getFeeCurrency())) {
+                    $parameterArray['fee_currency'] = $this->getFeeCurrency();
+                }
                 break;
             case 'update':
                 $parameterArray['description'] = $this->getDescription();

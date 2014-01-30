@@ -50,6 +50,7 @@ class TransactionTest extends PHPUnit_Framework_TestCase
             'preauthorization' => 'preauth_ec54f67e52e92051bd65',
             'fee_amount' => '420', // e.g. "420" for 4.20 EUR
             'fee_payment' => 'pay_098f6bcd4621d373cade4e832627b4f6',
+            'fee_currency' => 'EUR',
             'description' => 'Test Transaction'
         );
 
@@ -62,6 +63,7 @@ class TransactionTest extends PHPUnit_Framework_TestCase
             ->setPreauthorization($sample['preauthorization'])
             ->setFeeAmount($sample['fee_amount'])
             ->setFeePayment($sample['fee_payment'])
+            ->setFeeCurrency($sample['fee_currency'])
             ->setDescription($sample['description']);
 
         $this->assertEquals($this->_transaction->getAmount(), $sample['amount']);
@@ -72,6 +74,7 @@ class TransactionTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($this->_transaction->getPreauthorization(), $sample['preauthorization']);
         $this->assertEquals($this->_transaction->getFeeAmount(), $sample['fee_amount']);
         $this->assertEquals($this->_transaction->getFeePayment(), $sample['fee_payment']);
+        $this->assertEquals($this->_transaction->getFeeCurrency(), $sample['fee_currency']);
         $this->assertEquals($this->_transaction->getDescription(), $sample['description']);
 
         return $this->_transaction;
@@ -98,6 +101,7 @@ class TransactionTest extends PHPUnit_Framework_TestCase
             'preauthorization' => 'preauth_ec54f67e52e92051bd65',
             'fee_amount' => '420', // e.g. "420" for 4.20 EUR
             'fee_payment' => 'pay_098f6bcd4621d373cade4e832627b4f6',
+            'fee_currency' => 'EUR',
             'description' => 'Test Transaction'
         ));
         $this->assertEquals($updateArray, array(

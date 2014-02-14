@@ -168,6 +168,9 @@ class Services_Paymill_PaymentProcessorTest extends Services_Paymill_TestBase im
         $this->_paymentProcessor->setClientId($this->_clientId);
         $this->_paymentProcessor->setPaymentId($this->_paymentId);
 
+        $this->_paymentProcessor->setAmount(4201);
+        $this->_paymentProcessor->setDescription('testFastCheckout');
+
         $this->assertTrue($this->_paymentProcessor->processPayment(), $this->_actualLoggingMessage);
         $this->assertEquals($this->_paymentProcessor->getClientId(), $this->_clientId, 'ClientId doesn´t match.');
         $this->assertEquals($this->_paymentProcessor->getPaymentId(), $this->_paymentId, 'PaymentId doesn´t match.');
@@ -183,7 +186,7 @@ class Services_Paymill_PaymentProcessorTest extends Services_Paymill_TestBase im
         $this->_paymentProcessor->setCurrency('EUR');
         $this->_paymentProcessor->setEmail('John@doe.net');
         $this->_paymentProcessor->setName('John Doe');
-        $this->_paymentProcessor->setDescription('Deuterium Cartridge');
+        $this->_paymentProcessor->setDescription('testProcessPaymentWithWrongApiUrl');
         $this->_paymentProcessor->setToken($this->getToken());
 
         $this->assertFalse($this->ProcessPayment());
@@ -199,11 +202,11 @@ class Services_Paymill_PaymentProcessorTest extends Services_Paymill_TestBase im
     {
         $this->_apiTestKey = $this->_apiTestKey . " ";
         $this->_paymentProcessor = new Services_Paymill_PaymentProcessor($this->_apiTestKey, $this->_apiUrl, null, null, $this);
-        $this->_paymentProcessor->setAmount(1000);
+        $this->_paymentProcessor->setAmount(1001);
         $this->_paymentProcessor->setCurrency('EUR');
         $this->_paymentProcessor->setEmail('John@doe.net');
         $this->_paymentProcessor->setName('John Doe');
-        $this->_paymentProcessor->setDescription('Deuterium Cartridge');
+        $this->_paymentProcessor->setDescription('testProcessPaymentWithSpaceInApikey');
         $this->_paymentProcessor->setToken($this->getToken());
 
         $this->markTestIncomplete(

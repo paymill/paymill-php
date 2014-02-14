@@ -91,23 +91,25 @@ class Services_Paymill_RefundsTest extends Services_Paymill_TestBase
     public function testCreate()
     {
         $transactionParams = array(
-            'amount'      => 4200,
+            'amount'      => 4100,
             'currency'    => 'eur',
-            'description' => 'Deuterium Cartridge',
+            'description' => 'testCreate',
             'token'       => $this->getToken()
         );
         $transaction = $this->_transactions->create($transactionParams);
 
+        $this->assertArrayHasKey('id', $transaction, var_export($transaction,true));
+
         $params = array(
             'transactionId' => $transaction['id'],
-            'params'        => array('amount' => 4200)
+            'params'        => array('amount' => 4100)
         );
 
         $refund = $this->_refunds->create($params);
 
         $this->assertInternalType('array', $refund);
         $this->assertArrayHasKey('id', $refund);
-        $this->assertEquals($refund['amount'], 4200);
+        $this->assertEquals($refund['amount'], 4100);
 
         $refundId = $refund['id'];
 
@@ -120,7 +122,7 @@ class Services_Paymill_RefundsTest extends Services_Paymill_TestBase
     public function testRefundWithLessAmount()
     {
         $transactionParams = array(
-            'amount' => 4200,
+            'amount' => 3400,
             'currency'=> 'eur',
             'description' => 'Deuterium Cartridge',
             'token' => $this->getToken()
@@ -135,7 +137,7 @@ class Services_Paymill_RefundsTest extends Services_Paymill_TestBase
         $refund = $this->_refunds->create($params);
 
         $this->assertEquals($refund['transaction']['id'], $transaction['id']);
-        $this->assertEquals($refund['transaction']['amount'], 1000);
+        $this->assertEquals($refund['transaction']['amount'], 200);
         $this->assertEquals($refund['transaction']['status'], 'partial_refunded');
 
         $transactionId = $transaction['id'];
@@ -151,7 +153,7 @@ class Services_Paymill_RefundsTest extends Services_Paymill_TestBase
     {
         $params = array(
             'transactionId' => $transactionId,
-            'params'        => array('amount'=>1000)
+            'params'        => array('amount'=>200)
         );
 
         $refund = $this->_refunds->create($params);

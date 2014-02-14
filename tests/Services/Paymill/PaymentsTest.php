@@ -74,7 +74,7 @@ class Services_Paymill_PaymentsTest extends Services_Paymill_TestBase
         $this->assertEquals("creditcard", $payment["type"], $this->getMessages($payment));
         $this->assertEquals($payment['last4'],'1111', $this->getMessages($payment));
         $this->assertEquals($payment['expire_month'],'12', $this->getMessages($payment));
-        $this->assertEquals($payment['expire_year'],'2014', $this->getMessages($payment));
+        $this->assertEquals($payment['expire_year'],'2015', $this->getMessages($payment));
 
         $paymentId = $payment['id'];
 
@@ -86,6 +86,7 @@ class Services_Paymill_PaymentsTest extends Services_Paymill_TestBase
      */
     public function testCreateDebit()
     {
+        $this->markTestIncomplete('this function is no longer available.');
         $payment = $this->_payments->create(array(
             "type"=>"debit",
             "code"=>"12345678",

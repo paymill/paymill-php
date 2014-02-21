@@ -107,6 +107,7 @@ class PaymentTest extends PHPUnit_Framework_TestCase
         $result = $this->_service->getAll($this->_model);
         $this->assertEquals(2, count($result), var_export($result, true));
     }
+
     /**
      * @test
      * @codeCoverageIgnore
@@ -120,4 +121,5 @@ class PaymentTest extends PHPUnit_Framework_TestCase
         $result = $this->_service->delete($this->_model);
         $this->assertInternalType('array', $result, var_export($result, true));
     }
+
 }

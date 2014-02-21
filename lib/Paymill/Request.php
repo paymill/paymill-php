@@ -128,7 +128,7 @@ class Request
 
     /**
      * Returns the LastResponse as StdClassObject. Returns false if no request was made earlier.
-     * 
+     *
      * @return false | stdClass
      */
     public function getJSONObject(){

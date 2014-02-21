@@ -345,20 +345,24 @@ class ResponseHandler
         $errorModel->setResponseCode($responseCode);
 
         $errorCode = 'Undefined Error. This should not happen!';
-        if (isset($responseCode['error'])) {
-            $errorCode = $responseCode['error'];
-        } elseif (isset($this->_errorCodes[$responseCode])) {
+        if (isset($this->_errorCodes[$responseCode])) {
             $errorCode = $this->_errorCodes[$responseCode];
-        } else {
-            if (isset($response['body']['error'])) {
-                if (is_array($response['body']['error'])) {
-                    $errorCode = $this->getErrorMessageFromArray($response['body']['error']);
-                } elseif (is_string($response['body']['error'])) {
-                    $errorCode = $response['body']['error'];
-                }
-            }
         }
 
+        if (isset($response['body'])) {
+            if (is_array($response['body'])) {
+                if (isset($response['body']['error'])) {
+                    if (is_array($response['body']['error'])) {
+                        $errorCode = $this->getErrorMessageFromArray($response['body']['error']);
+                    } elseif (is_string($response['body']['error'])) {
+                        $errorCode = $response['body']['error'];
+                    }
+                }
+            } elseif (is_string($response['body'])) {
+                $json = json_decode($response['body']);
+                $errorCode = $json->error;
+            }
+        }
         $errorModel->setErrorMessage($errorCode);
         return $errorModel;
     }

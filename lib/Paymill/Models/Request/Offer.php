@@ -160,7 +160,9 @@ class Offer extends Base
                 $parameterArray['trial_period_days'] = $this->getTrialPeriodDays();
                 break;
             case 'update':
+                $parameterArray['interval'] = $this->getInterval();
                 $parameterArray['name'] = $this->getName();
+                $parameterArray['trial_period_days'] = $this->getTrialPeriodDays();
                 break;
             case 'getOne':
                 $parameterArray['count'] = 1;

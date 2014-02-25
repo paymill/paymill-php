@@ -38,6 +38,12 @@ class Request
     private $_version = "3.0.2";
 
     /**
+     * @var string
+     */
+    private $_source;
+
+
+    /**
      * Creates a Request object instance
      * @param string|null $privateKey
      */
@@ -133,7 +139,7 @@ class Request
 
     /**
      * Returns the Version of this Lib
-     * 
+     *
      * @return string
      */
     public function getVersion(){
@@ -202,6 +208,8 @@ class Request
             }
         }
 
+        $source = empty($this->_source) ? "PhpLib" . $this->getVersion(): "PhpLib" . $this->getVersion() . "_" . $this->getSource();
+        $parameter['source'] = $source;
         $serviceResource = $model->getServiceResource() . $model->getId();
 
         try {
@@ -236,4 +244,27 @@ class Request
 
         return $convertedResponse;
     }
+
+    /**
+     * Sets the source for requests
+     *
+     * @param string $source
+     * @return \Paymill\Request
+     */
+    public function setSource($source){
+        if(is_string($source)){
+            $this->_source = $source;
+        }
+        return $this;
+    }
+
+    /**
+     * Returns the source for requests
+     *
+     * @return string
+     */
+    public function getSource(){
+        return $this->_source;
+    }
+
 }

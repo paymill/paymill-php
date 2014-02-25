@@ -40,6 +40,7 @@ class RequestTest
         $this->_request = new RequestService();
         $this->_client = new Request\Client();
         $this->_curlObjectMock = $this->getMock('Paymill\API\Curl', array('requestApi'), array("TestToken"));
+        $this->_request->setSource("UNITTEST");
     }
 
     /**

@@ -33,6 +33,11 @@ class Request
     private $_lastRequest;
 
     /**
+     * @var string
+     */
+    private $_version = "3.0.2";
+
+    /**
      * Creates a Request object instance
      * @param string|null $privateKey
      */
@@ -127,6 +132,15 @@ class Request
     }
 
     /**
+     * Returns the Version of this Lib
+     * 
+     * @return string
+     */
+    public function getVersion(){
+        return $this->_version;
+    }
+
+        /**
      * Returns the LastResponse as StdClassObject. Returns false if no request was made earlier.
      *
      * @return false | stdClass

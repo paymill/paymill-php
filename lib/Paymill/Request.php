@@ -200,9 +200,11 @@ class Request
         }
         $httpMethod = $this->_getHTTPMethod($method);
         $parameter = $model->parameterize($method);
-        $source = empty($this->_source) ? "PhpLib" . $this->getVersion(): "PhpLib" . $this->getVersion() . "_" . $this->getSource();
-        $parameter['source'] = $source;
         $serviceResource = $model->getServiceResource() . $model->getId();
+        if(is_a($model, "\Paymill\Models\Request\Transaction") && $method === "create"){
+            $source = empty($this->_source) ? "PhpLib" . $this->getVersion(): "PhpLib" . $this->getVersion() . "_" . $this->getSource();
+            $parameter['source'] = $source;
+        }
 
         try {
             $this->_lastRequest = $parameter;

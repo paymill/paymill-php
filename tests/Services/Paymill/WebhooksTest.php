@@ -149,7 +149,7 @@ class Services_Paymill_WebhooksTest extends Services_Paymill_TestBase
                 || (isset($webhook['url'])   && $webhook['url'] == $this->_url)
             ) {
                 $webhook = $this->_webhook->delete($webhook['id']);
-                $this->assertEquals(null, $webhook);
+                $this->assertEquals(array(), $webhook);
             }
         }
      }

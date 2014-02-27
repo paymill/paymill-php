@@ -271,7 +271,7 @@ class Services_Paymill_PaymentProcessor
                 $paymillObject['response_code'] = 0;
             }
 
-            throw new Exception("Invalid Result Exception: Invalid ResponseCode", $paymillObject['response_code']);
+            throw new Exception("Invalid Result Exception: Invalid ResponseCode", (int)$paymillObject['response_code']);
         }
 
         if (!isset($paymillObject['id']) && !isset($paymillObject['data']['id'])) {

@@ -322,7 +322,7 @@ class ResponseHandler
         $model = new Models\Fraud();
         $model->setId($response['id']);
         $model->setLivemode($response['livemode']);
-        $model->setIdentifier($response['identifier']);
+        $model->setStatus($response['status']);
         $model->setCreatedAt($response['created_at']);
         $model->setUpdatedAt($response['updated_at']);
         return $model;

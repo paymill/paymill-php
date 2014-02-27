@@ -11,7 +11,7 @@ class Fraud extends Base
     /**
      * @var string
      */
-    private $_identifier = null;
+    private $_status= null;
     
     /**
      * @var boolean
@@ -39,22 +39,22 @@ class Fraud extends Base
     }
 
     /**
-     * Returns the identifier for this fraud
+     * Returns the status for this fraud
      * @return string||null
      */
-    public function getIdentifier()
+    public function getStatus()
     {
-        return $this->_identifier;
+        return $this->_status;
     }
 
     /**
-     * Sets the identifier
-     * @param string $identifier 
+     * Sets the status
+     * @param string $status
      * @return \Paymill\Models\Response\Fraud
      */
-    public function setIdentifier($identifier)
+    public function setStatus($status)
     {
-        $this->_identifier = $identifier;
+        $this->_status = $status;
         return $this;
     }
 

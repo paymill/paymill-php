@@ -17,7 +17,6 @@
 
     <target name="test" description="Run unit tests using PHPUnit">
         <exec executable="phpunit" dir="tests" failonerror="true">
-            <env key="API_TEST_KEY" value="f90d23dcc2a8f9639a45cb65dceabbd2"/>
             <arg line="--testsuite=unit" />
         </exec>
     </target>

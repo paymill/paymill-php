@@ -176,7 +176,7 @@ class Request
     private function _request(Base $model, $method)
     {
         if(!is_a($this->_connectionClass, '\Paymill\API\CommunicationAbstract')){
-            throw new PaymillException(null,'The connenction class is missing!');
+            throw new PaymillException(null,'The connexction class is missing!');
         }
         $httpMethod = $this->_getHTTPMethod($method);
         $parameter = $model->parameterize($method);
@@ -189,7 +189,10 @@ class Request
             );
             $this->_lastResponse = $response;
             $responseHandler = new ResponseHandler();
-            if ($method === 'getAll') {
+
+            if(!isset($response['body']['data'])) {
+                $convertedResponse = $response;
+            } elseif ($method === 'getAll') {
                 if ($responseHandler->validateResponse($response)) {
                     $convertedResponse = $response['body']['data'];
                 } else {

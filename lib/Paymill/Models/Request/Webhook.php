@@ -24,6 +24,10 @@ class Webhook extends Base
      * @var array
      */
     private $_eventTypes;
+    /**
+     * @var boolean $_active
+     */
+    private $_active = false;
 
     /**
      * Creates an instance of the webhook request model
@@ -101,6 +105,25 @@ class Webhook extends Base
     }
 
     /**
+     * @param boolean $value
+     *
+     * @return $this
+     */
+    public function setActive($value)
+    {
+        $this->_active = $value;
+        return $this;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function getActive()
+    {
+        return $this->_active;
+    }
+
+    /**
      * Returns an array of parameters customized for the argumented methodname
      * @param string $method
      * @return array
@@ -116,6 +139,7 @@ class Webhook extends Base
                     $parameterArray['email'] = $this->getEmail();
                 }
                 $parameterArray['event_types'] = $this->getEventTypes();
+                $parameterArray['active'] = $this->getActive() ? true : false;
                 break;
             case 'update':
                 if(!is_null($this->getUrl())){
@@ -124,6 +148,7 @@ class Webhook extends Base
                     $parameterArray['email'] = $this->getEmail();
                 }
                 $parameterArray['event_types'] = $this->getEventTypes();
+                $parameterArray['active'] = $this->getActive();
                 break;
             case 'delete':
                 break;

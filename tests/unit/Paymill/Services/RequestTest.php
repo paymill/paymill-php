@@ -77,7 +77,7 @@ class RequestTest
      * Test the setter for the connection class
      * @test
      * @expectedException \Paymill\Services\PaymillException
-     * @expectedExceptionMessage The connenction class is missing!
+     * @expectedExceptionMessage The connection class is missing!
      */
     public function missingConnectionClassTest()
     {

@@ -61,7 +61,7 @@ class OfferTest extends PHPUnit_Framework_TestCase
      * @test
      * @depends setGetTest
      */
-    public function parameterizeTest($offer)
+    public function parameterizeTest(Request\Offer $offer)
     {
         $testId = "offer_88a388d9dd48f86c3136";
         $offer->setId($testId);
@@ -77,7 +77,12 @@ class OfferTest extends PHPUnit_Framework_TestCase
             'name' => 'Test Offer',
             'trial_period_days' => null
         ));
-        $this->assertEquals($updateArray, array('name' => $offer->getName()));
+        $this->assertEquals($updateArray, array(
+            'interval'          => $offer->getInterval(),
+            'name'              => $offer->getName(),
+            'trial_period_days' => $offer->getTrialPeriodDays()
+            )
+        );
         $this->assertEquals($getOneArray, array(
             'count' => 1,
             'offset' => 0

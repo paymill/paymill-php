@@ -176,10 +176,18 @@ class Request
     private function _request(Base $model, $method)
     {
         if(!is_a($this->_connectionClass, '\Paymill\API\CommunicationAbstract')){
-            throw new PaymillException(null,'The connexction class is missing!');
+            throw new PaymillException(null,'The connection class is missing!');
         }
         $httpMethod = $this->_getHTTPMethod($method);
         $parameter = $model->parameterize($method);
+
+        // Tmp. fix because the paymill API only allows boolean as string:
+        foreach($parameter as $index => $param) {
+            if(is_bool($parameter[$index])) {
+                $parameter[$index] = $parameter[$index] ? 'true' : 'false';
+            }
+        }
+
         $serviceResource = $model->getServiceResource() . $model->getId();
 
         try {

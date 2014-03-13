@@ -110,6 +110,9 @@ class ResponseHandler
             case 'webhook':
                 $model = $this->_createWebhook($response);
                 break;
+            case 'fraud':
+                $model = $this->_createFraud($response);
+                break;
         }
 
         return $model;
@@ -305,6 +308,23 @@ class ResponseHandler
         $model->setCreatedAt($response['created_at']);
         $model->setUpdatedAt($response['updated_at']);
         $model->setAppId($response['app_id']);
+        return $model;
+    }
+
+    /**
+     * Creates and fills a fraudmodel
+     *
+     * @param array $response
+     * @return \Paymill\Models\Response\Fraud
+     */
+    private function _createFraud($response)
+    {
+        $model = new Models\Fraud();
+        $model->setId($response['id']);
+        $model->setLivemode($response['livemode']);
+        $model->setStatus($response['status']);
+        $model->setCreatedAt($response['created_at']);
+        $model->setUpdatedAt($response['updated_at']);
         return $model;
     }
 

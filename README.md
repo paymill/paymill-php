@@ -18,12 +18,28 @@ If you don't already use Composer, then you probably should read the installatio
 
 Please include this library via Composer in your composer.json and execute **composer update** to refresh the autoload.php.
 
-```
+```json
 {
     "require": {
         "paymill/paymill": "v3.0.0"
     }
 }
+```
+
+If you don't want to use composer, paymill-php library provides its own **autoload** script. You have to include the autoload script in all files, in which you are going to use the PAYMILL library.
+
+Lets say you have two files, which are going to use the PAYMILL lib. First one is located in the project root, the other one is in the app folder. You have downloaded the PAYMILL library in your project root folder under the name **paymill-php**.
+
+To load the PAYMILL library from the file, which is located in *your project root folder*, you need to **require** PAYMILL's **autoload** script like this:
+
+```php
+  require './paymill-php/autoload.php';
+```
+
+To load the PAYMILL library from the file, which is located in *the app folder*, you need to **require** PAYMILL's **autoload** script like this:
+
+```php
+  require '../paymill-php/autoload.php';
 ```
 
 1.  Instantiate the request class with the following parameters:
@@ -66,20 +82,20 @@ The followings examples show how to get the Id for a transaction.
 1. The default response is one of the response-models.
 ```php
     $response  = $request->create($payment);
-    $response->getId(); 
+    $response->getId();
 ```
 
 2. getLastResponse() returns the unconverted response from the API.
 ```php
     $request->create($payment);
-    $response = $request->getLastResponse(); 
+    $response = $request->getLastResponse();
     $response['body']['data']['id'];
 ```
 
 3. getJSONObject returns the response as stdClass-Object.
 ```php
     $request->create($payment);
-    $response = $request->getJSONObject(); 
+    $response = $request->getJSONObject();
     $response->data->id;
 ```
 

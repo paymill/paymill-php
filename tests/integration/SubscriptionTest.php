@@ -104,12 +104,29 @@ class SubscriptionTest extends PHPUnit_Framework_TestCase
      * @codeCoverageIgnore
      * @depends createSubscriptionWithOffer
      */
-    public function updateSubscription($model)
+    public function pauseSubscription($model)
     {
         $this->_model->setId($model->getId());
+        $this->_model->setPause(true);
         $result = $this->_service->update($this->_model);
 
         $this->assertInstanceOf('Paymill\Models\Response\Subscription', $result, var_export($result, true));
+        $this->assertEquals('inactive', $result->getStatus());
+    }
+
+
+    /**
+     * @test
+     * @codeCoverageIgnore
+     * @depends createSubscriptionWithOffer
+     */
+    public function unPauseSubscription($model)
+    {
+        $this->_model->setId($model->getId());
+        $this->_model->setPause(false);
+        $result = $this->_service->update($this->_model);
+        $this->assertInstanceOf('Paymill\Models\Response\Subscription', $result, var_export($result, true));
+        $this->assertEquals('active', $result->getStatus());
     }
 
     /**

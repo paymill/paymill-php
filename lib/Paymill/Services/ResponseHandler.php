@@ -62,6 +62,7 @@ class ResponseHandler
         $resourceName = substr($serviceResource, 0, -2);
         $resultValue = null;
         if ($this->validateResponse($response)) {
+
             $resultValue = $this->_convertResponseToModel($response['body']['data'], $resourceName);
         } else {
             $resultValue = $this->_convertErrorToModel($response);
@@ -279,7 +280,6 @@ class ResponseHandler
         $model->setId($response['id']);
         $model->setOffer($this->_convertResponseToModel($response['offer'], 'offer'));
         $model->setLivemode($response['livemode']);
-        $model->setCancelAtPeriodEnd($response['cancel_at_period_end']);
         $model->setTrialStart($response['trial_start']);
         $model->setTrialEnd($response['trial_end']);
         $model->setNextCaptureAt($response['next_capture_at']);
@@ -289,6 +289,9 @@ class ResponseHandler
         $model->setPayment($this->_convertResponseToModel($response['payment'], "payment"));
         $model->setClient($this->_convertResponseToModel($response['client'], "client"));
         $model->setAppId($response['app_id']);
+        $model->setIsCanceled($response['is_canceled']);
+        $model->setIsDeleted($response['is_deleted']);
+        $model->setStatus($response['status']);
         return $model;
     }
 

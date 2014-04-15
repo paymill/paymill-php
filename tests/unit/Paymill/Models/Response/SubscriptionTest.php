@@ -54,7 +54,6 @@ class SubscriptionTest
 
         $this->_subscription->setOffer($offer)
                 ->setLivemode($liveMode)
-                ->setCancelAtPeriodEnd($cancelAtPeriodEnd)
                 ->setTrialStart($trialStart)
                 ->setTrialEnd($trialEnd)
                 ->setNextCaptureAt($nextCaptureAt)
@@ -64,7 +63,6 @@ class SubscriptionTest
 
         $this->assertEquals($this->_subscription->getOffer(), $offer);
         $this->assertEquals($this->_subscription->getLivemode(), $liveMode);
-        $this->assertEquals($this->_subscription->getCancelAtPeriodEnd(), $cancelAtPeriodEnd);
         $this->assertEquals($this->_subscription->getTrialStart(), $trialStart);
         $this->assertEquals($this->_subscription->getTrialEnd(), $trialEnd);
         $this->assertEquals($this->_subscription->getNextCaptureAt(), $nextCaptureAt);

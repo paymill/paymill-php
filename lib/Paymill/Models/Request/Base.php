@@ -57,6 +57,9 @@ abstract class Base
      */
     public function getFilter()
     {
+        if (is_null($this->_filter)) {
+            return array();
+        }
         return $this->_filter;
     }
 

@@ -211,6 +211,7 @@ class Request
         $source = empty($this->_source) ? "PhpLib" . $this->getVersion(): "PhpLib" . $this->getVersion() . "_" . $this->getSource();
         $parameter['source'] = $source;
         $serviceResource = $model->getServiceResource() . $model->getId();
+
         if(is_a($model, "\Paymill\Models\Request\Transaction") && $method === "create"){
             $source = empty($this->_source) ? "PhpLib" . $this->getVersion(): "PhpLib" . $this->getVersion() . "_" . $this->getSource();
             $parameter['source'] = $source;
@@ -230,16 +231,17 @@ class Request
                 if ($responseHandler->validateResponse($response)) {
                     $convertedResponse = $response['body']['data'];
                 } else {
+
                     $convertedResponse = $responseHandler->convertResponse($response, $model->getServiceResource());
                 }
             } else {
                 $convertedResponse = $responseHandler->convertResponse($response, $model->getServiceResource());
             }
+
         } catch (\Exception $e) {
             $errorModel = new Error();
             $convertedResponse = $errorModel->setErrorMessage($e->getMessage());
         }
-
         if (is_a($convertedResponse, '\Paymill\Models\Response\Error')) {
             throw new PaymillException(
             $convertedResponse->getResponseCode(), $convertedResponse->getErrorMessage(), $convertedResponse->getHttpStatusCode()

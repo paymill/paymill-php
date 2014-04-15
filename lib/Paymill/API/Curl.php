@@ -41,7 +41,7 @@ class Curl extends CommunicationAbstract
      *   Extra cURL options. The array is keyed by the name of the cURL
      *   options.
      */
-    public function __construct($apiKey, $apiEndpoint = 'https://api.paymill.com/v2/', array $extracURL = array())
+    public function __construct($apiKey, $apiEndpoint = 'https://api.chipmunk.dev/v2.1/', array $extracURL = array())
     {
         $this->_apiKey = $apiKey;
         $this->_apiUrl = $apiEndpoint;
@@ -69,6 +69,8 @@ class Curl extends CommunicationAbstract
             CURLOPT_USERAGENT => 'Paymill-php/0.0.2',
             CURLOPT_SSL_VERIFYPEER => true,
             CURLOPT_CAINFO => realpath(dirname(__FILE__)) . DIRECTORY_SEPARATOR . 'paymill.crt',
+            CURLOPT_SSL_VERIFYHOST => false,
+            CURLOPT_SSL_VERIFYPEER => false
         );
 
         // Add extra options to cURL if defined.
@@ -88,7 +90,6 @@ class Curl extends CommunicationAbstract
         if ($this->_apiKey) {
             $curlOpts[CURLOPT_USERPWD] = $this->_apiKey . ':';
         }
-
         $curl = curl_init();
         curl_setopt_array($curl, $curlOpts);
         $responseBody = $this->_curlExec($curl);

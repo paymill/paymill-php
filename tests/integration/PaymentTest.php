@@ -119,7 +119,7 @@ class PaymentTest extends PHPUnit_Framework_TestCase
     {
         $this->_model->setId($model->getId());
         $result = $this->_service->delete($this->_model);
-        $this->assertInternalType('array', $result, var_export($result, true));
+        $this->assertEquals(null, $result, var_export($result, true));
     }
 
 }

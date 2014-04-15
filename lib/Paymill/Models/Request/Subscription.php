@@ -7,10 +7,31 @@ namespace Paymill\Models\Request;
  * Subscriptions allow you to charge recurring payments on a client’s credit card / to a client’s direct debit.
  * A subscription connects a client to the offers-object. A client can have several subscriptions to different offers,
  * but only one subscription to the same offer.
+ * @todo does this still apply?
  * @tutorial https://paymill.com/de-de/dokumentation/referenz/api-referenz/#document-subscriptions
  */
 class Subscription extends Base
 {
+
+    /**
+     * @var string
+     */
+    private $_name;
+
+    /**
+     * @var int
+     */
+    private $_amount;
+
+    /**
+     * @var string
+     */
+    private $_currency;
+
+    /**
+     * @var string
+     */
+    private $_interval;
 
     /**
      * @var string
@@ -38,6 +59,11 @@ class Subscription extends Base
     private $_startAt;
 
     /**
+     * @var string
+     */
+    private $_periodOfValidity;
+
+    /**
      * Creates an instance of the subscription request model
      */
     public function __construct()
@@ -45,10 +71,91 @@ class Subscription extends Base
         $this->_serviceResource = 'Subscriptions/';
     }
 
+
     /**
-     * Returns the identifier of the offer the subscription is based on
+     * Returns name of subscription
      * @return string
      */
+    public function getName()
+    {
+        return $this->_name;
+    }
+
+    /**
+     * Sets name of the subscription
+     * @param $name string
+     * @return \Paymill\Models\Request\Subscription
+     */
+    public function setName($name)
+    {
+        $this->_name = $name;
+        return $this;
+    }
+
+    /**
+     * Returns the amount as an integer
+     * @return integer
+     */
+    public function getAmount()
+    {
+        return $this->_amount;
+    }
+
+    /**
+     * Sets the amount.
+     * Every interval the specified amount will be charged. Only integer values are allowed (e.g. 42.00 = 4200)
+     * @param integer $amount
+     * @return \Paymill\Models\Request\Subscription
+     */
+    public function setAmount($amount)
+    {
+        $this->_amount = (int) $amount;
+        return $this;
+    }
+
+    /**
+     * Returns the interval defining how often the client should be charged.
+     * @return string
+     */
+    public function getInterval()
+    {
+        return $this->_interval;
+    }
+
+    /**
+     * Sets the interval defining how often the client should be charged.
+     * Additionally a special day of the week can be appended (unless daily interval)
+     * @example Format: number DAY | WEEK | MONTH | YEAR [, MONDAY | TUESDAY | ... | SUNDAY] Example: 3 WEEK, MONDAY
+     * @param string $interval
+     * @return \Paymill\Models\Request\Subscription
+     */
+    public function setInterval($interval)
+    {
+        $this->_interval = $interval;
+        return $this;
+    }
+
+    /**
+     * Returns the currency
+     * @return string
+     */
+    public function getCurrency()
+    {
+        return $this->_currency;
+    }
+
+    /**
+     * Sets the currency
+     * @param string $currency
+     * @return \Paymill\Models\Request\Subscription
+     */
+    public function setCurrency($currency)
+    {
+        $this->_currency = $currency;
+        return $this;
+    }
+
+
     public function getOffer()
     {
         return $this->_offer;
@@ -62,26 +169,6 @@ class Subscription extends Base
     public function setOffer($offer)
     {
         $this->_offer = $offer;
-        return $this;
-    }
-
-    /**
-     * Returns the flag determining whether to cancel this subscription immediately or at the end of the current period
-     * @return boolean
-     */
-    public function getCancelAtPeriodEnd()
-    {
-        return $this->_cancelAtPeriodEnd;
-    }
-
-    /**
-     * Sets a flag determining whether to cancel this subscription immediately or at the end of the current period
-     * @param boolean $cancelAtPeriodEnd
-     * @return \Paymill\Models\Request\Subscription
-     */
-    public function setCancelAtPeriodEnd($cancelAtPeriodEnd)
-    {
-        $this->_cancelAtPeriodEnd = $cancelAtPeriodEnd;
         return $this;
     }
 
@@ -146,6 +233,17 @@ class Subscription extends Base
     }
 
     /**
+     * Sets the period of validity the subscriptions shall be active (starting creation date)
+     * @param $periodOfValidity string
+     * @return $this
+     */
+    public function setPeriodOfValidity($periodOfValidity)
+    {
+        $this->_periodOfValidity = $periodOfValidity;
+        return $this;
+    }
+
+    /**
      * Returns an array of parameters customized for the argumented methodname
      * @param string $method
      * @return array
@@ -159,20 +257,28 @@ class Subscription extends Base
                 $parameterArray['offer'] = $this->getOffer();
                 $parameterArray['payment'] = $this->getPayment();
                 $parameterArray['start_at'] = $this->getStartAt();
+                $parameterArray['amount'] = $this->getAmount();
+                $parameterArray['currency'] = $this->getCurrency();
+                $parameterArray['interval'] = $this->getInterval();
+                $parameterArray['name'] = $this->getName();
                 break;
             case 'update':
-                $parameterArray['cancel_at_period_end'] = $this->getCancelAtPeriodEnd();
                 $parameterArray['offer'] = $this->getOffer();
                 $parameterArray['payment'] = $this->getPayment();
+                $parameterArray['amount'] = $this->getAmount();
+                $parameterArray['currency'] = $this->getCurrency();
+                $parameterArray['interval'] = $this->getInterval();
+                $parameterArray['name'] = $this->getName();
                 break;
             case 'getOne':
                 $parameterArray['count'] = 1;
                 $parameterArray['offset'] = 0;
                 break;
             case 'getAll':
-            $parameterArray = $this->getFilter();
+                 $parameterArray = $this->getFilter();
                 break;
             case 'delete':
+                $parameterArray = $this->getFilter();
                 break;
         }
 

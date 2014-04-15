@@ -22,12 +22,12 @@ class Offer extends Base
      * @var string
      */
     private $_currency;
-    
+
     /**
      * @var string
      */
     private $_interval;
-    
+
     /**
      * @var integer
      */
@@ -160,6 +160,7 @@ class Offer extends Base
                 $parameterArray['trial_period_days'] = $this->getTrialPeriodDays();
                 break;
             case 'update':
+                $parameterArray = $this->getFilter();
                 $parameterArray['interval'] = $this->getInterval();
                 $parameterArray['name'] = $this->getName();
                 $parameterArray['trial_period_days'] = $this->getTrialPeriodDays();
@@ -169,9 +170,10 @@ class Offer extends Base
                 $parameterArray['offset'] = 0;
                 break;
             case 'getAll':
-            $parameterArray = $this->getFilter();
+                $parameterArray = $this->getFilter();
                 break;
             case 'delete':
+                $parameterArray = $this->getFilter();
                 break;
         }
 

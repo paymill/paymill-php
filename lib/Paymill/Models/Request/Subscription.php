@@ -288,13 +288,13 @@ class Subscription extends Base
                 $parameterArray['name'] = $this->getName();
                 break;
             case 'update':
+                $parameterArray = $this->getFilter();
                 $parameterArray['offer'] = $this->getOffer();
                 $parameterArray['payment'] = $this->getPayment();
                 $parameterArray['amount'] = $this->getAmount();
                 $parameterArray['currency'] = $this->getCurrency();
                 $parameterArray['interval'] = $this->getInterval();
                 $parameterArray['name'] = $this->getName();
-                $parameterArray['pause'] = $this->getPause();
                 break;
             case 'getOne':
                 $parameterArray['count'] = 1;

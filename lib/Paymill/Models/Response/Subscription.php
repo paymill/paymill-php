@@ -22,11 +22,6 @@ class Subscription extends Base
     private $_livemode;
     
     /**
-     * @var boolean 
-     */
-    private $_cancelAtPeriodEnd;
-    
-    /**
      * @var integer 
      */
     private $_trialStart;
@@ -60,6 +55,26 @@ class Subscription extends Base
      * @var integer 
      */
     private $_startAt;
+
+    /**
+     * @var boolean
+     */
+    private $_isCanceled;
+
+    /**
+     * @var boolean
+     */
+    private $_isDeleted;
+
+    /**
+     * @var string
+     */
+    private $_status;
+
+    /**
+     * @var string
+     */
+    private $_periodOfValidity;
 
     /**
      * Returns the model of the offer the subscription is based on
@@ -101,25 +116,6 @@ class Subscription extends Base
         return $this;
     }
 
-    /**
-     * Returns the flag determining whether to cancel this subscription immediately or at the end of the current period
-     * @return boolean
-     */
-    public function getCancelAtPeriodEnd()
-    {
-        return $this->_cancelAtPeriodEnd;
-    }
-
-    /**
-     * Sets a flag determining whether to cancel this subscription immediately or at the end of the current period
-     * @param boolean $cancelAtPeriodEnd
-     * @return \Paymill\Models\Response\Subscription
-     */
-    public function setCancelAtPeriodEnd($cancelAtPeriodEnd)
-    {
-        $this->_cancelAtPeriodEnd = $cancelAtPeriodEnd;
-        return $this;
-    }
 
     /**
      * Returns the Unix-Timestamp for the trial period start
@@ -259,6 +255,87 @@ class Subscription extends Base
     {
         $this->_startAt = $startAt;
         return $this;
+    }
+
+    /**
+     * (un)cancel subscription
+     * @param boolean $canceled
+     * @return \Paymill\Models\Response\Subscription
+     */
+    public function setIsCanceled($canceled)
+    {
+        $this->_isCanceled = $canceled;
+        return $this;
+    }
+
+    /**
+     * Returns whether subscription is canceled or not
+     * @return boolean
+     */
+    public function getIsCanceled()
+    {
+        return $this->_isCanceled;
+
+    }
+
+    /**
+     * (un)delete subscription
+     * @param boolean $deleted
+     * @return \Paymill\Models\Response\Subscription
+     */
+    public function setIsDeleted($deleted)
+    {
+        $this->_isDeleted = $deleted;
+        return $this;
+    }
+
+    /**
+     * Returns whether subscription is deleted or not
+     * @return boolean
+     */
+    public function getIsDeleted()
+    {
+        return $this->_isDeleted;
+    }
+
+    /**
+     * Sets the status of subscription
+     * @param string $status
+     * @return \Paymill\Models\Response\Subscription
+     */
+    public function setStatus($status)
+    {
+        $this->_status = $status;
+        return $this;
+    }
+
+    /**
+     * Returns subscription status
+     * @return string
+     */
+    public function getStatus()
+    {
+        return $this->_status;
+    }
+
+    /**
+     * Set the period of time the subscription shall be active/valid (starting creation date)
+     * @param $perdiodOfValidity
+     * @return \Paymill\Models\Response\Subscription
+     */
+    public function setPeriodOfValidity($periodOfValidity)
+    {
+        $this->_periodOfValidity = $periodOfValidity;
+        return $this;
+    }
+
+    /**
+     * Returns the period of time the subscriptions is valid (starting creation date)
+     * @return string
+     */
+    public function getPeriodOfValidity()
+    {
+        return $this->_periodOfValidity;
     }
 
 }

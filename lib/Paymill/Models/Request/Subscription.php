@@ -64,6 +64,11 @@ class Subscription extends Base
     private $_periodOfValidity;
 
     /**
+     * @var boolean
+     */
+    private $_pause;
+
+    /**
      * Creates an instance of the subscription request model
      */
     public function __construct()
@@ -235,11 +240,31 @@ class Subscription extends Base
     /**
      * Sets the period of validity the subscriptions shall be active (starting creation date)
      * @param $periodOfValidity string
-     * @return $this
+     * @return \Paymill\Models\Request\Subscription
      */
     public function setPeriodOfValidity($periodOfValidity)
     {
         $this->_periodOfValidity = $periodOfValidity;
+        return $this;
+    }
+
+    /**
+     * Returns if subscription is paused or not
+     * @return boolean
+     */
+    public function getPause()
+    {
+        return $this->_pause;
+    }
+
+    /**
+     * Sets the state of subscription to paused or unpaused
+     * @param $pause boolean
+     * @return \Paymill\Models\Request\Subscription
+     */
+    public function setPause($pause)
+    {
+        $this->_pause = $pause;
         return $this;
     }
 
@@ -269,6 +294,7 @@ class Subscription extends Base
                 $parameterArray['currency'] = $this->getCurrency();
                 $parameterArray['interval'] = $this->getInterval();
                 $parameterArray['name'] = $this->getName();
+                $parameterArray['pause'] = $this->getPause();
                 break;
             case 'getOne':
                 $parameterArray['count'] = 1;

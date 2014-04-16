@@ -92,7 +92,9 @@ class SubscriptionTest extends PHPUnit_Framework_TestCase
             'amount' => null,
             'currency' => null,
             'interval' => null,
-            'name' => null
+            'name' => null,
+            'pause' => null
+
         ));
     }
 

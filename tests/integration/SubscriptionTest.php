@@ -107,10 +107,7 @@ class SubscriptionTest extends PHPUnit_Framework_TestCase
     public function pauseSubscription($model)
     {
         $this->_model->setId($model->getId());
-        $this->_model->setFilter(array(
-                "pause" => true
-            )
-        );
+        $this->_model->setPause(true);
         $result = $this->_service->update($this->_model);
 
         $this->assertInstanceOf('Paymill\Models\Response\Subscription', $result, var_export($result, true));
@@ -126,10 +123,7 @@ class SubscriptionTest extends PHPUnit_Framework_TestCase
     public function unPauseSubscription($model)
     {
         $this->_model->setId($model->getId());
-        $this->_model->setFilter(array(
-                "pause" => false
-            )
-        );
+        $this->_model->setPause(false);
         $result = $this->_service->update($this->_model);
         var_dump($result);
         $this->assertInstanceOf('Paymill\Models\Response\Subscription', $result, var_export($result, true));

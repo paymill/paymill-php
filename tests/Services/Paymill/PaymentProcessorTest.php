@@ -339,4 +339,39 @@ class Services_Paymill_PaymentProcessorTest extends Services_Paymill_TestBase im
         $this->assertNull($result['preauthorization']);
     }
 
+
+    public function testCreateClient(){
+        $this->assertNull($this->_paymentProcessor->getClientId());
+        $this->_paymentProcessor->createClient("John2@doe.net", "testCreateClient");
+        $result = $this->_clientObject->getOne($this->_paymentProcessor->getClientId());
+        $this->assertEquals("testCreateClient", $result['description']);
+    }
+
+    public function testCreatePayment(){
+        $this->assertNull($this->_paymentProcessor->getClientId());
+        $this->assertNull($this->_paymentProcessor->getPaymentId());
+        $this->_paymentProcessor->createClient();
+        $expectedClient = $this->_paymentProcessor->getClientId();
+        $this->_paymentProcessor->createPayment($this->getToken() ,$this->_paymentProcessor->getClientId());
+        $result = $this->_paymentObject->getOne($this->_paymentProcessor->getPaymentId());
+        $this->assertEquals($expectedClient, $result['client']);
+    }
+
+    public function testCreateTransaction(){
+        $this->assertNull($this->_paymentProcessor->getClientId());
+        $this->assertNull($this->_paymentProcessor->getPaymentId());
+        $this->_paymentProcessor->createClient();
+        $this->_paymentProcessor->createPayment();
+        $this->_paymentProcessor->createTransaction(1234, 'EUR', 'TEST');
+        $this->assertNotNull($this->_paymentProcessor->getClientId());
+        $this->assertNotNull($this->_paymentProcessor->getPaymentId());
+        $this->assertNotNull($this->_paymentProcessor->getTransactionId());
+
+        $result = $this->_transactionObject->getOne($this->_paymentProcessor->getTransactionId());
+        $this->assertEquals('TEST', $result['description']);
+        $this->assertEquals($this->_paymentProcessor->getPaymentId(), $result['payment']['id']);
+        $this->assertEquals($this->_paymentProcessor->getClientId(), $result['client']['id']);
+    }
+
+
 }

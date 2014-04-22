@@ -74,6 +74,7 @@ class Services_Paymill_PaymentProcessor
      */
     private function _createClient()
     {
+        $this->_initiatePhpWrapperClasses();
         if (isset($this->_clientId)) {
             $this->_log("Client using: " . $this->_clientId);
         } else {
@@ -99,6 +100,7 @@ class Services_Paymill_PaymentProcessor
      */
     private function _createPayment()
     {
+        $this->_initiatePhpWrapperClasses();
         if (isset($this->_paymentId)) {
             $this->_log("Payment using: " . $this->_paymentId);
         } else {
@@ -110,7 +112,6 @@ class Services_Paymill_PaymentProcessor
             );
 
             $this->_validateResult($payment, 'Payment');
-
             $this->_paymentId = $payment['id'];
         }
         return true;
@@ -124,6 +125,7 @@ class Services_Paymill_PaymentProcessor
      */
     private function _createTransaction()
     {
+        $this->_initiatePhpWrapperClasses();
         $parameter = array(
             'amount' => $this->_amount,
             'currency' => $this->_currency,
@@ -375,6 +377,78 @@ class Services_Paymill_PaymentProcessor
     }
 
     /**
+     * Creates a client
+     * If no parameters are set, the values stored in the class will be used
+     *
+     * @param string $email
+     * @param string $description
+     * @return boolean
+     */
+    public function createClient($email = null, $description = null){
+        $result = false;
+        $email = isset($email) ? $email : $this->_email;
+        $description = isset($description) ? $description : $this->_description;
+        if(!in_array(null, array($email, $description))){
+            $this->_clientId = null;
+            $this->_email = $email;
+            $this->_description = $description;
+            $result = $this->_createClient();
+        }
+        return $result;
+    }
+
+    /**
+     * Creates a Payment
+     * If no parameters are set, the values stored in the class will be used
+     *
+     * @param string $token
+     * @param string $client
+     * @return boolean
+     */
+    public function createPayment($token = null, $client = null){
+        $result = false;
+        $token = isset($token) ? $token : $this->_token;
+        $client = isset($client) ? $client : $this->_clientId;
+        if(!in_array(null, array($token, $client))){
+            $this->_paymentId = null;
+            $this->_token = $token;
+            $this->_clientId = $client;
+            $result = $this->_createPayment();
+        }
+        return $result;
+    }
+
+    /**
+     * Creates a Transaction
+     * If no parameters are set, the values stored in the class will be used
+     *
+     * @param integer $amount
+     * @param string $currency
+     * @param string $description
+     * @param string $preauthorisation
+     * @param string $source
+     * @return boolean
+     */
+    public function createTransaction($amount = null, $currency = null, $description = null, $preauthorisation = null, $source = null){
+        $result = false;
+        $amount = isset($amount) ? $amount : $this->_amount;
+        $currency = isset($currency) ? $currency : $this->_currency;
+        $description = isset($description) ? $description : $this->_description;
+        $preauthorisation = isset($preauthorisation) ? $preauthorisation : $this->_preauthId;
+        $source = isset($source) ? $source : $this->_source;
+        if(!in_array(null, array($amount, $currency, $description))){
+            $this->_transactionId = null;
+            $this->_amount = $amount;
+            $this->_currency = $currency;
+            $this->_description = $description;
+            $this->_preauthId = $preauthorisation;
+            $this->_source = $source;
+            $result = $this->_createTransaction();
+        }
+        return $result;
+    }
+
+        /**
      * Returns the objects data
      *
      * @return array

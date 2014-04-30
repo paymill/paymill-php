@@ -71,18 +71,21 @@ class OfferTest extends PHPUnit_Framework_TestCase
         $getOneArray = $offer->parameterize("getOne");
 
         $this->assertEquals($creationArray, array(
-            'amount' => '4200', // E.g. "4200" for 42.00 EUR
+            'amount' => 4200, // E.g. "4200" for 42.00 EUR
             'currency' => 'EUR', // ISO 4217
             'interval' => '1 MONTH',
             'name' => 'Test Offer',
             'trial_period_days' => null
         ));
-        $this->assertEquals($updateArray, array(
-            'interval'          => $offer->getInterval(),
-            'name'              => $offer->getName(),
-            'trial_period_days' => $offer->getTrialPeriodDays()
-            )
+        $expectedUpdateArray = array(
+            'name' => $offer->getName(),
+            'amount' => $offer->getAmount(),
+            'currency' => $offer->getCurrency(),
+            'interval' => $offer->getInterval(),
+            'trial_period_days' => $offer->getTrialPeriodDays(),
+            'stop_trial_period' => $offer->getStopTrialPeriod()
         );
+        $this->assertEquals($expectedUpdateArray, $updateArray);
         $this->assertEquals($getOneArray, array(
             'count' => 1,
             'offset' => 0

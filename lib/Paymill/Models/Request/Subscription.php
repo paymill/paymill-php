@@ -130,7 +130,7 @@ class Subscription extends Base
     /**
      * Sets the interval defining how often the client should be charged.
      * Additionally a special day of the week can be appended (unless daily interval)
-     * @example Format: number DAY | WEEK | MONTH | YEAR [, MONDAY | TUESDAY | ... | SUNDAY] Example: 3 WEEK, MONDAY
+     * @example Format: number DAY || number WEEK | MONTH | YEAR [, MONDAY | TUESDAY | ... | SUNDAY] Example: 3 WEEK, MONDAY
      * @param string $interval
      * @return \Paymill\Models\Request\Subscription
      */
@@ -295,6 +295,7 @@ class Subscription extends Base
                 $parameterArray['currency'] = $this->getCurrency();
                 $parameterArray['interval'] = $this->getInterval();
                 $parameterArray['name'] = $this->getName();
+                $parameterArray['pause'] = $this->getPause();
                 break;
             case 'getOne':
                 $parameterArray['count'] = 1;

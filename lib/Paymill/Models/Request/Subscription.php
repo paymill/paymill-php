@@ -69,6 +69,11 @@ class Subscription extends Base
     private $_pause;
 
     /**
+     * @var int timestamp
+     */
+    private $_trialPeriodEnd;
+
+    /**
      * Creates an instance of the subscription request model
      */
     public function __construct()
@@ -249,6 +254,15 @@ class Subscription extends Base
     }
 
     /**
+     * Returns period of validity
+     * @return string
+     */
+    public function getPeriodOfValidity()
+    {
+        return $this->_periodOfValidity;
+    }
+
+    /**
      * Returns if subscription is paused or not
      * @return boolean
      */
@@ -265,6 +279,26 @@ class Subscription extends Base
     public function setPause($pause)
     {
         $this->_pause = $pause;
+        return $this;
+    }
+
+    /**
+     * returns timestamp of subscription start
+     * @return mixed
+     */
+    public function getTrialPeriodEnd()
+    {
+        return $this->_trialPeriodEnd;
+    }
+
+    /**
+     * set timestamp for when subscription shall start
+     * @param $trialPeriodEnd
+     * @return $this
+     */
+    public function setTrialPeriodEnd($trialPeriodEnd)
+    {
+        $this->_trialPeriodEnd = $trialPeriodEnd;
         return $this;
     }
 
@@ -286,6 +320,8 @@ class Subscription extends Base
                 $parameterArray['currency'] = $this->getCurrency();
                 $parameterArray['interval'] = $this->getInterval();
                 $parameterArray['name'] = $this->getName();
+                $parameterArray['period_of_validity'] = $this->getPeriodOfValidity();
+                $parameterArray['trial_period_end']  = $this->getTrialPeriodEnd();
                 break;
             case 'update':
                 $parameterArray = $this->getFilter();
@@ -296,6 +332,8 @@ class Subscription extends Base
                 $parameterArray['interval'] = $this->getInterval();
                 $parameterArray['name'] = $this->getName();
                 $parameterArray['pause'] = $this->getPause();
+                $parameterArray['period_of_validity'] = $this->getPeriodOfValidity();
+                $parameterArray['trial_period_end']  = $this->getTrialPeriodEnd();
                 break;
             case 'getOne':
                 $parameterArray['count'] = 1;

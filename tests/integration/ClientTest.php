@@ -28,7 +28,10 @@ class Client extends PHPUnit_Framework_TestCase
     protected function setUp()
     {
         $this->_service = new Request();
-        $this->_service->setConnectionClass(new Curl(API_TEST_KEY));
+        $this->_service->setConnectionClass(
+            new Curl(API_TEST_KEY, API_HOST, array(CURLOPT_SSL_VERIFYPEER => SSL_VERIFY_PEER))
+        );
+
         $this->_model = new Models\Request\Client();
         parent::setUp();
     }

@@ -28,7 +28,10 @@ class SubscriptionTest extends PHPUnit_Framework_TestCase
     protected function setUp()
     {
         $this->_service = new Request();
-        $this->_service->setConnectionClass(new Curl(API_TEST_KEY));
+        $this->_service->setConnectionClass(
+            new Curl(API_TEST_KEY, API_HOST, array(CURLOPT_SSL_VERIFYPEER => SSL_VERIFY_PEER))
+        );
+
         $this->_model = new Models\Request\Subscription();
         parent::setUp();
     }
@@ -72,8 +75,8 @@ class SubscriptionTest extends PHPUnit_Framework_TestCase
             ->setCancelAtPeriodEnd(false);
         $result = $this->_service->create($this->_model);
         $this->assertInstanceOf('Paymill\Models\Response\Subscription', $result, var_export($result, true));
-        $this->_service->delete($OfferModel->setId($OfferModelResponse->getId()));
-        $this->_service->delete($PaymentModel->setId($PaymentModelResponse->getId()));
+        //$this->_service->delete($OfferModel->setId($OfferModelResponse->getId()));
+        //$this->_service->delete($PaymentModel->setId($PaymentModelResponse->getId()));
         return $result;
     }
 

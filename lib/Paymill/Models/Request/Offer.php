@@ -190,7 +190,6 @@ class Offer extends Base
                 $parameterArray['currency'] = $this->getCurrency();
                 $parameterArray['interval'] = $this->getInterval();
                 $parameterArray['trial_period_days'] = $this->getTrialPeriodDays();
-                $parameterArray['stop_trial_period'] = $this->getStopTrialPeriod();
                 break;
             case 'getOne':
                 $parameterArray['count'] = 1;

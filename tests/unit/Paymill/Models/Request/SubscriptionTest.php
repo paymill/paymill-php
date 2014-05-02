@@ -78,7 +78,9 @@ class SubscriptionTest extends PHPUnit_Framework_TestCase
             'amount' => null,
             'currency' => null,
             'interval' => null,
-            'name' => null
+            'name' => null,
+            'period_of_validity' => null,
+            'trial_period_end' => null
 
         ));
 
@@ -93,8 +95,9 @@ class SubscriptionTest extends PHPUnit_Framework_TestCase
             'currency' => null,
             'interval' => null,
             'name' => null,
-            'pause' => null
-
+            'pause' => null,
+            'period_of_validity' => null,
+            'trial_period_end' => null
         ));
     }
 

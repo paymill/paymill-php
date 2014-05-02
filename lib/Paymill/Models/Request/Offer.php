@@ -185,17 +185,12 @@ class Offer extends Base
                 break;
             case 'update':
                 $parameterArray = $this->getFilter();
-                $parameterArray['interval'] = $this->getInterval();
                 $parameterArray['name'] = $this->getName();
-<<<<<<< HEAD
-                $parameterArray['trial_period_days'] = $this->getTrialPeriodDays();
-=======
                 $parameterArray['amount'] = $this->getAmount();
                 $parameterArray['currency'] = $this->getCurrency();
                 $parameterArray['interval'] = $this->getInterval();
                 $parameterArray['trial_period_days'] = $this->getTrialPeriodDays();
                 $parameterArray['stop_trial_period'] = $this->getStopTrialPeriod();
->>>>>>> add ability to remove subscription and more update parameters for offer
                 break;
             case 'getOne':
                 $parameterArray['count'] = 1;

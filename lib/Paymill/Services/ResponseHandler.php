@@ -216,6 +216,7 @@ class ResponseHandler
         $model->setPayment($this->_convertResponseToModel($response['payment'], "payment"));
         $model->setClient($this->_convertResponseToModel($response['client'], "client"));
         $model->setAppId($response['app_id']);
+        $model->setDescription($response['description']);
         return $model;
     }
 

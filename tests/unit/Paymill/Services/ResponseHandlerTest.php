@@ -337,6 +337,7 @@ class ResponseHandlerTest extends PHPUnit_Framework_TestCase
                 )),
             "preauthorization" => array(
                 "id" => "preauth_0b771c503680c341548e",
+                "description" => "Test Description",
                 "amount" => "4200",
                 "currency" => "EUR",
                 "status" => "closed",

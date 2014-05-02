@@ -48,13 +48,15 @@ class PreauthorizationTest
         $livemode = false;
         $payment = new Response\Payment();
         $client = new Response\Client();
+        $description = "Test Description";
 
         $this->_preauthorization->setAmount($amount)
-                ->setCurrency($currency)
-                ->setStatus($status)
-                ->setLivemode($livemode)
-                ->setPayment($payment)
-                ->setClient($client);
+            ->setCurrency($currency)
+            ->setStatus($status)
+            ->setLivemode($livemode)
+            ->setPayment($payment)
+            ->setClient($client)
+            ->setDescription($description);
 
         $this->assertEquals($this->_preauthorization->getAmount(), $amount);
         $this->assertEquals($this->_preauthorization->getCurrency(), $currency);
@@ -62,6 +64,7 @@ class PreauthorizationTest
         $this->assertEquals($this->_preauthorization->getLivemode(), $livemode);
         $this->assertEquals($this->_preauthorization->getPayment(), $payment);
         $this->assertEquals($this->_preauthorization->getClient(), $client);
+        $this->assertEquals($this->_preauthorization->getDescription(), $description);
     }
 
 }

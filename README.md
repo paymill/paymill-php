@@ -21,7 +21,7 @@ Please include this library via Composer in your composer.json and execute **com
 ```json
 {
     "require": {
-        "paymill/paymill": "v3.0.0"
+        "paymill/paymill": "dev-master"
     }
 }
 ```

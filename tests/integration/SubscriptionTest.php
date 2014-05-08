@@ -125,7 +125,6 @@ class SubscriptionTest extends PHPUnit_Framework_TestCase
         $this->_model->setId($model->getId());
         $this->_model->setPause(false);
         $result = $this->_service->update($this->_model);
-        var_dump($result);
         $this->assertInstanceOf('Paymill\Models\Response\Subscription', $result, var_export($result, true));
         $this->assertEquals('active', $result->getStatus());
     }
@@ -213,7 +212,7 @@ class SubscriptionTest extends PHPUnit_Framework_TestCase
             )
         );
         $result = $this->_service->getAll($this->_model);
-        $this->assertEquals(2, count($result), var_export($result, true));
+        $this->assertEquals(1, count($result), var_export($result, true));
 
     }
 

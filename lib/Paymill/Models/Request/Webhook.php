@@ -105,20 +105,16 @@ class Webhook extends Base
     }
 
     /**
-     * @param boolean $value
-     *
-     * @return $this
+     * set webhook active (or inactive)
+     * @param $active
      */
-    public function setActive($value)
+    public function setActive($active)
     {
-        $this->_active = $value;
+        $this->_active = $active;
         return $this;
     }
 
-    /**
-     * @return boolean
-     */
-    public function getActive()
+    public function getActive($active)
     {
         return $this->_active;
     }

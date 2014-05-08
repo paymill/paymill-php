@@ -82,8 +82,7 @@ class OfferTest extends PHPUnit_Framework_TestCase
             'amount' => $offer->getAmount(),
             'currency' => $offer->getCurrency(),
             'interval' => $offer->getInterval(),
-            'trial_period_days' => $offer->getTrialPeriodDays(),
-            'stop_trial_period' => $offer->getStopTrialPeriod()
+            'trial_period_days' => $offer->getTrialPeriodDays()
         );
         $this->assertEquals($expectedUpdateArray, $updateArray);
         $this->assertEquals($getOneArray, array(

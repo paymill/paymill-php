@@ -80,7 +80,7 @@ class SubscriptionTest extends PHPUnit_Framework_TestCase
             'interval' => null,
             'name' => null,
             'period_of_validity' => null,
-            'trial_period_end' => null
+            'trial_end' => null
 
         ));
 
@@ -97,7 +97,7 @@ class SubscriptionTest extends PHPUnit_Framework_TestCase
             'name' => null,
             'pause' => null,
             'period_of_validity' => null,
-            'trial_period_end' => null
+            'trial_end' => null
         ));
     }
 

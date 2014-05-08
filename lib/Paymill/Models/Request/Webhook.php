@@ -26,6 +26,11 @@ class Webhook extends Base
     private $_eventTypes;
 
     /**
+     * @var boolean
+     */
+    private $_active;
+
+    /**
      * Creates an instance of the webhook request model
      */
     function __construct()
@@ -98,6 +103,21 @@ class Webhook extends Base
     {
         $this->_email = $email;
         return $this;
+    }
+
+    /**
+     * set webhook active (or inactive)
+     * @param $active
+     */
+    public function setActive($active)
+    {
+        $this->_active = $active;
+        return $this;
+    }
+
+    public function getActive($active)
+    {
+        return $this->_active;
     }
 
     /**

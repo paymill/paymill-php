@@ -71,7 +71,7 @@ class Subscription extends Base
     /**
      * @var int timestamp
      */
-    private $_trialPeriodEnd;
+    private $_trialEnd;
 
     /**
      * Creates an instance of the subscription request model
@@ -286,19 +286,19 @@ class Subscription extends Base
      * returns timestamp of subscription start
      * @return mixed
      */
-    public function getTrialPeriodEnd()
+    public function getTrialEnd()
     {
-        return $this->_trialPeriodEnd;
+        return $this->_trialEnd;
     }
 
     /**
      * set timestamp for when subscription shall start
-     * @param $trialPeriodEnd
+     * @param $trialEnd
      * @return $this
      */
-    public function setTrialPeriodEnd($trialPeriodEnd)
+    public function setTrialEnd($trialEnd)
     {
-        $this->_trialPeriodEnd = $trialPeriodEnd;
+        $this->_trialEnd = $trialEnd;
         return $this;
     }
 
@@ -321,7 +321,7 @@ class Subscription extends Base
                 $parameterArray['interval'] = $this->getInterval();
                 $parameterArray['name'] = $this->getName();
                 $parameterArray['period_of_validity'] = $this->getPeriodOfValidity();
-                $parameterArray['trial_period_end']  = $this->getTrialPeriodEnd();
+                $parameterArray['trial_end']  = $this->getTrialEnd();
                 break;
             case 'update':
                 $parameterArray = $this->getFilter();
@@ -333,7 +333,7 @@ class Subscription extends Base
                 $parameterArray['name'] = $this->getName();
                 $parameterArray['pause'] = $this->getPause();
                 $parameterArray['period_of_validity'] = $this->getPeriodOfValidity();
-                $parameterArray['trial_period_end']  = $this->getTrialPeriodEnd();
+                $parameterArray['trial_end']  = $this->getTrialEnd();
                 break;
             case 'getOne':
                 $parameterArray['count'] = 1;

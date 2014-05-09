@@ -10,26 +10,30 @@ namespace Paymill\Models\Request;
  */
 class Preauthorization extends Base
 {
-
     /**
      * @var string
      */
     private $_amount;
-    
+
     /**
      * @var string
      */
     private $_currency;
-    
+
     /**
      * @var string
      */
     private $_payment;
-    
+
     /**
      * @var string
      */
     private $_token;
+
+    /**
+     * @var string
+     */
+    private $_description;
 
     /**
      * Creates an instance of the preauthorization request model
@@ -120,6 +124,26 @@ class Preauthorization extends Base
     }
 
     /**
+     * Returns the description
+     * @return string
+     */
+    public function getDescription()
+    {
+        return $this->_description;
+    }
+
+    /**
+     * Sets the description
+     * @param string $description
+     * @return \Paymill\Models\Request\Preauthorization
+     */
+    public function setDescription($description)
+    {
+        $this->_description = $description;
+        return $this;
+    }
+
+    /**
      * Returns an array of parameters customized for the argumented methodname
      * @param string $method
      * @return array
@@ -136,6 +160,7 @@ class Preauthorization extends Base
                 }
                 $parameterArray['amount'] = $this->getAmount();
                 $parameterArray['currency'] = $this->getCurrency();
+                $parameterArray['description'] = $this->getDescription();
 
                 break;
             case 'getOne':
@@ -143,7 +168,7 @@ class Preauthorization extends Base
                 $parameterArray['offset'] = 0;
                 break;
             case 'getAll':
-            $parameterArray = $this->getFilter();
+                $parameterArray = $this->getFilter();
                 break;
             case 'delete':
                 break;

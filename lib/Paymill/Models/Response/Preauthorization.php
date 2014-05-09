@@ -4,7 +4,7 @@ namespace Paymill\Models\Response;
 
 /**
  * Preauthorization Model
- * If you’d like to reserve some money from the client’s credit card but you’d also like to execute the transaction 
+ * If you’d like to reserve some money from the client’s credit card but you’d also like to execute the transaction
  * itself a bit later, then use preauthorizations. This is NOT possible with direct debit.
  * A preauthorization is valid for 7 days.
  */
@@ -14,7 +14,7 @@ class Preauthorization extends Base
      * @var integer
      */
     private $_amount;
-   
+
     /**
      * Returns the amount
      * @return string
@@ -34,13 +34,12 @@ class Preauthorization extends Base
         $this->_amount = $amount;
         return $this;
     }
-    
-    
+
     /**
      * @var string
      */
     private $_currency;
-    
+
     /**
      * Returns the currency
      * @return string
@@ -60,7 +59,7 @@ class Preauthorization extends Base
         $this->_currency = $currency;
         return $this;
     }
-    
+
     /**
      * Indicates the current status (open, pending, closed, failed, deleted, preauth)
      * @var string
@@ -86,13 +85,13 @@ class Preauthorization extends Base
         $this->_status = $status;
         return $this;
     }
-    
+
     /**
      * Whether this preauthorization was issued while being in live mode or not
      * @var boolean
      */
     private $_livemode;
-    
+
     /**
      * Returns the livemode flag of the preAuth object
      * @return boolean
@@ -112,15 +111,15 @@ class Preauthorization extends Base
         $this->_livemode = $livemode;
         return $this;
     }
-    
+
     /**
      * Payment Response Model
      * @var Payment
      */
     private $_payment;
-    
+
     /**
-     * Returns the identifier of a payment 
+     * Returns the identifier of a payment
      * @return Payment
      */
     public function getPayment()
@@ -129,7 +128,7 @@ class Preauthorization extends Base
     }
 
     /**
-     * Sets the identifier of a payment 
+     * Sets the identifier of a payment
      * @param Payment $payment
      * @return \Paymill\Models\Response\Preauthorization
      */
@@ -138,7 +137,7 @@ class Preauthorization extends Base
         $this->_payment = $payment;
         return $this;
     }
-    
+
     /**
      * Client Response Model
      * @var Client
@@ -162,6 +161,31 @@ class Preauthorization extends Base
     public function setClient($client)
     {
         $this->_client = $client;
+        return $this;
+    }
+
+    /**
+     * @var string
+     */
+    private $_description;
+
+    /**
+     * Returns the description
+     * @return string
+     */
+    public function getDescription()
+    {
+        return $this->_description;
+    }
+
+    /**
+     * Sets the description
+     * @param string $description
+     * @return \Paymill\Models\Response\Preauthorization
+     */
+    public function setDescription($description)
+    {
+        $this->_description = $description;
         return $this;
     }
 

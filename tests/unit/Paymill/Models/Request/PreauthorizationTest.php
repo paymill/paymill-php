@@ -45,15 +45,22 @@ class PreauthorizationTest extends PHPUnit_Framework_TestCase
             'token' => '098f6bcd4621d373cade4e832627b4f6',
             'payment' => 'pay_d43cf0ee969d9847512b',
             'amount' => '4200',
-            'currency' => 'EUR'
+            'currency' => 'EUR',
+            'description' => 'Test Description'
         );
 
-        $this->_preauthorization->setPayment($sample['payment'])->setToken($sample['token'])->setAmount($sample['amount'])->setCurrency($sample['currency']);
+        $this->_preauthorization
+            ->setPayment($sample['payment'])
+            ->setToken($sample['token'])
+            ->setAmount($sample['amount'])
+            ->setCurrency($sample['currency'])
+            ->setDescription($sample['description']);
 
         $this->assertEquals($this->_preauthorization->getToken(), $sample['token']);
         $this->assertEquals($this->_preauthorization->getPayment(), $sample['payment']);
         $this->assertEquals($this->_preauthorization->getAmount(), $sample['amount']);
         $this->assertEquals($this->_preauthorization->getCurrency(), $sample['currency']);
+        $this->assertEquals($this->_preauthorization->getDescription(), $sample['description']);
 
         return $this->_preauthorization;
     }
@@ -74,7 +81,8 @@ class PreauthorizationTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($creationArray, array(
             'payment' => 'pay_d43cf0ee969d9847512b',
             'amount' => '4200',
-            'currency' => 'EUR'
+            'currency' => 'EUR',
+            'description' => 'Test Description'
             )
         );
         $this->assertEquals($getOneArray, array(

@@ -125,9 +125,8 @@ class Webhook extends Base
     }
 
     /**
+     * Sets webhook active (or inactive)
      * @param boolean $active
-     *
-     * @return $this
      */
     public function setActive($active)
     {
@@ -136,7 +135,10 @@ class Webhook extends Base
     }
 
     /**
-     * @return boolean
+     * Returns if webhook is active or inactive
+     * @param boolean $active
+     *
+     * @return bool
      */
     public function getActive()
     {

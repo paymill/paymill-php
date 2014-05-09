@@ -24,8 +24,9 @@ class Webhook extends Base
      * @var array
      */
     private $_eventTypes;
+
     /**
-     * @var boolean $_active
+     * @var boolean
      */
     private $_active = false;
 
@@ -105,8 +106,8 @@ class Webhook extends Base
     }
 
     /**
-     * set webhook active (or inactive)
-     * @param $active
+     * Sets webhook active (or inactive)
+     * @param boolean $active
      */
     public function setActive($active)
     {
@@ -114,7 +115,13 @@ class Webhook extends Base
         return $this;
     }
 
-    public function getActive($active)
+    /**
+     * Returns if webhook is active or inactive
+     * @param boolean $active
+     *
+     * @return bool
+     */
+    public function getActive()
     {
         return $this->_active;
     }
@@ -135,7 +142,9 @@ class Webhook extends Base
                     $parameterArray['email'] = $this->getEmail();
                 }
                 $parameterArray['event_types'] = $this->getEventTypes();
-                $parameterArray['active'] = $this->getActive() ? true : false;
+                if (!is_null($this->getActive())) {
+                    $parameterArray['active'] = $this->getActive();
+                }
                 break;
             case 'update':
                 if(!is_null($this->getUrl())){
@@ -144,7 +153,9 @@ class Webhook extends Base
                     $parameterArray['email'] = $this->getEmail();
                 }
                 $parameterArray['event_types'] = $this->getEventTypes();
-                $parameterArray['active'] = $this->getActive();
+                if (!is_null($this->getActive())) {
+                    $parameterArray['active'] = $this->getActive();
+                }
                 break;
             case 'delete':
                 break;

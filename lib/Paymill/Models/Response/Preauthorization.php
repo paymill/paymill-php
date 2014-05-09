@@ -165,7 +165,7 @@ class Preauthorization extends Base
     }
 
     /**
-     * @var integer
+     * @var string
      */
     private $_description;
 

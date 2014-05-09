@@ -33,6 +33,11 @@ class Webhook extends Base
     private $_eventTypes;
 
     /**
+     * @var boolean
+     */
+    private $_active;
+
+    /**
      * Returns the webhook url
      * @return string
      */
@@ -117,6 +122,27 @@ class Webhook extends Base
     {
         $this->_email = $email;
         return $this;
+    }
+
+    /**
+     * Sets webhook active (or inactive)
+     * @param boolean $active
+     */
+    public function setActive($active)
+    {
+        $this->_active = $active;
+        return $this;
+    }
+
+    /**
+     * Returns if webhook is active or inactive
+     * @param boolean $active
+     *
+     * @return bool
+     */
+    public function getActive()
+    {
+        return $this->_active;
     }
 
 }

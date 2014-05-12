@@ -44,17 +44,20 @@ class WebhookTest extends PHPUnit_Framework_TestCase
         $sample = array(
             'url' => 'your-webhook-url',
             'email' => 'your-webhook-email',
-            'event_types' => array('transaction.succeeded', 'subscription.created')
+            'event_types' => array('transaction.succeeded', 'subscription.created'),
+            'state' => true
         );
 
         $this->_webhook
             ->setUrl($sample['url'])
             ->setEmail($sample['email'])
-            ->setEventTypes($sample['event_types']);
+            ->setEventTypes($sample['event_types'])
+            ->setActive($sample['state']);
 
         $this->assertEquals($this->_webhook->getUrl(), $sample['url']);
         $this->assertEquals($this->_webhook->getEmail(), $sample['email']);
         $this->assertEquals($this->_webhook->getEventTypes(), $sample['event_types']);
+        $this->assertEquals($this->_webhook->getActive(), $sample['state']);
 
         return $this->_webhook;
     }
@@ -75,11 +78,13 @@ class WebhookTest extends PHPUnit_Framework_TestCase
 
         $this->assertEquals($creationArray, array(
             'url' => 'your-webhook-url',
-            'event_types' => array('transaction.succeeded', 'subscription.created')
+            'event_types' => array('transaction.succeeded', 'subscription.created'),
+            'active' => true
         ));
         $this->assertEquals($updateArray, array(
             'url' => 'your-webhook-url',
-            'event_types' => array('transaction.succeeded', 'subscription.created')
+            'event_types' => array('transaction.succeeded', 'subscription.created'),
+            'active' => true
         ));
         $this->assertEquals($getOneArray, array('count' => 1, 'offset' => 0));
     }

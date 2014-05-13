@@ -62,7 +62,6 @@ class ResponseHandler
         $resourceName = substr($serviceResource, 0, -2);
         $resultValue = null;
         if ($this->validateResponse($response)) {
-
             $resultValue = $this->_convertResponseToModel($response['body']['data'], $resourceName);
         } else {
             $resultValue = $this->_convertErrorToModel($response);
@@ -329,6 +328,7 @@ class ResponseHandler
         $model->setStatus($response['status']);
         $model->setCreatedAt($response['created_at']);
         $model->setUpdatedAt($response['updated_at']);
+        $model->setActive($response['active']);
         return $model;
     }
 

@@ -71,6 +71,7 @@ class Client extends PHPUnit_Framework_TestCase
     }
 
     /**
+     *
      * @test
      * @codeCoverageIgnore
      * @expectedException \Paymill\Services\PaymillException

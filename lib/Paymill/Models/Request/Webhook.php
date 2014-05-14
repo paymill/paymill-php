@@ -156,9 +156,6 @@ class Webhook extends Base
                 if (!is_null($this->getActive())) {
                     $parameterArray['active'] = $this->getActive();
                 }
-                if (!is_null($this->getActive())) {
-                    $parameterArray['active'] = $this->getActive();
-                }
                 break;
             case 'delete':
                 break;

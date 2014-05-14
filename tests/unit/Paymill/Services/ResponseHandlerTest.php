@@ -584,7 +584,8 @@ class ResponseHandlerTest extends PHPUnit_Framework_TestCase
             ),
             "created_at" => 1358982000,
             "updated_at" => 1358982000,
-            "app_id" => null
+            "app_id" => null,
+            "version" => '2.0'
         );
         $subject = $this->_responseHandler->convertResponse($response, "webhooks/");
         $this->assertInstanceOf("\Paymill\Models\Response\Webhook", $subject, var_export($subject, true));
@@ -607,7 +608,8 @@ class ResponseHandlerTest extends PHPUnit_Framework_TestCase
             ),
             "created_at" => 1358982000,
             "updated_at" => 1358982000,
-            "app_id" => null
+            "app_id" => null,
+            "version" => '2.0'
         );
         $subject = $this->_responseHandler->convertResponse($response, "webhooks/");
         $this->assertInstanceOf("\Paymill\Models\Response\Webhook", $subject, var_export($subject, true));

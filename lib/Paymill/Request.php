@@ -200,23 +200,11 @@ class Request
         }
         $httpMethod = $this->_getHTTPMethod($method);
         $parameter = $model->parameterize($method);
-
-        // Tmp. fix because the paymill API only allows boolean as string:
-        foreach($parameter as $index => $param) {
-            if(is_bool($parameter[$index])) {
-                $parameter[$index] = $parameter[$index] ? 'true' : 'false';
-            }
-        }
-
-        $source = empty($this->_source) ? "PhpLib" . $this->getVersion(): "PhpLib" . $this->getVersion() . "_" . $this->getSource();
-        $parameter['source'] = $source;
         $serviceResource = $model->getServiceResource() . $model->getId();
-
         if(is_a($model, "\Paymill\Models\Request\Transaction") && $method === "create"){
             $source = empty($this->_source) ? "PhpLib" . $this->getVersion(): "PhpLib" . $this->getVersion() . "_" . $this->getSource();
             $parameter['source'] = $source;
         }
-
         try {
             $this->_lastRequest = $parameter;
             $response = $this->_connectionClass->requestApi(
@@ -224,27 +212,23 @@ class Request
             );
             $this->_lastResponse = $response;
             $responseHandler = new ResponseHandler();
-
-            if(!isset($response['body']['data'])) {
-                $convertedResponse = $response;
-            } elseif ($method === 'getAll') {
+            if ($method === 'getAll') {
                 if ($responseHandler->validateResponse($response)) {
                     $convertedResponse = $response['body']['data'];
                 } else {
-
                     $convertedResponse = $responseHandler->convertResponse($response, $model->getServiceResource());
                 }
             } else {
                 $convertedResponse = $responseHandler->convertResponse($response, $model->getServiceResource());
             }
-
         } catch (\Exception $e) {
             $errorModel = new Error();
             $convertedResponse = $errorModel->setErrorMessage($e->getMessage());
         }
+
         if (is_a($convertedResponse, '\Paymill\Models\Response\Error')) {
             throw new PaymillException(
-            $convertedResponse->getResponseCode(), $convertedResponse->getErrorMessage(), $convertedResponse->getHttpStatusCode()
+                $convertedResponse->getResponseCode(), $convertedResponse->getErrorMessage(), $convertedResponse->getHttpStatusCode()
             );
         }
 

@@ -37,22 +37,22 @@ class Subscription extends Base
      * @var string
      */
     private $_offer;
-    
+
     /**
      * @var boolean
      */
     private $_cancelAtPeriodEnd;
-    
+
     /**
      * @var string
      */
     private $_payment;
-    
+
     /**
      * @var string
      */
     private $_client;
-    
+
     /**
      * @var integer
      */
@@ -119,7 +119,7 @@ class Subscription extends Base
      */
     public function setAmount($amount)
     {
-        $this->_amount = (int) $amount;
+        $this->_amount = $amount;
         return $this;
     }
 

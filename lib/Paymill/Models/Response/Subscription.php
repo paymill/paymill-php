@@ -4,55 +4,55 @@ namespace Paymill\Models\Response;
 
 /**
  * Subscription Model
- * Subscriptions allow you to charge recurring payments on a client’s credit card / to a client’s direct debit. 
- * A subscription connects a client to the offers-object. A client can have several subscriptions to different offers, 
+ * Subscriptions allow you to charge recurring payments on a client’s credit card / to a client’s direct debit.
+ * A subscription connects a client to the offers-object. A client can have several subscriptions to different offers,
  * but only one subscription to the same offer.
  * @tutorial https://paymill.com/de-de/dokumentation/referenz/api-referenz/#document-subscriptions
  */
 class Subscription extends Base
 {
     /**
-     * @var \Paymill\Models\Response\Offer 
+     * @var \Paymill\Models\Response\Offer
      */
     private $_offer;
-    
+
     /**
-     * @var boolean 
+     * @var boolean
      */
     private $_livemode;
-    
+
     /**
-     * @var integer 
+     * @var integer
      */
     private $_trialStart;
-    
+
     /**
      * @var integer
      */
     private $_trialEnd;
-    
+
     /**
      * @var integer
      */
     private $_nextCaptureAt;
-    
+
     /**
      * @var integer
      */
     private $_canceledAt;
-    
+
     /**
-     * @var \Paymill\Models\Response\Payment 
+     * @var \Paymill\Models\Response\Payment
      */
     private $_payment;
-    
+
     /**
-     * @var \Paymill\Models\Response\Client 
+     * @var \Paymill\Models\Response\Client
      */
     private $_client;
-    
+
     /**
-     * @var integer 
+     * @var integer
      */
     private $_startAt;
 
@@ -75,6 +75,11 @@ class Subscription extends Base
      * @var string
      */
     private $_periodOfValidity;
+
+    /**
+     * @var int
+     */
+    private $_amountChangeType;
 
     /**
      * Returns the model of the offer the subscription is based on
@@ -337,5 +342,27 @@ class Subscription extends Base
     {
         return $this->_periodOfValidity;
     }
+
+    /**
+     * set amount change type
+     *
+     * @param $amountChangeType
+     * @return $this
+     */
+    public function setAmountChangeType($amountChangeType)
+    {
+        $this->_amountChangeType = $amountChangeType;
+        return $this;
+    }
+
+    /**
+     * get amount change type
+     * @return int
+     */
+    public function getAmountChangeType()
+    {
+        return $this->_amountChangeType;
+    }
+
 
 }

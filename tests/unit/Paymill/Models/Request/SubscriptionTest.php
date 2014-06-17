@@ -97,7 +97,10 @@ class SubscriptionTest extends PHPUnit_Framework_TestCase
             'name' => null,
             'pause' => null,
             'period_of_validity' => null,
-            'trial_end' => null
+            'trial_end' => null,
+            'amount_change_type' => null,
+            'offer_change_type' => null
+
         ));
     }
 

@@ -82,6 +82,11 @@ class Subscription extends Base
     private $_amountChangeType;
 
     /**
+     * @var int
+     */
+    private $_offerChangeType;
+
+    /**
      * Returns the model of the offer the subscription is based on
      * @return \Paymill\Models\Response\Offer
      */
@@ -344,7 +349,7 @@ class Subscription extends Base
     }
 
     /**
-     * set amount change type
+     * Set amount change type
      *
      * @param $amountChangeType
      * @return $this
@@ -356,12 +361,33 @@ class Subscription extends Base
     }
 
     /**
-     * get amount change type
+     * Return amount change type
      * @return int
      */
     public function getAmountChangeType()
     {
         return $this->_amountChangeType;
+    }
+
+    /**
+     * Set offer change type
+     * @param $offerChangeType
+     *
+     * @return $this
+     */
+    public function setOfferChangeType($offerChangeType)
+    {
+        $this->_offerChangeType;
+        return $this;
+    }
+
+    /**
+     * Return offer change type
+     * @return int
+     */
+    public function getOfferChangeType()
+    {
+        return $this->_offerChangeType;
     }
 
 

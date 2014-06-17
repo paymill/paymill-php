@@ -79,6 +79,11 @@ class Subscription extends Base
     private $_amountChangeType;
 
     /**
+     * @var int
+     */
+    private $_offerChangeType;
+
+    /**
      * Creates an instance of the subscription request model
      */
     public function __construct()
@@ -329,6 +334,27 @@ class Subscription extends Base
     }
 
     /**
+     * Set offer change type
+     * @param $offerChangeType
+     *
+     * @return $this
+     */
+    public function setOfferChangeType($offerChangeType)
+    {
+        $this->_offerChangeType = $offerChangeType;
+        return $this;
+    }
+
+    /**
+     * Return offer change type
+     * @return int
+     */
+    public function getOfferChangeType()
+    {
+        return $this->_offerChangeType;
+    }
+
+    /**
      * Returns an array of parameters customized for the argumented methodname
      * @param string $method
      * @return array
@@ -361,6 +387,7 @@ class Subscription extends Base
                 $parameterArray['period_of_validity'] = $this->getPeriodOfValidity();
                 $parameterArray['trial_end']  = $this->getTrialEnd();
                 $parameterArray['amount_change_type'] = $this->getAmountChangeType();
+                $parameterArray['offer_change_type'] = $this->getOfferChangeType();
                 break;
             case 'getOne':
                 $parameterArray['count'] = 1;

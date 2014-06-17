@@ -291,7 +291,6 @@ class ResponseHandler
         $model->setIsCanceled($response['is_canceled']);
         $model->setIsDeleted($response['is_deleted']);
         $model->setStatus($response['status']);
-        $model->setAmountChangeType($response['amount_change_type']);
         return $model;
     }
 

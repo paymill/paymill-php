@@ -39,7 +39,7 @@ class Checksum extends Base
      */
     function __construct()
     {
-        $this->_serviceResource = 'Checksum/';
+        $this->_serviceResource = 'checksum/';
     }
 
     /**

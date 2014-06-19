@@ -35,6 +35,26 @@ class Checksum extends Base
     private $_description = null;
 
     /**
+     * @var null|string
+     */
+    private $_appId = null;
+
+    /**
+     * @var null|string
+     */
+    private $_feeAmount = null;
+
+    /**
+     * @var null|string
+     */
+    private $_feeCurrency = null;
+
+    /**
+     * @var null|string
+     */
+    private $_feePayment = null;
+
+    /**
      * Creates an instance of the checksum request model
      */
     function __construct()
@@ -121,7 +141,83 @@ class Checksum extends Base
     }
 
     /**
-     * Returns an array of parameters customized for the argumented methodname
+     * @param null|string $appId
+     *
+     * @return \Paymill\Models\Request\Checksum
+     */
+    public function setAppId($appId)
+    {
+        $this->_appId = $appId;
+        return $this;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getAppId()
+    {
+        return $this->_appId;
+    }
+
+    /**
+     * @param null|string $feeAmount
+     *
+     * @return \Paymill\Models\Request\Checksum
+     */
+    public function setFeeAmount($feeAmount)
+    {
+        $this->_feeAmount = $feeAmount;
+        return $this;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getFeeAmount()
+    {
+        return $this->_feeAmount;
+    }
+
+    /**
+     * @param null|string $feeCurrency
+     *
+     * @return \Paymill\Models\Request\Checksum
+     */
+    public function setFeeCurrency($feeCurrency)
+    {
+        $this->_feeCurrency = $feeCurrency;
+        return $this;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getFeeCurrency()
+    {
+        return $this->_feeCurrency;
+    }
+
+    /**
+     * @param null|string $feePayment
+     *
+     * @return \Paymill\Models\Request\Checksum
+     */
+    public function setFeePayment($feePayment)
+    {
+        $this->_feePayment = $feePayment;
+        return $this;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getFeePayment()
+    {
+        return $this->_feePayment;
+    }
+
+    /**
+     * Returns an array of parameters customized for the given method name
      *
      * @param string $method
      *
@@ -132,10 +228,40 @@ class Checksum extends Base
         $parameterArray = array();
         switch ($method) {
             case 'getOne':
-                $parameterArray['checksum_type'] = $this->getChecksumType();
-                $parameterArray['amount']        = $this->getAmount();
-                $parameterArray['currency']      = $this->getCurrency();
-                $parameterArray['description']   = $this->getDescription();
+                if($this->getChecksumType()) {
+                    $parameterArray['checksum_type'] = $this->getChecksumType();
+                }
+
+                if($this->getAmount()) {
+                    $parameterArray['amount']        = $this->getAmount();
+                }
+
+                if($this->getCurrency()) {
+                    $parameterArray['currency']      = $this->getCurrency();
+                }
+
+                if($this->getDescription()){
+                    $parameterArray['description']   = $this->getDescription();
+                }
+
+                // Unite params:
+
+                if($this->getAppId()) {
+                    $parameterArray['app_id']        = $this->getAppId();
+                }
+
+                if($this->getFeeAmount()) {
+                    $parameterArray['fee_amount']    = $this->getFeeAmount();
+                }
+
+                if($this->getFeeCurrency()) {
+                    $parameterArray['fee_currency']  = $this->getFeeCurrency();
+                }
+
+                if($this->getFeePayment()) {
+                    $parameterArray['fee_payment']   = $this->getFeePayment();
+                }
+
                 break;
         }
 

@@ -75,7 +75,7 @@ class ChecksumTest extends PHPUnit_Framework_TestCase
         $parameterArray['currency']      = 'CHF';
         $parameterArray['description']   = 'foo bar';
 
-        $creationArray = $model->parameterize("create");
+        $creationArray = $model->parameterize("getOne");
 
         $this->assertEquals($creationArray, $parameterArray);
     }

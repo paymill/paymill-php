@@ -57,7 +57,7 @@ class ChecksumTest extends PHPUnit_Framework_TestCase
      */
     public function createChecksum()
     {
-        $result = $this->_service->create($this->_model);
+        $result = $this->_service->getOne($this->_model);
         $this->assertInstanceOf('Paymill\Models\Response\Checksum', $result, var_export($result, true));
         return $result;
     }

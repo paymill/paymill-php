@@ -12,12 +12,13 @@ namespace Paymill\Models\Response;
  * To make the checksum computation as easy as possible we provide this endpoint for you.
  * @tutorial https://paymill.com/de-de/dokumentation/referenz/api-referenz/#document-checksum
  */
-class Checksum extends Base
+class Checksum
 {
     /**
      * @var string
      */
     private $_checksum = null;
+    private $_livemode = false;
 
     /**
      * Returns the checksum

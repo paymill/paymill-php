@@ -131,7 +131,7 @@ class Checksum extends Base
     {
         $parameterArray = array();
         switch ($method) {
-            case 'create':
+            case 'getOne':
                 $parameterArray['checksum_type'] = $this->getChecksumType();
                 $parameterArray['amount']        = $this->getAmount();
                 $parameterArray['currency']      = $this->getCurrency();

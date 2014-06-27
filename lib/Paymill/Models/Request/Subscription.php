@@ -7,7 +7,6 @@ namespace Paymill\Models\Request;
  * Subscriptions allow you to charge recurring payments on a client’s credit card / to a client’s direct debit.
  * A subscription connects a client to the offers-object. A client can have several subscriptions to different offers,
  * but only one subscription to the same offer.
- * @todo does this still apply?
  * @tutorial https://paymill.com/de-de/dokumentation/referenz/api-referenz/#document-subscriptions
  */
 class Subscription extends Base

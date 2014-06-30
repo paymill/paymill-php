@@ -148,26 +148,7 @@ class Offer extends Base
         return $this;
     }
 
-    /**
-     * stops the trial period if true given
-     */
-    public function setStopTrialPeriod($stopTrialPeriod)
-    {
-        $this->_stopTrialPeriod = $stopTrialPeriod;
-        return $this;
-    }
-
-    /**
-     * returns true if trial period is to be ended immediately
-     * @return bool
-     */
-    public function getStopTrialPeriod()
-    {
-        return $this->_stopTrialPeriod;
-    }
-
-
-    /**
+     /**
      * Returns an array of parameters customized for the argumented methodname
      * @param string $method
      * @return array
@@ -190,7 +171,6 @@ class Offer extends Base
                 $parameterArray['currency'] = $this->getCurrency();
                 $parameterArray['interval'] = $this->getInterval();
                 $parameterArray['trial_period_days'] = $this->getTrialPeriodDays();
-                $parameterArray['stop_trial_period'] = $this->getStopTrialPeriod();
                 break;
             case 'getOne':
                 $parameterArray['count'] = 1;

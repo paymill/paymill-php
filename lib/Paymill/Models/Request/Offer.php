@@ -34,11 +34,6 @@ class Offer extends Base
     private $_trialPeriodDays;
 
     /**
-     * @var boolean
-     */
-    private $_stopTrialPeriod;
-
-    /**
      * Creates an instance of the offer request model
      */
     public function __construct()

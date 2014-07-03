@@ -38,11 +38,6 @@ class Subscription extends Base
     private $_offer;
 
     /**
-     * @var boolean
-     */
-    private $_cancelAtPeriodEnd;
-
-    /**
      * @var string
      */
     private $_payment;
@@ -86,6 +81,12 @@ class Subscription extends Base
      * @var int
      */
     private $_offerChangeType;
+
+    /**
+     * @var
+     */
+    private $_remove;
+
 
     /**
      * Creates an instance of the subscription request model
@@ -370,11 +371,31 @@ class Subscription extends Base
     /**
      * Sets the token required for the creation of subscription
      * @param string $token
-     * @return \Paymill\Models\Request\Preauthorization
+     * @return \Paymill\Models\Request\Subscription
      */
     public function setToken($token)
     {
         $this->_token = $token;
+        return $this;
+    }
+
+    /**
+     * Returns true if subscription should also be removed
+     * @return mixed
+     */
+    public function getRemove()
+    {
+        return $this->_remove;
+    }
+
+    /**
+     * If set to true subscription will also be removed
+     * @param $remove
+     * @return \Paymill\Models\Request\Subscription
+     */
+    public function setRemove($remove)
+    {
+        $this->_remove = $remove;
         return $this;
     }
 
@@ -416,7 +437,6 @@ class Subscription extends Base
                 }
                 break;
             case 'update':
-                $parameterArray = $this->getFilter();
                 if (!is_null($this->getOffer())) {
                     $parameterArray['offer'] = $this->getOffer();
                 }
@@ -461,7 +481,9 @@ class Subscription extends Base
                 $parameterArray = $this->getFilter();
                 break;
             case 'delete':
-                $parameterArray = $this->getFilter();
+                if (!is_null($this->getRemove())){
+                    $parameterArray['remove'] = $this->getRemove();
+                }
                 break;
         }
 

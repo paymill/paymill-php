@@ -34,6 +34,16 @@ class Offer extends Base
     private $_trialPeriodDays;
 
     /**
+     * @var boolean
+     */
+    private $_removeWithSubscriptions;
+
+    /**
+     * @var boolean
+     */
+    private $_updateSubscriptions;
+
+    /**
      * Creates an instance of the offer request model
      */
     public function __construct()
@@ -143,6 +153,48 @@ class Offer extends Base
         return $this;
     }
 
+    /**
+     * Returns true if connected subscriptions should also be removed
+     * @return bool
+     */
+    public function getRemoveWithSubscriptions()
+    {
+        return $this->_removeWithSubscriptions;
+    }
+
+    /**
+     * Set if connected subscriptions should also be removed
+     * @param $removeWithSubscriptions bool
+     *
+     * @return $this \Paymill\Models\Request\Offer
+     */
+    public function setRemoveWithSubscriptions($removeWithSubscriptions)
+    {
+        $this->_removeWithSubscriptions = $removeWithSubscriptions;
+        return $this;
+    }
+
+    /**
+     * Returns true if connected subscriptions should also be updated
+     * @return bool
+     */
+    public function getUpdateSubscriptions()
+    {
+        return $this->_updateSubscriptions;
+    }
+
+    /**
+     * Set if connected subscriptions should also be updated
+     * @param $updateSubscriptions bool
+     *
+     * @return $this \Paymill\Models\Request\Offer
+     */
+    public function setUpdateSubscriptions($updateSubscriptions)
+    {
+        $this->_updateSubscriptions = $updateSubscriptions;
+        return $this;
+    }
+
      /**
      * Returns an array of parameters customized for the argumented methodname
      * @param string $method
@@ -160,7 +212,9 @@ class Offer extends Base
                 $parameterArray['trial_period_days'] = $this->getTrialPeriodDays();
                 break;
             case 'update':
-                $parameterArray = $this->getFilter();
+                if (!is_null($this->getUpdateSubscriptions())) {
+                    $parameterArray['update_subscriptions'] = $this->getUpdateSubscriptions();
+                }
                 $parameterArray['name'] = $this->getName();
                 $parameterArray['amount'] = $this->getAmount();
                 $parameterArray['currency'] = $this->getCurrency();
@@ -175,7 +229,9 @@ class Offer extends Base
                 $parameterArray = $this->getFilter();
                 break;
             case 'delete':
-                $parameterArray = $this->getFilter();
+                if (!is_null($this->getRemoveWithSubscriptions())) {
+                    $parameterArray['remove_with_subscriptions'] = $this->getRemoveWithSubscriptions();
+                }
                 break;
         }
 

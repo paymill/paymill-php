@@ -150,11 +150,8 @@ class OfferTest extends PHPUnit_Framework_TestCase
 
         $this->assertInstanceOf('Paymill\Models\Response\Subscription', $subscriptionWithOffer = $this->_service->getOne($subscriptionRequest), var_export($subscriptionWithOffer, true));
 
-        $this->_model->setFilter(array(
-            'remove_with_subscriptions' => true
-            )
-        );
-        $this->_model->setId($model->getId());
+        $this->_model->setRemoveWithSubscriptions(true)
+                    ->setId($model->getId());
 
         $result = $this->_service->delete($this->_model);
 
@@ -183,11 +180,8 @@ class OfferTest extends PHPUnit_Framework_TestCase
 
         $this->assertInstanceOf('Paymill\Models\Response\Subscription', $subscriptionWithOffer = $this->_service->getOne($subscriptionRequest), var_export($subscriptionWithOffer, true));
 
-        $this->_model->setFilter(array(
-                'remove_with_subscriptions' => false
-            )
-        );
-        $this->_model->setId($offer->getId());
+        $this->_model->setRemoveWithSubscriptions(false)
+                    ->setId($offer->getId());
 
         $result = $this->_service->delete($this->_model);
 

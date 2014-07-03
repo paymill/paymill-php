@@ -69,10 +69,7 @@ class SubscriptionTest extends PHPUnit_Framework_TestCase
             ->setPayment($PaymentModelResponse->getId());
         $result = $this->_service->create($this->_model);
         $this->assertInstanceOf('Paymill\Models\Response\Subscription', $result, var_export($result, true));
-        $offerModel->setFilter(array(
-                'remove_with_subscriptions' => false
-            )
-        );
+        $offerModel->setRemoveWithSubscriptions(false);
         $this->_service->delete($offerModel->setId($offerModelResponse->getId()));
         return $result;
     }
@@ -189,12 +186,8 @@ class SubscriptionTest extends PHPUnit_Framework_TestCase
      */
     public function completelyDeleteSubscription($model)
     {
-        $this->_model->setId($model->getId());
-
-        $this->_model->setFilter(array(
-                'remove' => true
-                )
-        );
+        $this->_model->setId($model->getId())
+            ->setRemove(true);
         $result = $this->_service->delete($this->_model);
         $this->assertTrue($result->getIsCanceled(), var_export($result, true));
         $this->assertTrue($result->getIsDeleted(), var_export($result, true));

@@ -51,7 +51,7 @@ class Subscription extends Base
      * @var string
      */
     private $_token;
-    
+
     /**
      * @var string
      */

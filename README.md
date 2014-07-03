@@ -5,6 +5,12 @@ PAYMILL-PHP
 [![Latest Stable Version](https://poser.pugx.org/paymill/paymill/v/stable.png)](https://packagist.org/packages/paymill/paymill)
 [![Total Downloads](https://poser.pugx.org/paymill/paymill/downloads.png)](https://packagist.org/packages/paymill/paymill)
 
+VERSIONING
+----------
+
+This wrapper is using the api v2.1 launched in June 2014.
+If you wish to use the old api v2.0 please use the wrapper from branch v2: https://github.com/paymill/paymill-php/tree/v2.
+
 How to test
 -----------
 There are different credit card numbers, frontend and backend error codes, which can be used for testing.

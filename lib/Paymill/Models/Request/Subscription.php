@@ -50,6 +50,11 @@ class Subscription extends Base
     /**
      * @var string
      */
+    private $_token;
+    
+    /**
+     * @var string
+     */
     private $_client;
 
     /**
@@ -354,6 +359,26 @@ class Subscription extends Base
     }
 
     /**
+     * Returns the token required for the creation of subscription
+     * @return string
+     */
+    public function getToken()
+    {
+        return $this->_token;
+    }
+
+    /**
+     * Sets the token required for the creation of subscription
+     * @param string $token
+     * @return \Paymill\Models\Request\Preauthorization
+     */
+    public function setToken($token)
+    {
+        $this->_token = $token;
+        return $this;
+    }
+
+    /**
      * Returns an array of parameters customized for the argumented methodname
      * @param string $method
      * @return array
@@ -363,30 +388,70 @@ class Subscription extends Base
         $parameterArray = array();
         switch ($method) {
             case 'create':
-                $parameterArray['client'] = $this->getClient();
-                $parameterArray['offer'] = $this->getOffer();
+                if (!is_null($this->getClient())) {
+                    $parameterArray['client'] = $this->getClient();
+                }
+                if (!is_null($this->getOffer())) {
+                    $parameterArray['offer'] = $this->getOffer();
+                }
                 $parameterArray['payment'] = $this->getPayment();
-                $parameterArray['start_at'] = $this->getStartAt();
-                $parameterArray['amount'] = $this->getAmount();
-                $parameterArray['currency'] = $this->getCurrency();
-                $parameterArray['interval'] = $this->getInterval();
-                $parameterArray['name'] = $this->getName();
-                $parameterArray['period_of_validity'] = $this->getPeriodOfValidity();
-                $parameterArray['trial_end']  = $this->getTrialEnd();
+
+                if (!is_null($this->getAmount())) {
+                    $parameterArray['amount'] = $this->getAmount();
+                }
+                if (!is_null($this->getCurrency())) {
+                    $parameterArray['currency'] = $this->getCurrency();
+                }
+                if (!is_null($this->getInterval())) {
+                    $parameterArray['interval'] = $this->getInterval();
+                }
+                if (!is_null($this->getName())) {
+                    $parameterArray['name'] = $this->getName();
+                }
+                if (!is_null($this->getPeriodOfValidity())) {
+                    $parameterArray['period_of_validity'] = $this->getPeriodOfValidity();
+                }
+                if (!is_null($this->getTrialEnd())) {
+                    $parameterArray['trial_end']  = $this->getTrialEnd();
+                }
                 break;
             case 'update':
                 $parameterArray = $this->getFilter();
-                $parameterArray['offer'] = $this->getOffer();
-                $parameterArray['payment'] = $this->getPayment();
-                $parameterArray['amount'] = $this->getAmount();
-                $parameterArray['currency'] = $this->getCurrency();
-                $parameterArray['interval'] = $this->getInterval();
-                $parameterArray['name'] = $this->getName();
-                $parameterArray['pause'] = $this->getPause();
-                $parameterArray['period_of_validity'] = $this->getPeriodOfValidity();
-                $parameterArray['trial_end']  = $this->getTrialEnd();
-                $parameterArray['amount_change_type'] = $this->getAmountChangeType();
-                $parameterArray['offer_change_type'] = $this->getOfferChangeType();
+                if (!is_null($this->getOffer())) {
+                    $parameterArray['offer'] = $this->getOffer();
+                }
+                if (!is_null($this->getPayment())) {
+                    $parameterArray['payment'] = $this->getPayment();
+                } else {
+                    $parameterArray['token'] = $this->getToken();
+                }
+                if (!is_null($this->getAmount())) {
+                    $parameterArray['amount'] = $this->getAmount();
+                }
+                if (!is_null($this->getCurrency())) {
+                    $parameterArray['currency'] = $this->getCurrency();
+                }
+                if (!is_null($this->getInterval())) {
+                    $parameterArray['interval'] = $this->getInterval();
+                }
+                if (!is_null($this->getName())) {
+                    $parameterArray['name'] = $this->getName();
+                }
+                if (!is_null($this->getPause())) {
+                    $parameterArray['pause'] = $this->getPause();
+                }
+                if (!is_null($this->getPeriodOfValidity())) {
+                    $parameterArray['period_of_validity'] = $this->getPeriodOfValidity();
+                }
+                if (!is_null($this->getTrialEnd())) {
+                    $parameterArray['trial_end']  = $this->getTrialEnd();
+                }
+                if (!is_null($this->getAmountChangeType())) {
+                    $parameterArray['amount_change_type'] = $this->getAmountChangeType();
+                }
+                if (!is_null($this->getOfferChangeType())) {
+                    $parameterArray['offer_change_type'] = $this->getOfferChangeType();
+                }
                 break;
             case 'getOne':
                 $parameterArray['count'] = 1;

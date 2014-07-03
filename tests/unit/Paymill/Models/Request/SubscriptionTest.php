@@ -70,19 +70,11 @@ class SubscriptionTest extends PHPUnit_Framework_TestCase
         $updateArray = $subscription->parameterize("update");
         $getOneArray = $subscription->parameterize("getOne");
 
-        $this->assertEquals($creationArray, array(
+        $this->assertEquals(array(
             'client' => 'client_88a388d9dd48f86c3136',
             'offer' => 'offer_40237e20a7d5a231d99b',
-            'payment' => 'pay_95ba26ba2c613ebb0ca8',
-            'start_at' => null,
-            'amount' => null,
-            'currency' => null,
-            'interval' => null,
-            'name' => null,
-            'period_of_validity' => null,
-            'trial_end' => null
-
-        ));
+            'payment' => 'pay_95ba26ba2c613ebb0ca8'
+        ), $creationArray);
 
         $this->assertEquals($getOneArray, array(
             'count' => 1,
@@ -90,17 +82,7 @@ class SubscriptionTest extends PHPUnit_Framework_TestCase
         ));
         $this->assertEquals($updateArray, array(
             'offer' => 'offer_40237e20a7d5a231d99b',
-            'payment' => 'pay_95ba26ba2c613ebb0ca8',
-            'amount' => null,
-            'currency' => null,
-            'interval' => null,
-            'name' => null,
-            'pause' => null,
-            'period_of_validity' => null,
-            'trial_end' => null,
-            'amount_change_type' => null,
-            'offer_change_type' => null
-
+            'payment' => 'pay_95ba26ba2c613ebb0ca8'
         ));
     }
 

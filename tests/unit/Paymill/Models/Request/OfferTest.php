@@ -65,8 +65,8 @@ class OfferTest extends PHPUnit_Framework_TestCase
     {
         $testId = "offer_88a388d9dd48f86c3136";
         $offer->setId($testId);
-
         $creationArray = $offer->parameterize("create");
+        $offer->setUpdateSubscriptions(true);
         $updateArray = $offer->parameterize("update");
         $getOneArray = $offer->parameterize("getOne");
 
@@ -82,7 +82,8 @@ class OfferTest extends PHPUnit_Framework_TestCase
             'amount' => $offer->getAmount(),
             'currency' => $offer->getCurrency(),
             'interval' => $offer->getInterval(),
-            'trial_period_days' => $offer->getTrialPeriodDays()
+            'trial_period_days' => $offer->getTrialPeriodDays(),
+            'update_subscriptions' => $offer->getUpdateSubscriptions()
 
         );
         $this->assertEquals($expectedUpdateArray, $updateArray);
@@ -91,5 +92,4 @@ class OfferTest extends PHPUnit_Framework_TestCase
             'offset' => 0
         ));
     }
-
 }

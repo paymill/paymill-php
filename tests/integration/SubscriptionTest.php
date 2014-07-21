@@ -1,6 +1,6 @@
 <?php
-
 namespace Paymill\Test\Integration;
+
 
 use Paymill\API\Curl;
 use Paymill\Models as Models;
@@ -47,22 +47,20 @@ class SubscriptionTest extends PHPUnit_Framework_TestCase
     }
 
     /**
+     * @group testing
      * @test
      * @codeCoverageIgnore
      */
-    public function createSubscription()
+    public function createSubscriptionWithOffer()
     {
-        $this->markTestIncomplete(
-            'Needs to be clarified with Paymill. Creation crashes with Message "currently there exists subscriptions, please delete them first"'
-        );
 
-        $OfferModel = new Models\Request\Offer();
-        $OfferModel->setAmount(100)
+        $offerModel = new Models\Request\Offer();
+        $offerModel->setAmount(100)
             ->setCurrency('EUR')
             ->setInterval('2 DAY')
             ->setName('TestOffer');
-        $OfferModelResponse = $this->_service->create($OfferModel);
-        $this->assertInstanceOf('Paymill\Models\Response\Offer', $OfferModelResponse, var_export($OfferModelResponse, true));
+        $offerModelResponse = $this->_service->create($offerModel);
+        $this->assertInstanceOf('Paymill\Models\Response\Offer', $offerModelResponse, var_export($offerModelResponse, true));
 
         $PaymentModel = new Models\Request\Payment();
         $PaymentModel->setToken("098f6bcd4621d373cade4e832627b4f6");
@@ -70,35 +68,71 @@ class SubscriptionTest extends PHPUnit_Framework_TestCase
         $this->assertInstanceOf('Paymill\Models\Response\Payment', $PaymentModelResponse, var_export($PaymentModelResponse, true));
 
         $this->_model->setClient($PaymentModelResponse->getClient())
-            ->setOffer($OfferModelResponse->getId())
-            ->setPayment($PaymentModelResponse->getId())
-            ->setCancelAtPeriodEnd(false);
+            ->setOffer($offerModelResponse->getId())
+            ->setPayment($PaymentModelResponse->getId());
         $result = $this->_service->create($this->_model);
         $this->assertInstanceOf('Paymill\Models\Response\Subscription', $result, var_export($result, true));
-        //$this->_service->delete($OfferModel->setId($OfferModelResponse->getId()));
-        //$this->_service->delete($PaymentModel->setId($PaymentModelResponse->getId()));
+        $offerModel->setRemoveWithSubscriptions(false);
+        $this->_service->delete($offerModel->setId($offerModelResponse->getId()));
         return $result;
     }
 
     /**
      * @test
      * @codeCoverageIgnore
-     * @depends createSubscription
      */
-    public function updateSubscription($model)
+    public function createSubscriptionWithoutOffer()
     {
-        $this->_model->setId($model->getId())
-            ->setCancelAtPeriodEnd(true);
-        $result = $this->_service->update($this->_model);
+        $this->_model->setAmount(2000)
+            ->setCurrency('EUR')
+            ->setInterval('2 WeEK, tUEsDAY');
+        $PaymentModel = new Models\Request\Payment();
+        $PaymentModel->setToken("098f6bcd4621d373cade4e832627b4f6");
+        $PaymentModelResponse = $this->_service->create($PaymentModel);
+        $this->assertInstanceOf('Paymill\Models\Response\Payment', $PaymentModelResponse, var_export($PaymentModelResponse, true));
 
+        $this->_model->setClient($PaymentModelResponse->getClient())
+            ->setPayment($PaymentModelResponse->getId());
+        $result = $this->_service->create($this->_model);
         $this->assertInstanceOf('Paymill\Models\Response\Subscription', $result, var_export($result, true));
-        $this->assertTrue($result->getCancelAtPeriodEnd());
+
+        return $result;
     }
 
     /**
      * @test
      * @codeCoverageIgnore
-     * @depends createSubscription
+     * @depends createSubscriptionWithOffer
+     */
+    public function pauseSubscription($model)
+    {
+        $this->_model->setId($model->getId());
+        $this->_model->setPause(true);
+        $result = $this->_service->update($this->_model);
+
+        $this->assertInstanceOf('Paymill\Models\Response\Subscription', $result, var_export($result, true));
+        $this->assertEquals('inactive', $result->getStatus());
+    }
+
+
+    /**
+     * @test
+     * @codeCoverageIgnore
+     * @depends createSubscriptionWithOffer
+     */
+    public function unPauseSubscription($model)
+    {
+        $this->_model->setId($model->getId());
+        $this->_model->setPause(false);
+        $result = $this->_service->update($this->_model);
+        $this->assertInstanceOf('Paymill\Models\Response\Subscription', $result, var_export($result, true));
+        $this->assertEquals('active', $result->getStatus());
+    }
+
+    /**
+     * @test
+     * @codeCoverageIgnore
+     * @depends createSubscriptionWithOffer
      */
     public function getOneSubscription($model)
     {
@@ -110,7 +144,7 @@ class SubscriptionTest extends PHPUnit_Framework_TestCase
     /**
      * @test
      * @codeCoverageIgnore
-     * @depends createSubscription
+     * @depends createSubscriptionWithOffer
      */
     public function getAllSubscription()
     {
@@ -126,8 +160,8 @@ class SubscriptionTest extends PHPUnit_Framework_TestCase
     public function getAllSubscriptionWithFilter()
     {
         $this->_model->setFilter(array(
-            'count' => 2,
-            'offset' => 0
+                'count' => 2,
+                'offset' => 0
             )
         );
         $result = $this->_service->getAll($this->_model);
@@ -137,16 +171,45 @@ class SubscriptionTest extends PHPUnit_Framework_TestCase
     /**
      * @test
      * @codeCoverageIgnore
-     * @depends createSubscription
+     * @depends createSubscriptionWithOffer
      * @depends getOneSubscription
      * @depends updateSubscription
      */
     public function deleteSubscription($model)
     {
         $this->_model->setId($model->getId());
-        $this->markTestIncomplete('Subscription does not return a empty array like the other resources.');
         $result = $this->_service->delete($this->_model);
-        $this->assertInternalType('array', $result, var_export($result, true));
+        $this->assertTrue($result->getIsCanceled(), var_export($result, true));
+        $this->assertFalse($result->getIsDeleted(), var_export($result, true));
+    }
+
+    /**
+     * @test
+     * @depends createSubscriptionWithoutOffer
+     */
+    public function completelyDeleteSubscription($model)
+    {
+        $this->_model->setId($model->getId())
+            ->setRemove(true);
+        $result = $this->_service->delete($this->_model);
+        $this->assertTrue($result->getIsCanceled(), var_export($result, true));
+        $this->assertTrue($result->getIsDeleted(), var_export($result, true));
+    }
+
+    /**
+     * @test
+     * @depends completelyDeleteSubscription
+     * a 2nd subscription gets deleted in integration/OfferTest.php
+     */
+    public function getAllCompletelyDeletedSubscriptions()
+    {
+        $this->_model->setFilter(array(
+                'is_deleted' => true
+            )
+        );
+        $result = $this->_service->getAll($this->_model);
+        $this->assertEquals(2, count($result), var_export($result, true));
+
     }
 
 }

@@ -1,4 +1,5 @@
 {
+
     "name": "paymill/paymill",
     "type": "library",
     "description": "Paymill PHPLib",
@@ -16,4 +17,6 @@
             "Paymill": "lib/"
         }
     }
+
 }
+

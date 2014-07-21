@@ -22,16 +22,26 @@ class Offer extends Base
      * @var string
      */
     private $_currency;
-    
+
     /**
      * @var string
      */
     private $_interval;
-    
+
     /**
      * @var integer
      */
     private $_trialPeriodDays;
+
+    /**
+     * @var boolean
+     */
+    private $_removeWithSubscriptions;
+
+    /**
+     * @var boolean
+     */
+    private $_updateSubscriptions;
 
     /**
      * Creates an instance of the offer request model
@@ -144,6 +154,48 @@ class Offer extends Base
     }
 
     /**
+     * Returns true if connected subscriptions should also be removed
+     * @return bool
+     */
+    public function getRemoveWithSubscriptions()
+    {
+        return $this->_removeWithSubscriptions;
+    }
+
+    /**
+     * Set if connected subscriptions should also be removed
+     * @param $removeWithSubscriptions bool
+     *
+     * @return $this \Paymill\Models\Request\Offer
+     */
+    public function setRemoveWithSubscriptions($removeWithSubscriptions)
+    {
+        $this->_removeWithSubscriptions = $removeWithSubscriptions;
+        return $this;
+    }
+
+    /**
+     * Returns true if connected subscriptions should also be updated
+     * @return bool
+     */
+    public function getUpdateSubscriptions()
+    {
+        return $this->_updateSubscriptions;
+    }
+
+    /**
+     * Set if connected subscriptions should also be updated
+     * @param $updateSubscriptions bool
+     *
+     * @return $this \Paymill\Models\Request\Offer
+     */
+    public function setUpdateSubscriptions($updateSubscriptions)
+    {
+        $this->_updateSubscriptions = $updateSubscriptions;
+        return $this;
+    }
+
+     /**
      * Returns an array of parameters customized for the argumented methodname
      * @param string $method
      * @return array
@@ -160,16 +212,26 @@ class Offer extends Base
                 $parameterArray['trial_period_days'] = $this->getTrialPeriodDays();
                 break;
             case 'update':
+                if (!is_null($this->getUpdateSubscriptions())) {
+                    $parameterArray['update_subscriptions'] = $this->getUpdateSubscriptions();
+                }
                 $parameterArray['name'] = $this->getName();
+                $parameterArray['amount'] = $this->getAmount();
+                $parameterArray['currency'] = $this->getCurrency();
+                $parameterArray['interval'] = $this->getInterval();
+                $parameterArray['trial_period_days'] = $this->getTrialPeriodDays();
                 break;
             case 'getOne':
                 $parameterArray['count'] = 1;
                 $parameterArray['offset'] = 0;
                 break;
             case 'getAll':
-            $parameterArray = $this->getFilter();
+                $parameterArray = $this->getFilter();
                 break;
             case 'delete':
+                if (!is_null($this->getRemoveWithSubscriptions())) {
+                    $parameterArray['remove_with_subscriptions'] = $this->getRemoveWithSubscriptions();
+                }
                 break;
         }
 

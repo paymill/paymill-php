@@ -114,7 +114,7 @@ class PreauthorizationTest extends PHPUnit_Framework_TestCase
             )
         );
         $result = $this->_service->getAll($this->_model);
-        $this->assertEquals(2, count($result), var_export($result, true));
+        $this->assertEquals(1, count($result), var_export($result, true));
     }
 
     /**

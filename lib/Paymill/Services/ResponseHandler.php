@@ -110,6 +110,9 @@ class ResponseHandler
             case 'webhook':
                 $model = $this->_createWebhook($response);
                 break;
+            case 'fraud':
+                $model = $this->_createFraud($response);
+                break;
         }
 
         return $model;
@@ -277,7 +280,6 @@ class ResponseHandler
         $model->setId($response['id']);
         $model->setOffer($this->_convertResponseToModel($response['offer'], 'offer'));
         $model->setLivemode($response['livemode']);
-        $model->setCancelAtPeriodEnd($response['cancel_at_period_end']);
         $model->setTrialStart($response['trial_start']);
         $model->setTrialEnd($response['trial_end']);
         $model->setNextCaptureAt($response['next_capture_at']);
@@ -287,6 +289,9 @@ class ResponseHandler
         $model->setPayment($this->_convertResponseToModel($response['payment'], "payment"));
         $model->setClient($this->_convertResponseToModel($response['client'], "client"));
         $model->setAppId($response['app_id']);
+        $model->setIsCanceled($response['is_canceled']);
+        $model->setIsDeleted($response['is_deleted']);
+        $model->setStatus($response['status']);
         return $model;
     }
 
@@ -306,6 +311,25 @@ class ResponseHandler
         $model->setCreatedAt($response['created_at']);
         $model->setUpdatedAt($response['updated_at']);
         $model->setAppId($response['app_id']);
+        $model->setActive($response['active']);
+        return $model;
+    }
+
+    /**
+     * Creates and fills a fraudmodel
+     *
+     * @param array $response
+     * @return \Paymill\Models\Response\Fraud
+     */
+    private function _createFraud($response)
+    {
+        $model = new Models\Fraud();
+        $model->setId($response['id']);
+        $model->setLivemode($response['livemode']);
+        $model->setStatus($response['status']);
+        $model->setCreatedAt($response['created_at']);
+        $model->setUpdatedAt($response['updated_at']);
+        $model->setActive($response['active']);
         return $model;
     }
 

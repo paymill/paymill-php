@@ -517,13 +517,15 @@ class ResponseHandlerTest extends PHPUnit_Framework_TestCase
                 "app_id" => null
             ),
             "livemode" => false,
-            "cancel_at_period_end" => false,
             "trial_start" => null,
             "trial_end" => null,
             "next_capture_at" => 1369563095,
             "created_at" => 1341935490,
             "updated_at" => 1341935490,
             "canceled_at" => null,
+            "is_canceled" => false,
+            "is_deleted" => false,
+            "status" => 'active',
             "payment" => array(
                 'id' => "pay_be64260ee1b0a368efe597e8",
                 'type' => "creditcard",
@@ -583,7 +585,9 @@ class ResponseHandlerTest extends PHPUnit_Framework_TestCase
             ),
             "created_at" => 1358982000,
             "updated_at" => 1358982000,
-            "app_id" => null
+            "app_id" => null,
+            "version" => '2.0',
+            "active" => true
         );
         $subject = $this->_responseHandler->convertResponse($response, "webhooks/");
         $this->assertInstanceOf("\Paymill\Models\Response\Webhook", $subject, var_export($subject, true));
@@ -606,7 +610,10 @@ class ResponseHandlerTest extends PHPUnit_Framework_TestCase
             ),
             "created_at" => 1358982000,
             "updated_at" => 1358982000,
-            "app_id" => null
+            "app_id" => null,
+            "version" => '2.0',
+            "active" => true
+
         );
         $subject = $this->_responseHandler->convertResponse($response, "webhooks/");
         $this->assertInstanceOf("\Paymill\Models\Response\Webhook", $subject, var_export($subject, true));

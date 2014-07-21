@@ -4,9 +4,9 @@ namespace Paymill\Models\Response;
 
 /**
  * Webhook Model
- * With webhooks we give you the possibility to react automatically to certain events which happen within our system. 
- * A webhook is basically a URL where we send an HTTP POST request to, every time one of the events attached to that 
- * webhook is triggered. Alternatively you can define an email address where we send the event’s information to 
+ * With webhooks we give you the possibility to react automatically to certain events which happen within our system.
+ * A webhook is basically a URL where we send an HTTP POST request to, every time one of the events attached to that
+ * webhook is triggered. Alternatively you can define an email address where we send the event’s information to
  * You can manage your webhooks via the API as explained below or you can use the web interface inside our cockpit.
  * @tutorial https://paymill.com/de-de/dokumentation/referenz/api-referenz/#document-webhooks
  */
@@ -16,21 +16,26 @@ class Webhook extends Base
      * @var string
      */
     private $_url = null;
-    
+
     /**
      * @var string
      */
     private $_email = null;
-    
+
     /**
      * @var boolean
      */
     private $_livemode;
-    
+
     /**
      * @var array
      */
     private $_eventTypes;
+
+    /**
+     * @var boolean
+     */
+    private $_active;
 
     /**
      * Returns the webhook url
@@ -83,10 +88,10 @@ class Webhook extends Base
 
     /**
      * Sets the event types for the webhook.
-     * There are a number of events you can react to. Each webhook can be configured to catch any kind of event 
-     * individually, so you can create different webhooks for different events. Each Webhook needs to be attached 
-     * to at least one event. For example the event subscription.succeeded is triggered every time a successful 
-     * transaction has been made in our system that is based on a subscription. Shortly after that has been triggered, 
+     * There are a number of events you can react to. Each webhook can be configured to catch any kind of event
+     * individually, so you can create different webhooks for different events. Each Webhook needs to be attached
+     * to at least one event. For example the event subscription.succeeded is triggered every time a successful
+     * transaction has been made in our system that is based on a subscription. Shortly after that has been triggered,
      * we will call every webhook you defined for this event and send detailed information to it.
      * @tutorial https://paymill.com/de-de/dokumentation/referenz/api-referenz/#document-webhooks
      * @param array $eventTypes
@@ -117,6 +122,27 @@ class Webhook extends Base
     {
         $this->_email = $email;
         return $this;
+    }
+
+    /**
+     * Sets webhook active (or inactive)
+     * @param boolean $active
+     */
+    public function setActive($active)
+    {
+        $this->_active = $active;
+        return $this;
+    }
+
+    /**
+     * Returns if webhook is active or inactive
+     * @param boolean $active
+     *
+     * @return bool
+     */
+    public function getActive()
+    {
+        return $this->_active;
     }
 
 }

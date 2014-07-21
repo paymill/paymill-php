@@ -4,62 +4,87 @@ namespace Paymill\Models\Response;
 
 /**
  * Subscription Model
- * Subscriptions allow you to charge recurring payments on a client’s credit card / to a client’s direct debit. 
- * A subscription connects a client to the offers-object. A client can have several subscriptions to different offers, 
+ * Subscriptions allow you to charge recurring payments on a client’s credit card / to a client’s direct debit.
+ * A subscription connects a client to the offers-object. A client can have several subscriptions to different offers,
  * but only one subscription to the same offer.
  * @tutorial https://paymill.com/de-de/dokumentation/referenz/api-referenz/#document-subscriptions
  */
 class Subscription extends Base
 {
     /**
-     * @var \Paymill\Models\Response\Offer 
+     * @var \Paymill\Models\Response\Offer
      */
     private $_offer;
-    
+
     /**
-     * @var boolean 
+     * @var boolean
      */
     private $_livemode;
-    
+
     /**
-     * @var boolean 
-     */
-    private $_cancelAtPeriodEnd;
-    
-    /**
-     * @var integer 
+     * @var integer
      */
     private $_trialStart;
-    
+
     /**
      * @var integer
      */
     private $_trialEnd;
-    
+
     /**
      * @var integer
      */
     private $_nextCaptureAt;
-    
+
     /**
      * @var integer
      */
     private $_canceledAt;
-    
+
     /**
-     * @var \Paymill\Models\Response\Payment 
+     * @var \Paymill\Models\Response\Payment
      */
     private $_payment;
-    
+
     /**
-     * @var \Paymill\Models\Response\Client 
+     * @var \Paymill\Models\Response\Client
      */
     private $_client;
-    
+
     /**
-     * @var integer 
+     * @var integer
      */
     private $_startAt;
+
+    /**
+     * @var boolean
+     */
+    private $_isCanceled;
+
+    /**
+     * @var boolean
+     */
+    private $_isDeleted;
+
+    /**
+     * @var string
+     */
+    private $_status;
+
+    /**
+     * @var string
+     */
+    private $_periodOfValidity;
+
+    /**
+     * @var int
+     */
+    private $_amountChangeType;
+
+    /**
+     * @var int
+     */
+    private $_offerChangeType;
 
     /**
      * Returns the model of the offer the subscription is based on
@@ -101,25 +126,6 @@ class Subscription extends Base
         return $this;
     }
 
-    /**
-     * Returns the flag determining whether to cancel this subscription immediately or at the end of the current period
-     * @return boolean
-     */
-    public function getCancelAtPeriodEnd()
-    {
-        return $this->_cancelAtPeriodEnd;
-    }
-
-    /**
-     * Sets a flag determining whether to cancel this subscription immediately or at the end of the current period
-     * @param boolean $cancelAtPeriodEnd
-     * @return \Paymill\Models\Response\Subscription
-     */
-    public function setCancelAtPeriodEnd($cancelAtPeriodEnd)
-    {
-        $this->_cancelAtPeriodEnd = $cancelAtPeriodEnd;
-        return $this;
-    }
 
     /**
      * Returns the Unix-Timestamp for the trial period start
@@ -260,5 +266,129 @@ class Subscription extends Base
         $this->_startAt = $startAt;
         return $this;
     }
+
+    /**
+     * (un)cancel subscription
+     * @param boolean $canceled
+     * @return \Paymill\Models\Response\Subscription
+     */
+    public function setIsCanceled($canceled)
+    {
+        $this->_isCanceled = $canceled;
+        return $this;
+    }
+
+    /**
+     * Returns whether subscription is canceled or not
+     * @return boolean
+     */
+    public function getIsCanceled()
+    {
+        return $this->_isCanceled;
+
+    }
+
+    /**
+     * (un)delete subscription
+     * @param boolean $deleted
+     * @return \Paymill\Models\Response\Subscription
+     */
+    public function setIsDeleted($deleted)
+    {
+        $this->_isDeleted = $deleted;
+        return $this;
+    }
+
+    /**
+     * Returns whether subscription is deleted or not
+     * @return boolean
+     */
+    public function getIsDeleted()
+    {
+        return $this->_isDeleted;
+    }
+
+    /**
+     * Sets the status of subscription
+     * @param string $status
+     * @return \Paymill\Models\Response\Subscription
+     */
+    public function setStatus($status)
+    {
+        $this->_status = $status;
+        return $this;
+    }
+
+    /**
+     * Returns subscription status
+     * @return string
+     */
+    public function getStatus()
+    {
+        return $this->_status;
+    }
+
+    /**
+     * Set the period of time the subscription shall be active/valid (starting creation date)
+     * @param $perdiodOfValidity
+     * @return \Paymill\Models\Response\Subscription
+     */
+    public function setPeriodOfValidity($periodOfValidity)
+    {
+        $this->_periodOfValidity = $periodOfValidity;
+        return $this;
+    }
+
+    /**
+     * Returns the period of time the subscriptions is valid (starting creation date)
+     * @return string
+     */
+    public function getPeriodOfValidity()
+    {
+        return $this->_periodOfValidity;
+    }
+
+    /**
+     * Set amount change type
+     *
+     * @param $amountChangeType
+     * @return $this
+     */
+    public function setAmountChangeType($amountChangeType)
+    {
+        $this->_amountChangeType = $amountChangeType;
+        return $this;
+    }
+
+    /**
+     * Return amount change type
+     * @return int
+     */
+    public function getAmountChangeType()
+    {
+        return $this->_amountChangeType;
+    }
+
+    /**
+     * Set offer change type
+     * @param $offerChangeType
+     *
+     * @return $this
+     */
+    public function setOfferChangeType($offerChangeType)
+    {
+        $this->_offerChangeType;
+        return $this;
+    }
+
+    /**
+     * Return offer change type
+     * @return int
+     */
+    public function getOfferChangeType()
+    {
+        return $this->_offerChangeType;
+    }
+
 
 }

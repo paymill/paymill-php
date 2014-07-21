@@ -54,11 +54,13 @@ class WebhookTest extends PHPUnit_Framework_TestCase
     public function createWebhookWithUrl()
     {
         $this->_model->setUrl('http://example.com/dummyCallback')
+            ->setActive(true)
             ->setEventTypes(array(
                 'transaction.succeeded', 'subscription.created'
             ));
         $result = $this->_service->create($this->_model);
         $this->assertInstanceOf('Paymill\Models\Response\Webhook', $result, var_export($result, true));
+        $this->assertTrue($result->getActive());
         return $result;
     }
 
@@ -69,6 +71,7 @@ class WebhookTest extends PHPUnit_Framework_TestCase
     public function createWebhookWithEmail()
     {
         $this->_model->setEmail('dummy@example.com')
+            ->setActive(true)
             ->setEventTypes(array(
                 'transaction.succeeded', 'subscription.created'
             ));
@@ -85,11 +88,13 @@ class WebhookTest extends PHPUnit_Framework_TestCase
     public function updateWebhook($model)
     {
         $this->_model->setId($model->getId())
+            ->setActive(false)
             ->setUrl('http://example.com/dummyCallbackUpdate');
         $result = $this->_service->update($this->_model);
 
         $this->assertInstanceOf('Paymill\Models\Response\Webhook', $result, var_export($result, true));
         $this->assertEquals($model->getId(), $result->getId());
+        $this->assertFalse($result->getActive());
     }
 
     /**
@@ -118,6 +123,7 @@ class WebhookTest extends PHPUnit_Framework_TestCase
 
     /**
      * @test
+     * @depends createWebhookWithUrl
      * @codeCoverageIgnore
      */
     public function getAllWebhookWithFilter()
@@ -128,7 +134,7 @@ class WebhookTest extends PHPUnit_Framework_TestCase
             )
         );
         $result = $this->_service->getAll($this->_model);
-        $this->assertEquals(2, count($result), var_export($result, true));
+        $this->assertEquals(1, count($result), var_export($result, true));
     }
 
     /**

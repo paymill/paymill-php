@@ -15,27 +15,78 @@ class Subscription extends Base
     /**
      * @var string
      */
-    private $_offer;
-    
+    private $_name;
+
     /**
-     * @var boolean
+     * @var int
      */
-    private $_cancelAtPeriodEnd;
-    
+    private $_amount;
+
+    /**
+     * @var string
+     */
+    private $_currency;
+
+    /**
+     * @var string
+     */
+    private $_interval;
+
+    /**
+     * @var string
+     */
+    private $_offer;
+
     /**
      * @var string
      */
     private $_payment;
-    
+
+    /**
+     * @var string
+     */
+    private $_token;
+
     /**
      * @var string
      */
     private $_client;
-    
+
     /**
      * @var integer
      */
     private $_startAt;
+
+    /**
+     * @var string
+     */
+    private $_periodOfValidity;
+
+    /**
+     * @var boolean
+     */
+    private $_pause;
+
+    /**
+     * @var int timestamp
+     */
+    private $_trialEnd;
+
+    /**
+     * @var int
+     */
+    private $_amountChangeType;
+
+    /**
+     * @var int
+     */
+    private $_offerChangeType;
+
+    /**
+     * @var
+     */
+    private $_remove;
+
 
     /**
      * Creates an instance of the subscription request model
@@ -45,10 +96,91 @@ class Subscription extends Base
         $this->_serviceResource = 'Subscriptions/';
     }
 
+
     /**
-     * Returns the identifier of the offer the subscription is based on
+     * Returns name of subscription
      * @return string
      */
+    public function getName()
+    {
+        return $this->_name;
+    }
+
+    /**
+     * Sets name of the subscription
+     * @param $name string
+     * @return \Paymill\Models\Request\Subscription
+     */
+    public function setName($name)
+    {
+        $this->_name = $name;
+        return $this;
+    }
+
+    /**
+     * Returns the amount as an integer
+     * @return integer
+     */
+    public function getAmount()
+    {
+        return $this->_amount;
+    }
+
+    /**
+     * Sets the amount.
+     * Every interval the specified amount will be charged. Only integer values are allowed (e.g. 42.00 = 4200)
+     * @param integer $amount
+     * @return \Paymill\Models\Request\Subscription
+     */
+    public function setAmount($amount)
+    {
+        $this->_amount = $amount;
+        return $this;
+    }
+
+    /**
+     * Returns the interval defining how often the client should be charged.
+     * @return string
+     */
+    public function getInterval()
+    {
+        return $this->_interval;
+    }
+
+    /**
+     * Sets the interval defining how often the client should be charged.
+     * Additionally a special day of the week can be appended (unless daily interval)
+     * @example Format: number DAY || number WEEK | MONTH | YEAR [, MONDAY | TUESDAY | ... | SUNDAY] Example: 3 WEEK, MONDAY
+     * @param string $interval
+     * @return \Paymill\Models\Request\Subscription
+     */
+    public function setInterval($interval)
+    {
+        $this->_interval = $interval;
+        return $this;
+    }
+
+    /**
+     * Returns the currency
+     * @return string
+     */
+    public function getCurrency()
+    {
+        return $this->_currency;
+    }
+
+    /**
+     * Sets the currency
+     * @param string $currency
+     * @return \Paymill\Models\Request\Subscription
+     */
+    public function setCurrency($currency)
+    {
+        $this->_currency = $currency;
+        return $this;
+    }
+
+
     public function getOffer()
     {
         return $this->_offer;
@@ -62,26 +194,6 @@ class Subscription extends Base
     public function setOffer($offer)
     {
         $this->_offer = $offer;
-        return $this;
-    }
-
-    /**
-     * Returns the flag determining whether to cancel this subscription immediately or at the end of the current period
-     * @return boolean
-     */
-    public function getCancelAtPeriodEnd()
-    {
-        return $this->_cancelAtPeriodEnd;
-    }
-
-    /**
-     * Sets a flag determining whether to cancel this subscription immediately or at the end of the current period
-     * @param boolean $cancelAtPeriodEnd
-     * @return \Paymill\Models\Request\Subscription
-     */
-    public function setCancelAtPeriodEnd($cancelAtPeriodEnd)
-    {
-        $this->_cancelAtPeriodEnd = $cancelAtPeriodEnd;
         return $this;
     }
 
@@ -146,6 +258,148 @@ class Subscription extends Base
     }
 
     /**
+     * Sets the period of validity the subscriptions shall be active (starting creation date)
+     * @param $periodOfValidity string
+     * @return \Paymill\Models\Request\Subscription
+     */
+    public function setPeriodOfValidity($periodOfValidity)
+    {
+        $this->_periodOfValidity = $periodOfValidity;
+        return $this;
+    }
+
+    /**
+     * Returns period of validity
+     * @return string
+     */
+    public function getPeriodOfValidity()
+    {
+        return $this->_periodOfValidity;
+    }
+
+    /**
+     * Returns if subscription is paused or not
+     * @return boolean
+     */
+    public function getPause()
+    {
+        return $this->_pause;
+    }
+
+    /**
+     * Sets the state of subscription to paused or unpaused
+     * @param $pause boolean
+     * @return \Paymill\Models\Request\Subscription
+     */
+    public function setPause($pause)
+    {
+        $this->_pause = $pause;
+        return $this;
+    }
+
+    /**
+     * returns timestamp of subscription start
+     * @return mixed
+     */
+    public function getTrialEnd()
+    {
+        return $this->_trialEnd;
+    }
+
+    /**
+     * set timestamp for when subscription shall start
+     * @param $trialEnd
+     * @return $this
+     */
+    public function setTrialEnd($trialEnd)
+    {
+        $this->_trialEnd = $trialEnd;
+        return $this;
+    }
+
+    /**
+     * set amount change type
+     *
+     * @param $amountChangeType
+     * @return $this
+     */
+    public function setAmountChangeType($amountChangeType)
+    {
+        $this->_amountChangeType = $amountChangeType;
+        return $this;
+    }
+
+    /**
+     * get amount change type
+     * @return int
+     */
+    public function getAmountChangeType()
+    {
+        return $this->_amountChangeType;
+    }
+
+    /**
+     * Set offer change type
+     * @param $offerChangeType
+     *
+     * @return $this
+     */
+    public function setOfferChangeType($offerChangeType)
+    {
+        $this->_offerChangeType = $offerChangeType;
+        return $this;
+    }
+
+    /**
+     * Return offer change type
+     * @return int
+     */
+    public function getOfferChangeType()
+    {
+        return $this->_offerChangeType;
+    }
+
+    /**
+     * Returns the token required for the creation of subscription
+     * @return string
+     */
+    public function getToken()
+    {
+        return $this->_token;
+    }
+
+    /**
+     * Sets the token required for the creation of subscription
+     * @param string $token
+     * @return \Paymill\Models\Request\Subscription
+     */
+    public function setToken($token)
+    {
+        $this->_token = $token;
+        return $this;
+    }
+
+    /**
+     * Returns true if subscription should also be removed
+     * @return mixed
+     */
+    public function getRemove()
+    {
+        return $this->_remove;
+    }
+
+    /**
+     * If set to true subscription will also be removed
+     * @param $remove
+     * @return \Paymill\Models\Request\Subscription
+     */
+    public function setRemove($remove)
+    {
+        $this->_remove = $remove;
+        return $this;
+    }
+
+    /**
      * Returns an array of parameters customized for the argumented methodname
      * @param string $method
      * @return array
@@ -155,24 +409,81 @@ class Subscription extends Base
         $parameterArray = array();
         switch ($method) {
             case 'create':
-                $parameterArray['client'] = $this->getClient();
-                $parameterArray['offer'] = $this->getOffer();
+                if (!is_null($this->getClient())) {
+                    $parameterArray['client'] = $this->getClient();
+                }
+                if (!is_null($this->getOffer())) {
+                    $parameterArray['offer'] = $this->getOffer();
+                }
                 $parameterArray['payment'] = $this->getPayment();
-                $parameterArray['start_at'] = $this->getStartAt();
+
+                if (!is_null($this->getAmount())) {
+                    $parameterArray['amount'] = $this->getAmount();
+                }
+                if (!is_null($this->getCurrency())) {
+                    $parameterArray['currency'] = $this->getCurrency();
+                }
+                if (!is_null($this->getInterval())) {
+                    $parameterArray['interval'] = $this->getInterval();
+                }
+                if (!is_null($this->getName())) {
+                    $parameterArray['name'] = $this->getName();
+                }
+                if (!is_null($this->getPeriodOfValidity())) {
+                    $parameterArray['period_of_validity'] = $this->getPeriodOfValidity();
+                }
+                if (!is_null($this->getTrialEnd())) {
+                    $parameterArray['trial_end']  = $this->getTrialEnd();
+                }
                 break;
             case 'update':
-                $parameterArray['cancel_at_period_end'] = $this->getCancelAtPeriodEnd();
-                $parameterArray['offer'] = $this->getOffer();
-                $parameterArray['payment'] = $this->getPayment();
+                if (!is_null($this->getOffer())) {
+                    $parameterArray['offer'] = $this->getOffer();
+                }
+                if (!is_null($this->getPayment())) {
+                    $parameterArray['payment'] = $this->getPayment();
+                } else {
+                    $parameterArray['token'] = $this->getToken();
+                }
+                if (!is_null($this->getAmount())) {
+                    $parameterArray['amount'] = $this->getAmount();
+                }
+                if (!is_null($this->getCurrency())) {
+                    $parameterArray['currency'] = $this->getCurrency();
+                }
+                if (!is_null($this->getInterval())) {
+                    $parameterArray['interval'] = $this->getInterval();
+                }
+                if (!is_null($this->getName())) {
+                    $parameterArray['name'] = $this->getName();
+                }
+                if (!is_null($this->getPause())) {
+                    $parameterArray['pause'] = $this->getPause();
+                }
+                if (!is_null($this->getPeriodOfValidity())) {
+                    $parameterArray['period_of_validity'] = $this->getPeriodOfValidity();
+                }
+                if (!is_null($this->getTrialEnd())) {
+                    $parameterArray['trial_end']  = $this->getTrialEnd();
+                }
+                if (!is_null($this->getAmountChangeType())) {
+                    $parameterArray['amount_change_type'] = $this->getAmountChangeType();
+                }
+                if (!is_null($this->getOfferChangeType())) {
+                    $parameterArray['offer_change_type'] = $this->getOfferChangeType();
+                }
                 break;
             case 'getOne':
                 $parameterArray['count'] = 1;
                 $parameterArray['offset'] = 0;
                 break;
             case 'getAll':
-            $parameterArray = $this->getFilter();
+                $parameterArray = $this->getFilter();
                 break;
             case 'delete':
+                if (!is_null($this->getRemove())){
+                    $parameterArray['remove'] = $this->getRemove();
+                }
                 break;
         }
 

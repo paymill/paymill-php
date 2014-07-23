@@ -53,7 +53,6 @@ class SubscriptionTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($this->_subscription->getOffer(), $sample['offer']);
         $this->assertEquals($this->_subscription->getPayment(), $sample['payment']);
 
-
         return $this->_subscription;
     }
 
@@ -65,27 +64,23 @@ class SubscriptionTest extends PHPUnit_Framework_TestCase
     public function parameterizeTest($subscription)
     {
         $testId = "subscription_88a388d9dd48f86c3136";
-        $cancelAtPeriodEnd = true;
         $subscription->setId($testId);
-        $subscription->setCancelAtPeriodEnd($cancelAtPeriodEnd);
 
         $creationArray = $subscription->parameterize("create");
         $updateArray = $subscription->parameterize("update");
         $getOneArray = $subscription->parameterize("getOne");
 
-        $this->assertEquals($creationArray, array(
+        $this->assertEquals(array(
             'client' => 'client_88a388d9dd48f86c3136',
             'offer' => 'offer_40237e20a7d5a231d99b',
-            'payment' => 'pay_95ba26ba2c613ebb0ca8',
-            'start_at' => null
-        ));
+            'payment' => 'pay_95ba26ba2c613ebb0ca8'
+        ), $creationArray);
 
         $this->assertEquals($getOneArray, array(
             'count' => 1,
             'offset' => 0
         ));
         $this->assertEquals($updateArray, array(
-            'cancel_at_period_end' => true,
             'offer' => 'offer_40237e20a7d5a231d99b',
             'payment' => 'pay_95ba26ba2c613ebb0ca8'
         ));

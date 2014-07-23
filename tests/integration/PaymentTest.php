@@ -103,12 +103,12 @@ class PaymentTest extends PHPUnit_Framework_TestCase
     public function getAllPaymentWithFilter()
     {
         $this->_model->setFilter(array(
-            'count' => 2,
+            'count' => 1,
             'offset' => 0
             )
         );
         $result = $this->_service->getAll($this->_model);
-        $this->assertEquals(2, count($result), var_export($result, true));
+        $this->assertEquals(1, count($result), var_export($result, true));
     }
 
     /**
@@ -122,7 +122,7 @@ class PaymentTest extends PHPUnit_Framework_TestCase
     {
         $this->_model->setId($model->getId());
         $result = $this->_service->delete($this->_model);
-        $this->assertInternalType('array', $result, var_export($result, true));
+        $this->assertEquals(null, $result, var_export($result, true));
     }
 
 }

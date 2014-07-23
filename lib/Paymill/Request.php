@@ -196,7 +196,7 @@ class Request
     private function _request(Base $model, $method)
     {
         if(!is_a($this->_connectionClass, '\Paymill\API\CommunicationAbstract')){
-            throw new PaymillException(null,'The connenction class is missing!');
+            throw new PaymillException(null,'The connection class is missing!');
         }
         $httpMethod = $this->_getHTTPMethod($method);
         $parameter = $model->parameterize($method);
@@ -205,7 +205,6 @@ class Request
             $source = empty($this->_source) ? "PhpLib" . $this->getVersion(): "PhpLib" . $this->getVersion() . "_" . $this->getSource();
             $parameter['source'] = $source;
         }
-
         try {
             $this->_lastRequest = $parameter;
             $response = $this->_connectionClass->requestApi(
@@ -229,7 +228,7 @@ class Request
 
         if (is_a($convertedResponse, '\Paymill\Models\Response\Error')) {
             throw new PaymillException(
-            $convertedResponse->getResponseCode(), $convertedResponse->getErrorMessage(), $convertedResponse->getHttpStatusCode()
+                $convertedResponse->getResponseCode(), $convertedResponse->getErrorMessage(), $convertedResponse->getHttpStatusCode()
             );
         }
 

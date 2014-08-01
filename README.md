@@ -26,6 +26,12 @@ Please include this library via Composer in your composer.json and execute **com
 
 ```json
 {
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/paymill/paymill-php"
+        }
+    ],
     "require": {
         "paymill/paymill": "dev-master"
     }

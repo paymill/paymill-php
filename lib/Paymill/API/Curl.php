@@ -67,8 +67,7 @@ class Curl extends CommunicationAbstract
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_CUSTOMREQUEST => $method,
             CURLOPT_USERAGENT => 'Paymill-php/0.0.2',
-            CURLOPT_SSL_VERIFYPEER => true,
-            CURLOPT_CAINFO => realpath(dirname(__FILE__)) . DIRECTORY_SEPARATOR . 'paymill.crt'
+            CURLOPT_SSL_VERIFYPEER => true
         );
 
         // Add extra options to cURL if defined.

@@ -82,8 +82,7 @@ class ResponseHandlerTest extends PHPUnit_Framework_TestCase
      */
     public function clientTest()
     {
-        $response['header']['status'] = 200;
-        $response['body']['data'] = array(
+        $response = array(
             "id" => "client_88a388d9dd48f86c3136",
             "email" => "lovely-client@example.com",
             "description" => null,
@@ -116,9 +115,7 @@ class ResponseHandlerTest extends PHPUnit_Framework_TestCase
      */
     public function clientMultiPaymentTest()
     {
-        $response = array();
-        $response['header']['status'] = 200;
-        $response['body']['data'] = array(
+        $response = array(
             'id' => "client_018dcaf0d8d03dde3ff6",
             'email' => "Some@Testemail.de",
             'description' => "This is a Testuser.123",
@@ -168,8 +165,7 @@ class ResponseHandlerTest extends PHPUnit_Framework_TestCase
      */
     public function paymentCCTest()
     {
-        $response['header']['status'] = 200;
-        $response['body']['data'] = array(
+        $response= array(
             "id" => "pay_3af44644dd6d25c820a8",
             "type" => "creditcard",
             "client" => null,
@@ -193,8 +189,7 @@ class ResponseHandlerTest extends PHPUnit_Framework_TestCase
      */
     public function paymentSEPATest()
     {
-        $response['header']['status'] = 200;
-        $response['body']['data'] = array(
+        $response = array(
             "id" => "pay_3af44644dd6d25c820a8",
             "type" => "debit",
             "client" => null,
@@ -219,8 +214,7 @@ class ResponseHandlerTest extends PHPUnit_Framework_TestCase
      */
     public function transactionTest()
     {
-        $response['header']['status'] = 200;
-        $response['body']['data'] = array(
+        $response = array(
             "id" => "tran_54645bcb98ba7acfe204",
             "amount" => "4200",
             "origin_amount" => 4200,
@@ -284,8 +278,7 @@ class ResponseHandlerTest extends PHPUnit_Framework_TestCase
      */
     public function preauthorizationTest()
     {
-        $response['header']['status'] = 200;
-        $response['body']['data'] = array(
+        $response = array(
             "id" => "tran_54645bcb98ba7acfe204",
             "amount" => "4200",
             "origin_amount" => 4200,
@@ -396,8 +389,7 @@ class ResponseHandlerTest extends PHPUnit_Framework_TestCase
      */
     public function refundTest()
     {
-        $response['header']['status'] = 200;
-        $response['body']['data'] = array(
+        $response = array(
             "id" => "refund_87bc404a95d5ce616049",
             "amount" => "042",
             "status" => "refunded",
@@ -472,8 +464,7 @@ class ResponseHandlerTest extends PHPUnit_Framework_TestCase
      */
     public function offerTest()
     {
-        $response['header']['status'] = 200;
-        $response['body']['data'] = array(
+        $response = array(
             "id" => "offer_40237e20a7d5a231d99b",
             "name" => "Nerd Special",
             "amount" => 4200,
@@ -498,8 +489,7 @@ class ResponseHandlerTest extends PHPUnit_Framework_TestCase
      */
     public function subscriptionTest()
     {
-        $response['header']['status'] = 200;
-        $response['body']['data'] = array(
+        $response = array(
             "id" => "sub_012db05186ccfe22d86c",
             "offer" => array(
                 "id" => "offer_40237e20a7d5a231d99b",
@@ -574,8 +564,7 @@ class ResponseHandlerTest extends PHPUnit_Framework_TestCase
      */
     public function urlWebhookTest()
     {
-        $response['header']['status'] = 200;
-        $response['body']['data'] = array(
+        $response = array(
             "id" => "hook_40237e20a7d5a231d99b",
             "url" => "your-webhook-url",
             "livemode" => false,
@@ -599,8 +588,7 @@ class ResponseHandlerTest extends PHPUnit_Framework_TestCase
      */
     public function emailWebhookTest()
     {
-        $response['header']['status'] = 200;
-        $response['body']['data'] = array(
+        $response = array(
             "id" => "hook_40237e20a7d5a231d99b",
             "email" => "your-webhook-email",
             "livemode" => false,
@@ -625,37 +613,16 @@ class ResponseHandlerTest extends PHPUnit_Framework_TestCase
      */
     public function checkResponseCodes()
     {
-        $response['header']['status'] = 200;
-        $response['body']['data'] = array(
-            "id" => "tran_54645bcb98ba7acfe204",
-            "amount" => "4200",
-            "origin_amount" => 4200,
-            "status" => "closed",
-            "description" => null,
-            "livemode" => false,
-            "refunds" => null,
-            "currency" => "EUR",
-            "created_at" => 1349946151,
-            "updated_at" => 1349946151,
-            "short_id" => '0000.1212.3434',
-            "invoices" => array(),
-            "payment" => new Models\Response\Payment(),
-            "client" => new Models\Response\Client(),
-            "preauthorization" => null,
-            "fees" => array(),
-            "app_id" => null
-        );
-
         foreach ($this->_errorCodes as $responseCode => $errorMessage) {
             if ($responseCode === 20000) {
                 continue;
             }
             $response['body']['data']['response_code'] = $responseCode;
-            $subject = $this->_responseHandler->convertResponse($response, "transactions/");
+			$subject = $this->_responseHandler->convertErrorToModel($response);
             $this->assertInstanceOf("\Paymill\Models\Response\Error", $subject);
             $this->assertEquals($responseCode, $subject->getResponseCode(), "ResponseCode:" . $responseCode . "==" . $subject->getResponseCode() . "\n");
             $this->assertEquals($errorMessage, $subject->getErrorMessage(), "ErrorMessage:" . $errorMessage . "==" . $subject->getErrorMessage() . "\n");
-            $response['body']['data']['response_code'] = null;
+            $response['response_code'] = null;
         }
     }
 

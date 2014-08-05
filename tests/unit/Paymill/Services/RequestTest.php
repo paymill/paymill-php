@@ -286,21 +286,7 @@ class RequestTest
         return $this->_client;
     }
 
-    /**
-     * Tests the getAll request method
-     * @test
-     */
-    public function getAllTest()
-    {
-        $outputArray['header']['status'] = 200;
-        $outputArray['body']['data'] = null;
-        $this->_getCurlMock(
-                $this->_client->getServiceResource() . $this->_client->getId(), $this->_client->parameterize("getAll"), "GET", $outputArray
-        );
-        $result = $this->_request->getAll($this->_client);
-        $this->assertEquals($result, null);
-    }
-
+    
     /**
      * Tests the getOne request method
      * @test

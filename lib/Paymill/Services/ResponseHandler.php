@@ -60,13 +60,7 @@ class ResponseHandler
     public function convertResponse($response, $serviceResource)
     {
         $resourceName = substr($serviceResource, 0, -2);
-        $resultValue = null;
-        if ($this->validateResponse($response)) {
-            $resultValue = $this->_convertResponseToModel($response['body']['data'], $resourceName);
-        } else {
-            $resultValue = $this->_convertErrorToModel($response);
-        }
-        return $resultValue;
+        return $this->_convertResponseToModel($response, $resourceName);
     }
 
     /**
@@ -359,7 +353,7 @@ class ResponseHandler
      * @param array $response
      * @return Error
      */
-    private function _convertErrorToModel($response)
+    public function convertErrorToModel($response)
     {
         $errorModel = new Error();
 

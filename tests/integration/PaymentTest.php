@@ -94,6 +94,7 @@ class PaymentTest extends PHPUnit_Framework_TestCase
         $this->_model;
         $result = $this->_service->getAll($this->_model);
         $this->assertInternalType('array', $result, var_export($result, true));
+		$this->assertInstanceOf('Paymill\Models\Response\Payment', array_pop($result));
     }
 
     /**

@@ -59,6 +59,6 @@ class ChecksumTest extends PHPUnit_Framework_TestCase
     {
         $result = $this->_service->getOne($this->_model);
         $this->assertInstanceOf('Paymill\Models\Response\Checksum', $result, var_export($result, true));
-        return $result;
+		return $result;
     }
 }

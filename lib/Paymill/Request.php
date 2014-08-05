@@ -42,6 +42,11 @@ class Request
      */
     private $_source;
 
+	/**
+     * @var \Paymill\Services\Util
+     */
+    private $_util;
+
 
     /**
      * Creates a Request object instance
@@ -49,7 +54,8 @@ class Request
      */
     public function __construct($privateKey = null)
     {
-        if(!is_null($privateKey)){
+        $this->_util = new \Paymill\Services\Util();
+		if(!is_null($privateKey)){
             $this->setConnectionClass(new Curl($privateKey));
         }
     }
@@ -198,7 +204,8 @@ class Request
         if(!is_a($this->_connectionClass, '\Paymill\API\CommunicationAbstract')){
             throw new PaymillException(null,'The connection class is missing!');
         }
-        $httpMethod = $this->_getHTTPMethod($method);
+        $convertedResponse = null;
+		$httpMethod = $this->_getHTTPMethod($method);
         $parameter = $model->parameterize($method);
         $serviceResource = $model->getServiceResource() . $model->getId();
         if(is_a($model, "\Paymill\Models\Request\Transaction") && $method === "create"){
@@ -212,15 +219,15 @@ class Request
             );
             $this->_lastResponse = $response;
             $responseHandler = new ResponseHandler();
-            if ($method === 'getAll') {
-                if ($responseHandler->validateResponse($response)) {
-                    $convertedResponse = $response['body']['data'];
-                } else {
-                    $convertedResponse = $responseHandler->convertResponse($response, $model->getServiceResource());
-                }
-            } else {
-                $convertedResponse = $responseHandler->convertResponse($response, $model->getServiceResource());
-            }
+			if($method === "getAll" && $responseHandler->validateResponse($response) && $this->_util->isNumericArray($response['body']['data'])){
+				foreach($response['body']['data'] as $object){
+					$convertedResponse[] = $responseHandler->convertResponse($object, $model->getServiceResource());
+				}
+			}elseif($responseHandler->validateResponse($response)){
+				$convertedResponse = $responseHandler->convertResponse($response['body']['data'], $model->getServiceResource());
+			}else{
+				$convertedResponse = $responseHandler->convertErrorToModel($response);
+			}
         } catch (\Exception $e) {
             $errorModel = new Error();
             $convertedResponse = $errorModel->setErrorMessage($e->getMessage());

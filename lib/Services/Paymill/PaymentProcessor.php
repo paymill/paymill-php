@@ -482,7 +482,7 @@ class Services_Paymill_PaymentProcessor
     private function isIdValid($id, $object)
     {
         $result = $object->getOne($id);
-        if (array_key_exists('id', $result)) {
+        if (is_array($result) && array_key_exists('id', $result)) {
             return $result['id'] === $id;
         } else {
             return false;

@@ -2,7 +2,7 @@
 
 /**
  * This class acts as an easy to use gateway for the paymill phph wrapper.
- * @version    1.0.0
+ * @version    1.1.0
  * @category   PayIntelligent
  * @copyright  Copyright (c) 2013 PayIntelligent GmbH (http://payintelligent.de)
  */
@@ -82,8 +82,7 @@ class Services_Paymill_PaymentProcessor
         } else {
             $client = $this->_clientsObject->create(
                 array(
-                    'email' => $this->_email,
-                    'description' => $this->_description
+                    'email' => $this->_email
                 )
             );
 
@@ -386,14 +385,12 @@ class Services_Paymill_PaymentProcessor
      * @param string $description
      * @return boolean
      */
-    public function createClient($email = null, $description = null){
+    public function createClient($email = null){
         $result = false;
         $email = isset($email) ? $email : $this->_email;
-        $description = isset($description) ? $description : $this->_description;
-        if(!in_array(null, array($email, $description))){
+        if(!is_null($email)){
             $this->_clientId = null;
             $this->_email = $email;
-            $this->_description = $description;
             $result = $this->_createClient();
         }
         return $result;

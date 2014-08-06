@@ -342,9 +342,9 @@ class Services_Paymill_PaymentProcessorTest extends Services_Paymill_TestBase im
 
     public function testCreateClient(){
         $this->assertNull($this->_paymentProcessor->getClientId());
-        $this->_paymentProcessor->createClient("John2@doe.net", "testCreateClient");
+        $this->_paymentProcessor->createClient("John2@doe.net");
         $result = $this->_clientObject->getOne($this->_paymentProcessor->getClientId());
-        $this->assertEquals("testCreateClient", $result['description']);
+        $this->assertEquals("John2@doe.net", $result['email']);
     }
 
     public function testCreatePayment(){

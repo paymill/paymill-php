@@ -12,7 +12,7 @@ use Paymill\Services\ResponseHandler;
 
 /**
  * Base
- * @version 3.0.5
+ * @version 4.0.0
  */
 class Request
 {
@@ -35,7 +35,7 @@ class Request
     /**
      * @var string
      */
-    private $_version = "3.0.5";
+    private $_version = "4.0.0";
 
     /**
      * @var string

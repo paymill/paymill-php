@@ -111,6 +111,23 @@ The followings examples show how to get the Id for a transaction.
     $response->data->id;
 ```
 
+Using Root certificate
+----------------------------
+If the error below occurres on your system please follow the steps below to configure curl.
+```php
+Paymill\Services\PaymillException: SSL certificate problem, verify that the CA cert is OK. Details:
+error:14090086:SSL routines:SSL3_GET_SERVER_CERTIFICATE:certificate verify failed
+```
+
+Windows / OS X / Linux
+a) Download http://curl.haxx.se/ca/cacert.pem and save it on your server.
+b) Open php.ini with an editor and add the line `curl.cainfo=PathToYourCACertFile`
+c) Restart your Webserver
+
+Update Root certificate on Linux(ubuntu)
+a) Run `sudo update-ca-certificates`
+b) Restart your Webserver
+
 Documentation
 --------------
 

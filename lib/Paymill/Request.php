@@ -115,6 +115,17 @@ class Request
     }
 
     /**
+     * Sends a getAll request using the provided model
+     * @param \Paymill\Models\Request\Base $model
+     * @throws PaymillException
+     * @return array of \Paymill\Models\Request\Base
+     */
+    public function getAllAsModel($model)
+    {
+        return $this->_request($model, __FUNCTION__);
+    }
+
+    /**
      * Sends a getOne request using the provided model
      * @param \Paymill\Models\Request\Base $model
      * @throws PaymillException
@@ -185,6 +196,7 @@ class Request
                 $httpMethod = 'DELETE';
                 break;
             case 'getAll':
+            case 'getAllAsModel':
             case 'getOne':
                 $httpMethod = 'GET';
                 break;
@@ -219,10 +231,12 @@ class Request
             );
             $this->_lastResponse = $response;
             $responseHandler = new ResponseHandler();
-			if($method === "getAll" && $responseHandler->validateResponse($response) && $this->_util->isNumericArray($response['body']['data'])){
+			if($method === "getAllAsModel" && $responseHandler->validateResponse($response) && $this->_util->isNumericArray($response['body']['data'])){
 				foreach($response['body']['data'] as $object){
 					$convertedResponse[] = $responseHandler->convertResponse($object, $model->getServiceResource());
 				}
+			}elseif($method === "getAll" && $responseHandler->validateResponse($response)){
+                $convertedResponse = $response['body']['data'];
 			}elseif($responseHandler->validateResponse($response)){
 				$convertedResponse = $responseHandler->convertResponse($response['body']['data'], $model->getServiceResource());
 			}else{

@@ -109,8 +109,21 @@ class Client extends PHPUnit_Framework_TestCase
     {
         $result = $this->_service->getAll($this->_model);
         $this->assertInternalType('array', $result, var_export($result, true));
+    }
+
+    /**
+     * @test
+     * @codeCoverageIgnore
+     * @depends createClient
+     */
+    public function getAllClientAsModel()
+    {
+        $result = $this->_service->getAllAsModel($this->_model);
+        $this->assertInternalType('array', $result, var_export($result, true));
         $this->assertInstanceOf('Paymill\Models\Response\Client', array_pop($result));
     }
+
+
 
     /**
      * @test

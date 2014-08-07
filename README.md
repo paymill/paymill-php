@@ -120,13 +120,15 @@ error:14090086:SSL routines:SSL3_GET_SERVER_CERTIFICATE:certificate verify faile
 ```
 
 Windows / OS X / Linux
-a) Download http://curl.haxx.se/ca/cacert.pem and save it on your server.
-b) Open php.ini with an editor and add the line `curl.cainfo=PathToYourCACertFile`
-c) Restart your Webserver
+
+1. Download http://curl.haxx.se/ca/cacert.pem and save it on your server.
+2. Open php.ini with an editor and add the line `curl.cainfo=PathToYourCACertFile`
+3. Restart your Webserver
 
 Update Root certificate on Linux(ubuntu)
-a) Run `sudo update-ca-certificates`
-b) Restart your Webserver
+
+1. Run `sudo update-ca-certificates`
+2. Restart your Webserver
 
 Documentation
 --------------

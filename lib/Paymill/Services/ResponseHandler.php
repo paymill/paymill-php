@@ -323,7 +323,6 @@ class ResponseHandler
         $model->setStatus($response['status']);
         $model->setCreatedAt($response['created_at']);
         $model->setUpdatedAt($response['updated_at']);
-        $model->setActive($response['active']);
         return $model;
     }
 

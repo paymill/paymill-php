@@ -289,6 +289,7 @@ class Transaction extends Base
     public function setSource($source)
     {
         $this->_source = $source;
+        return $this;
     }
 
     /**

@@ -51,7 +51,8 @@ class TransactionTest extends PHPUnit_Framework_TestCase
             'fee_amount' => '420', // e.g. "420" for 4.20 EUR
             'fee_payment' => 'pay_098f6bcd4621d373cade4e832627b4f6',
             'fee_currency' => 'EUR',
-            'description' => 'Test Transaction'
+            'description' => 'Test Transaction',
+            'source'    => 'merchantcenter'
         );
 
         $this->_transaction
@@ -64,7 +65,10 @@ class TransactionTest extends PHPUnit_Framework_TestCase
             ->setFeeAmount($sample['fee_amount'])
             ->setFeePayment($sample['fee_payment'])
             ->setFeeCurrency($sample['fee_currency'])
-            ->setDescription($sample['description']);
+            ->setDescription($sample['description'])
+            ->setSource($sample['source']);
+
+
 
         $this->assertEquals($this->_transaction->getAmount(), $sample['amount']);
         $this->assertEquals($this->_transaction->getCurrency(), $sample['currency']);
@@ -76,6 +80,8 @@ class TransactionTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($this->_transaction->getFeePayment(), $sample['fee_payment']);
         $this->assertEquals($this->_transaction->getFeeCurrency(), $sample['fee_currency']);
         $this->assertEquals($this->_transaction->getDescription(), $sample['description']);
+        $this->assertEquals($this->_transaction->getSource(), $sample['source']);
+
 
         return $this->_transaction;
     }
@@ -102,7 +108,8 @@ class TransactionTest extends PHPUnit_Framework_TestCase
             'fee_amount' => '420', // e.g. "420" for 4.20 EUR
             'fee_payment' => 'pay_098f6bcd4621d373cade4e832627b4f6',
             'fee_currency' => 'EUR',
-            'description' => 'Test Transaction'
+            'description' => 'Test Transaction',
+            'source'    => 'merchantcenter'
         ));
         $this->assertEquals($updateArray, array(
             'description' => 'Test Transaction'

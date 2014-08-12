@@ -16,42 +16,42 @@ class Transaction extends Base
      * @var string
      */
     private $_amount;
-    
+
     /**
      * @var string
      */
     private $_description;
-    
+
     /**
      * @var string
      */
     private $_currency;
-    
+
     /**
      * @var string
      */
     private $_payment;
-    
+
     /**
      * @var string
      */
     private $_client = null;
-    
+
     /**
      * @var string
      */
     private $_preauthorization;
-    
+
     /**
      * @var string
      */
     private $_token;
-    
+
     /**
      * @var string
      */
     private $_feeAmount;
-    
+
     /**
      * @var string
      */
@@ -61,6 +61,11 @@ class Transaction extends Base
      * @var string
      */
     private $_feeCurrency;
+
+    /**
+     * @var $_source
+     */
+    private $_source;
 
     /**
      * Creates an instance of the transaction request model
@@ -278,6 +283,25 @@ class Transaction extends Base
     }
 
     /**
+     * Sets the name of origin of the call creating the transaction
+     * @param mixed $source
+     */
+    public function setSource($source)
+    {
+        $this->_source = $source;
+        return $this;
+    }
+
+    /**
+     * Gets the name of origin of the call creating the transaction
+     * @return mixed
+     */
+    public function getSource()
+    {
+        return $this->_source;
+    }
+
+    /**
      * Returns an array of parameters customized for the argumented methodname
      * @param string $method
      * @return array
@@ -306,6 +330,9 @@ class Transaction extends Base
                 }
                 if (!is_null($this->getFeeCurrency())) {
                     $parameterArray['fee_currency'] = $this->getFeeCurrency();
+                }
+                if(!is_null($this->getSource())) {
+                    $parameterArray['source'] = $this->getSource();
                 }
                 break;
             case 'update':

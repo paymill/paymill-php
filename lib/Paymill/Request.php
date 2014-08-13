@@ -12,7 +12,7 @@ use Paymill\Services\ResponseHandler;
 
 /**
  * Base
- * @version 3.1.0
+ * @version 3.1.1
  */
 class Request
 {
@@ -35,7 +35,7 @@ class Request
     /**
      * @var string
      */
-    private $_version = "3.1.0";
+    private $_version = "3.1.1";
 
     /**
      * @var string
@@ -221,7 +221,7 @@ class Request
         $parameter = $model->parameterize($method);
         $serviceResource = $model->getServiceResource() . $model->getId();
         if(is_a($model, "\Paymill\Models\Request\Transaction") && $method === "create"){
-            $source = is_null($parameter['source']) ? "PhpLib" . $this->getVersion(): "PhpLib" . $this->getVersion() . "_" . $parameter['source'];
+            $source = !array_key_exists('source',$parameter) ? "PhpLib" . $this->getVersion(): "PhpLib" . $this->getVersion() . "_" . $parameter['source'];
             $parameter['source'] = $source;
         }
         try {

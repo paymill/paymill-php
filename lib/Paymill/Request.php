@@ -221,7 +221,7 @@ class Request
         $parameter = $model->parameterize($method);
         $serviceResource = $model->getServiceResource() . $model->getId();
         if(is_a($model, "\Paymill\Models\Request\Transaction") && $method === "create"){
-            $source = !array_key_exists('source',$parameter) ? "PhpLib" . $this->getVersion(): "PhpLib" . $this->getVersion() . "_" . $parameter['source'];
+            $source = !array_key_exists('source',$parameter) ? "PhpLib" . $this->getVersion(): $parameter['source'];
             $parameter['source'] = $source;
         }
         try {

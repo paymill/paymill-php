@@ -435,6 +435,9 @@ class Subscription extends Base
                 if (!is_null($this->getTrialEnd())) {
                     $parameterArray['trial_end']  = $this->getTrialEnd();
                 }
+                if (!is_null($this->getStartAt())) {
+                    $parameterArray['start_at']  = $this->getStartAt();
+                }
                 break;
             case 'update':
                 if (!is_null($this->getOffer())) {

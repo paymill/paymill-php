@@ -2,7 +2,7 @@
 
 /**
  * This class acts as an easy to use gateway for the paymill phph wrapper.
- * @version    1.1.0
+ * @version    1.1.1
  * @category   PayIntelligent
  * @copyright  Copyright (c) 2013 PayIntelligent GmbH (http://payintelligent.de)
  */
@@ -65,6 +65,7 @@ class Services_Paymill_PaymentProcessor
 			$this->_name = isset($params['name']) ? $params['name']: '';
 			$this->_email = isset($params['email']) ? $params['email']: '';
 			$this->_description = isset($params['description']) ? $params['description']: '';
+			$this->_source = isset($params['source']) ? $params['source']: null;
 		}
     }
 

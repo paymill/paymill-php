@@ -2,7 +2,7 @@
 
 /**
  * This class acts as an easy to use gateway for the paymill phph wrapper.
- * @version    1.1.1
+ * @version    2.3.1
  * @category   PayIntelligent
  * @copyright  Copyright (c) 2013 PayIntelligent GmbH (http://payintelligent.de)
  */

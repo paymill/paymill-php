@@ -87,6 +87,16 @@ class Subscription extends Base
     private $_offerChangeType;
 
     /**
+     * @var int
+     */
+    private $_amount;
+
+    /**
+     * @var int
+     */
+    private $_tempAmount;
+
+    /**
      * Returns the model of the offer the subscription is based on
      * @return \Paymill\Models\Response\Offer
      */
@@ -388,6 +398,48 @@ class Subscription extends Base
     public function getOfferChangeType()
     {
         return $this->_offerChangeType;
+    }
+
+    /**
+     * Set subscription amount
+     * @param $amount
+     *
+     * @return $this
+     */
+    public function setAmount($amount)
+    {
+        $this->_amount = $amount;
+        return $this;
+    }
+
+    /**
+     * Return subscription amount
+     * @return int
+     */
+    public function getAmount()
+    {
+        return $this->_amount;
+    }
+
+    /**
+     * Set subscription temp_amount
+     * @param $tempAmount
+     *
+     * @return $this
+     */
+    public function setTempAmount($tempAmount)
+    {
+        $this->_tempAmount = $tempAmount;
+        return $this;
+    }
+
+    /**
+     * Return subscription temp_amount
+     * @return int
+     */
+    public function getTempAmount()
+    {
+        return $this->_tempAmount;
     }
 
 

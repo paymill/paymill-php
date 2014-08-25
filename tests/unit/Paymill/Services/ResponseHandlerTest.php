@@ -490,37 +490,39 @@ class ResponseHandlerTest extends PHPUnit_Framework_TestCase
     public function subscriptionTest()
     {
         $response = array(
-            "id" => "sub_012db05186ccfe22d86c",
-            "offer" => array(
-                "id" => "offer_40237e20a7d5a231d99b",
-                "name" => "Nerd Special",
-                "amount" => 4200,
-                "currency" => "EUR",
-                "interval" => "1 WEEK",
-                "trial_period_days" => 0,
-                "created_at" => 1341935129,
-                "updated_at" => 1341935129,
-                "subscription_count" => array(
-                    "active" => "3",
-                    "inactive" => 0
+            'id' => 'sub_012db05186ccfe22d86c',
+            'amount' => 4200,
+            'temp_amount' => 4000,
+            'offer' => array(
+                'id' => 'offer_40237e20a7d5a231d99b',
+                'name' => 'Nerd Special',
+                'amount' => 4200,
+                'currency' => 'EUR',
+                'interval' => '1 WEEK',
+                'trial_period_days' => 0,
+                'created_at' => 1341935129,
+                'updated_at' => 1341935129,
+                'subscription_count' => array(
+                    'active' => '3',
+                    'inactive' => 0
                 ),
-                "app_id" => null
+                'app_id' => null
             ),
-            "livemode" => false,
-            "trial_start" => null,
-            "trial_end" => null,
-            "next_capture_at" => 1369563095,
-            "created_at" => 1341935490,
-            "updated_at" => 1341935490,
-            "canceled_at" => null,
-            "is_canceled" => false,
-            "is_deleted" => false,
-            "status" => 'active',
-            "payment" => array(
-                'id' => "pay_be64260ee1b0a368efe597e8",
-                'type' => "creditcard",
-                'client' => "client_018dcaf0d8d03dde3ff6",
-                'card_type' => "visa",
+            'livemode' => false,
+            'trial_start' => null,
+            'trial_end' => null,
+            'next_capture_at' => 1369563095,
+            'created_at' => 1341935490,
+            'updated_at' => 1341935490,
+            'canceled_at' => null,
+            'is_canceled' => false,
+            'is_deleted' => false,
+            'status' => 'active',
+            'payment' => array(
+                'id' => 'pay_be64260ee1b0a368efe597e8',
+                'type' => 'creditcard',
+                'client' => 'client_018dcaf0d8d03dde3ff6',
+                'card_type' => 'visa',
                 'country' => null,
                 'expire_month' => 12,
                 'expire_year' => 2015,
@@ -530,19 +532,19 @@ class ResponseHandlerTest extends PHPUnit_Framework_TestCase
                 'updated_at' => 1378472387,
                 'app_id' => null
             ),
-            "client" => array(
-                "id" => "client_88a388d9dd48f86c3136",
-                "email" => "lovely-client@example.com",
-                "description" => null,
-                "created_at" => 1340199740,
-                "updated_at" => 1340199760,
-                "subscription" => null,
+            'client' => array(
+                'id' => 'client_88a388d9dd48f86c3136',
+                'email' => 'lovely-client@example.com',
+                'description' => null,
+                'created_at' => 1340199740,
+                'updated_at' => 1340199760,
+                'subscription' => null,
                 'app_id' => null,
-                "payment" => array(
-                    'id' => "pay_be64260ee1b0a368efe597e8",
-                    'type' => "creditcard",
-                    'client' => "client_018dcaf0d8d03dde3ff6",
-                    'card_type' => "visa",
+                'payment' => array(
+                    'id' => 'pay_be64260ee1b0a368efe597e8',
+                    'type' => 'creditcard',
+                    'client' => 'client_018dcaf0d8d03dde3ff6',
+                    'card_type' => 'visa',
                     'country' => null,
                     'expire_month' => 12,
                     'expire_year' => 2015,
@@ -552,7 +554,7 @@ class ResponseHandlerTest extends PHPUnit_Framework_TestCase
                     'updated_at' => 1378472387,
                     'app_id' => null
                 )),
-            "app_id" => null
+            'app_id' => null
         );
         $subject = $this->_responseHandler->convertResponse($response, "subscriptions/");
         $this->assertInstanceOf("\Paymill\Models\Response\Subscription", $subject, var_export($subject, true));

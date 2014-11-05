@@ -36,6 +36,11 @@ class Preauthorization extends Base
     private $_description;
 
     /**
+     * @var string
+     */
+    private $_client;
+
+    /**
      * Creates an instance of the preauthorization request model
      */
     function __construct()
@@ -144,6 +149,26 @@ class Preauthorization extends Base
     }
 
     /**
+     * Returns the client
+     * @return string
+     */
+    public function getClient()
+    {
+        return $this->_client;
+    }
+
+    /**
+     * Sets the client
+     * @param string $client
+     * @return \Paymill\Models\Request\Preauthorization
+     */
+    public function setClient($client)
+    {
+        $this->_client = $client;
+        return $this;
+    }
+
+    /**
      * Returns an array of parameters customized for the argumented methodname
      * @param string $method
      * @return array
@@ -161,6 +186,9 @@ class Preauthorization extends Base
                 $parameterArray['amount'] = $this->getAmount();
                 $parameterArray['currency'] = $this->getCurrency();
                 $parameterArray['description'] = $this->getDescription();
+                if (!is_null($this->getClient())) {
+                    $parameterArray['client'] = $this->getClient();
+                }
 
                 break;
             case 'getOne':

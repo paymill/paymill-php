@@ -61,6 +61,7 @@ To load the PAYMILL library from the file, which is located in *the app folder*,
         $request = new Paymill\Request($apiKey);
     ```
 2.  Instantiate the model class with the parameters described in the API-reference:
+  
     ```php
         $payment = new Paymill\Models\Request\Payment();
         $payment->setToken("098f6bcd4621d373cade4e832627b4f6");

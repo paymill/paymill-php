@@ -352,9 +352,10 @@ class ResponseHandler
     /**
      * Generates an error model based on the provided response array
      * @param array $response
+     * @param string $resourceName
      * @return Error
      */
-    public function convertErrorToModel($response)
+    public function convertErrorToModel($response, $resourceName = null)
     {
         $errorModel = new Error();
 
@@ -369,6 +370,12 @@ class ResponseHandler
             $errorCode = $this->_errorCodes[$responseCode];
         }
 
+        if (isset($resourceName) && isset($response['body']['data'])) {
+            try {
+                $errorModel->setRawObject($this->convertResponse($response['body']['data'], $resourceName));
+            } catch (\Exception $e) { }
+        }
+        
         if (isset($response['body'])) {
             if (is_array($response['body'])) {
                 if (isset($response['body']['error'])) {

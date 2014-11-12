@@ -240,16 +240,15 @@ class Request
 			}elseif($responseHandler->validateResponse($response)){
 				$convertedResponse = $responseHandler->convertResponse($response['body']['data'], $model->getServiceResource());
 			}else{
-				$convertedResponse = $responseHandler->convertErrorToModel($response);
+				$convertedResponse = $responseHandler->convertErrorToModel($response, $model->getServiceResource());
 			}
         } catch (\Exception $e) {
             $errorModel = new Error();
             $convertedResponse = $errorModel->setErrorMessage($e->getMessage());
         }
-
         if (is_a($convertedResponse, '\Paymill\Models\Response\Error')) {
             throw new PaymillException(
-                $convertedResponse->getResponseCode(), $convertedResponse->getErrorMessage(), $convertedResponse->getHttpStatusCode()
+                $convertedResponse->getResponseCode(), $convertedResponse->getErrorMessage(), $convertedResponse->getHttpStatusCode(), $convertedResponse->getRawObject()
             );
         }
 

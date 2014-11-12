@@ -26,6 +26,11 @@ class Error
     private $_httpStatusCode;
 
     /**
+     * @var \Paymill\Models\Response\Base
+     */
+    private $_rawObject;
+
+    /**
      * Returns the error message stored in the model
      * @return string
      */
@@ -83,6 +88,26 @@ class Error
     {
         $this->_httpStatusCode = $httpStatusCode;
         return $this;
+    }
+
+    /**
+     * Sets the raw object
+     * @param \Paymill\Models\Response\Base $rawObject
+     * @return \Paymill\Models\Response\Error
+     */
+    public function setRawObject($rawObject)
+    {
+        $this->_rawObject = $rawObject;
+        return $this;
+    }
+
+    /**
+     * Returns the raw object
+     * @return \Paymill\Models\Response\Base
+     */
+    public function getRawObject()
+    {
+        return $this->_rawObject;
     }
 
 }

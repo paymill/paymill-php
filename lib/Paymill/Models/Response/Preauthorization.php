@@ -189,4 +189,28 @@ class Preauthorization extends Base
         return $this;
     }
 
+    /**
+     * @var \Paymill\Models\Response\Transaction
+     */
+    private $_transaction;
+
+    /**
+     * Sets the transaction
+     * @param \Paymill\Models\Response\Transaction $transaction
+     * @return \Paymill\Models\Response\Preauthorization
+     */
+    public function setTransaction($transaction)
+    {
+        $this->_transaction = $transaction;
+    }
+
+    /**
+     * Returns the transaction
+     * @return \Paymill\Models\Response\Transaction
+     */
+    public function getTransaction()
+    {
+        return $this->_transaction;
+    }
+
 }

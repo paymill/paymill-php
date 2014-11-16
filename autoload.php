@@ -2,6 +2,12 @@
 
 function autoload($className)
 {
+    $prefix = 'Paymill\\';
+    $len = strlen($prefix);
+    if (strncmp($prefix, $className, $len) !== 0) {
+        return;
+    }
+
     $className = ltrim($className, "\\");
     $fileName  = '';
     $namespace = '';

@@ -13,6 +13,7 @@ class PaymillException extends \Exception
     private $_errorMessage;
     private $_responseCode;
     private $_httpStatusCode;
+    private $_rawObject;
 
     /**
      *
@@ -21,12 +22,13 @@ class PaymillException extends \Exception
      * @param int $code
      * @param Exception $previous
      */
-    public function __construct($responseCode = null, $message = null, $code = null)
+    public function __construct($responseCode = null, $message = null, $code = null, $rawObject = null)
     {
         parent::__construct($message, $code, null);
         $this->_errorMessage = $message;
         $this->_responseCode = $responseCode;
         $this->_httpStatusCode = $code;
+        $this->_rawObject = $rawObject;
     }
 
     /**
@@ -51,6 +53,14 @@ class PaymillException extends \Exception
     public function getResponseCode()
     {
         return $this->_responseCode;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getRawObject()
+    {
+        return $this->_rawObject;
     }
 
 }

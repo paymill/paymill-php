@@ -212,6 +212,7 @@ class ResponseHandler
         $model->setUpdatedAt($response['updated_at']);
         $model->setPayment($this->_convertResponseToModel($response['payment'], "payment"));
         $model->setClient($this->_convertResponseToModel($response['client'], "client"));
+        $model->setTransaction(isset($response['transaction']) ? $this->_convertResponseToModel($response['transaction'], 'transaction') : null);
         $model->setAppId($response['app_id']);
         $model->setDescription($response['description']);
         return $model;
@@ -352,9 +353,10 @@ class ResponseHandler
     /**
      * Generates an error model based on the provided response array
      * @param array $response
+     * @param string $resourceName
      * @return Error
      */
-    public function convertErrorToModel($response)
+    public function convertErrorToModel($response, $resourceName = null)
     {
         $errorModel = new Error();
 
@@ -369,6 +371,12 @@ class ResponseHandler
             $errorCode = $this->_errorCodes[$responseCode];
         }
 
+        if (isset($resourceName) && isset($response['body']['data'])) {
+            try {
+                $errorModel->setRawObject($this->convertResponse($response['body']['data'], $resourceName));
+            } catch (\Exception $e) { }
+        }
+        
         if (isset($response['body'])) {
             if (is_array($response['body'])) {
                 if (isset($response['body']['error'])) {

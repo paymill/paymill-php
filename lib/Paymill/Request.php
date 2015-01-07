@@ -12,7 +12,7 @@ use Paymill\Services\ResponseHandler;
 
 /**
  * Base
- * @version 3.2.0
+ * @version 3.2.1
  */
 class Request
 {
@@ -35,14 +35,14 @@ class Request
     /**
      * @var string
      */
-    private $_version = "3.2.0";
+    private $_version = "3.2.1";
 
     /**
      * @var string
      */
     private $_source;
 
-	/**
+  /**
      * @var \Paymill\Services\Util
      */
     private $_util;
@@ -55,7 +55,7 @@ class Request
     public function __construct($privateKey = null)
     {
         $this->_util = new \Paymill\Services\Util();
-		if(!is_null($privateKey)){
+    if(!is_null($privateKey)){
             $this->setConnectionClass(new Curl($privateKey));
         }
     }
@@ -217,7 +217,7 @@ class Request
             throw new PaymillException(null,'The connection class is missing!');
         }
         $convertedResponse = null;
-		$httpMethod = $this->_getHTTPMethod($method);
+    $httpMethod = $this->_getHTTPMethod($method);
         $parameter = $model->parameterize($method);
         $serviceResource = $model->getServiceResource() . $model->getId();
         if(is_a($model, "\Paymill\Models\Request\Transaction") && $method === "create"){
@@ -231,17 +231,17 @@ class Request
             );
             $this->_lastResponse = $response;
             $responseHandler = new ResponseHandler();
-			if($method === "getAllAsModel" && $responseHandler->validateResponse($response) && $this->_util->isNumericArray($response['body']['data'])){
-				foreach($response['body']['data'] as $object){
-					$convertedResponse[] = $responseHandler->convertResponse($object, $model->getServiceResource());
-				}
-			}elseif($method === "getAll" && $responseHandler->validateResponse($response)){
+      if($method === "getAllAsModel" && $responseHandler->validateResponse($response) && $this->_util->isNumericArray($response['body']['data'])){
+        foreach($response['body']['data'] as $object){
+          $convertedResponse[] = $responseHandler->convertResponse($object, $model->getServiceResource());
+        }
+      }elseif($method === "getAll" && $responseHandler->validateResponse($response)){
                 $convertedResponse = $response['body']['data'];
-			}elseif($responseHandler->validateResponse($response)){
-				$convertedResponse = $responseHandler->convertResponse($response['body']['data'], $model->getServiceResource());
-			}else{
-				$convertedResponse = $responseHandler->convertErrorToModel($response, $model->getServiceResource());
-			}
+      }elseif($responseHandler->validateResponse($response)){
+        $convertedResponse = $responseHandler->convertResponse($response['body']['data'], $model->getServiceResource());
+      }else{
+        $convertedResponse = $responseHandler->convertErrorToModel($response, $model->getServiceResource());
+      }
         } catch (\Exception $e) {
             $errorModel = new Error();
             $convertedResponse = $errorModel->setErrorMessage($e->getMessage());

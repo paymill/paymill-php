@@ -405,10 +405,10 @@ class ResponseHandler
     public function validateResponse($response)
     {
         $returnValue = false;
-        if ($response['header']['status'] === 200) {
+        if ($response['header']['status'] == 200) {
             if (isset($response['body']['data']['response_code'])) {
                 $returnValue = false;
-                if ($response['body']['data']['response_code'] === 20000) {
+                if ($response['body']['data']['response_code'] == 20000) {
                     $returnValue = true;
                 }
             } else {

@@ -87,6 +87,10 @@ class Subscription extends Base
      */
     private $_remove;
 
+    /**
+     * @var string
+     */
+    private $_mandateReference;
 
     /**
      * Creates an instance of the subscription request model
@@ -400,6 +404,26 @@ class Subscription extends Base
     }
 
     /**
+     * Returns mandate reference
+     * @return string
+     */
+    public function getMandateReference()
+    {
+        return $this->_mandateReference;
+    }
+
+    /**
+     * Set mandate reference
+     * @param string $mandateReference
+     */
+    public function setMandateReference($mandateReference)
+    {
+        $this->_mandateReference = $mandateReference;
+    }
+
+
+
+    /**
      * Returns an array of parameters customized for the argumented methodname
      * @param string $method
      * @return array
@@ -438,6 +462,9 @@ class Subscription extends Base
                 if (!is_null($this->getStartAt())) {
                     $parameterArray['start_at']  = $this->getStartAt();
                 }
+                if (!is_null($this->getMandateReference())) {
+                    $parameterArray['mandate_reference'] = $this->getMandateReference();
+                }
                 break;
             case 'update':
                 if (!is_null($this->getOffer())) {
@@ -474,6 +501,9 @@ class Subscription extends Base
                 }
                 if (!is_null($this->getOfferChangeType())) {
                     $parameterArray['offer_change_type'] = $this->getOfferChangeType();
+                }
+                if (!is_null($this->getMandateReference())) {
+                    $parameterArray['mandate_reference'] = $this->getMandateReference();
                 }
                 break;
             case 'getOne':

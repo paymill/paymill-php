@@ -30,6 +30,9 @@ class Webhook extends Base
      */
     private $_active = false;
 
+    /** @var string */
+    private $_verificationCode = null;
+
     /**
      * Creates an instance of the webhook request model
      */
@@ -127,6 +130,22 @@ class Webhook extends Base
     }
 
     /**
+     * @param string $verificationCode
+     */
+    public function setVerificationCode($verificationCode)
+    {
+        $this->_verificationCode = $verificationCode;
+    }
+
+    /**
+     * @return string
+     */
+    public function getVerificationCode()
+    {
+        return $this->_verificationCode;
+    }
+
+    /**
      * Returns an array of parameters customized for the argumented methodname
      * @param string $method
      * @return array
@@ -155,6 +174,9 @@ class Webhook extends Base
                 $parameterArray['event_types'] = $this->getEventTypes();
                 if (!is_null($this->getActive())) {
                     $parameterArray['active'] = $this->getActive();
+                }
+                if(!is_null($this->getVerificationCode())){
+                    $parameterArray['verification_code'] = $this->getVerificationCode();
                 }
                 break;
             case 'delete':

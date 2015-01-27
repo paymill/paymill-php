@@ -59,7 +59,7 @@ $request = new Paymill\Request($apiKey);
 1.	Instantiate the model class with the parameters described in the API-reference:
 
 ```php
-$payment = new Paymill\Models\Request\Payment();
+$payment = new \Paymill\Models\Request\Payment();
 $payment->setToken("098f6bcd4621d373cade4e832627b4f6");
 ```
 
@@ -73,10 +73,10 @@ $paymentId = $response->getId();
 It recommend to wrap it into a "try/catch" to handle exceptions like this:
 
 ```php
-try{
+try {
   $response  = $request->create($payment);
   $paymentId = $response->getId();
-}catch(PaymillException $e){
+} catch(\Paymill\Services\PaymillException $e){
   //Do something with the error informations below
   $e->getResponseCode();
   $e->getStatusCode();

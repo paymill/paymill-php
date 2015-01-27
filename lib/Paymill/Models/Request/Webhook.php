@@ -130,7 +130,8 @@ class Webhook extends Base
     }
 
     /**
-     * @param string $verificationCode
+     * Sets the verification code that is needed to activate an email webhook
+     * @param string $verificationCode 
      */
     public function setVerificationCode($verificationCode)
     {
@@ -138,6 +139,7 @@ class Webhook extends Base
     }
 
     /**
+     * Returns the given verification code that will be checked for validity
      * @return string
      */
     public function getVerificationCode()

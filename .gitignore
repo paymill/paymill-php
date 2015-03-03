@@ -2,3 +2,5 @@
 /build/
 /vendor
 phpunit.xml
+
+.DS_Store

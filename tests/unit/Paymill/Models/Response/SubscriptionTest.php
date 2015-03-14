@@ -51,6 +51,7 @@ class SubscriptionTest
         $canceledAt = null;
         $payment = new Response\Payment();
         $client = new Response\Client();
+        $mandateReference = 'DE1234TEST';
 
         $this->_subscription->setOffer($offer)
                 ->setLivemode($liveMode)
@@ -59,7 +60,8 @@ class SubscriptionTest
                 ->setNextCaptureAt($nextCaptureAt)
                 ->setCanceledAt($canceledAt)
                 ->setClient($client)
-                ->setPayment($payment);
+                ->setPayment($payment)
+                ->setMandateReference($mandateReference);
 
         $this->assertEquals($this->_subscription->getOffer(), $offer);
         $this->assertEquals($this->_subscription->getLivemode(), $liveMode);
@@ -69,6 +71,7 @@ class SubscriptionTest
         $this->assertEquals($this->_subscription->getCanceledAt(), $canceledAt);
         $this->assertEquals($this->_subscription->getClient(), $client);
         $this->assertEquals($this->_subscription->getPayment(), $payment);
+        $this->assertEquals($this->_subscription->getMandateReference(), $mandateReference);
     }
 
 }

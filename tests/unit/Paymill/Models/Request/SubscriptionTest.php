@@ -44,14 +44,19 @@ class SubscriptionTest extends PHPUnit_Framework_TestCase
         $sample = array(
             'client' => 'client_88a388d9dd48f86c3136',
             'offer' => 'offer_40237e20a7d5a231d99b',
-            'payment' => 'pay_95ba26ba2c613ebb0ca8'
+            'payment' => 'pay_95ba26ba2c613ebb0ca8',
+            'mandate_reference' => 'DE1234TEST',
         );
 
-        $this->_subscription->setPayment($sample['payment'])->setOffer($sample['offer'])->setClient($sample['client']);
+        $this->_subscription->setPayment($sample['payment'])
+            ->setOffer($sample['offer'])
+            ->setClient($sample['client'])
+            ->setMandateReference($sample['mandate_reference']);
 
         $this->assertEquals($this->_subscription->getClient(), $sample['client']);
         $this->assertEquals($this->_subscription->getOffer(), $sample['offer']);
         $this->assertEquals($this->_subscription->getPayment(), $sample['payment']);
+        $this->assertEquals($this->_subscription->getMandateReference(), $sample['mandate_reference']);
 
         return $this->_subscription;
     }
@@ -73,7 +78,8 @@ class SubscriptionTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(array(
             'client' => 'client_88a388d9dd48f86c3136',
             'offer' => 'offer_40237e20a7d5a231d99b',
-            'payment' => 'pay_95ba26ba2c613ebb0ca8'
+            'payment' => 'pay_95ba26ba2c613ebb0ca8',
+            'mandate_reference' => 'DE1234TEST'
         ), $creationArray);
 
         $this->assertEquals($getOneArray, array(
@@ -82,7 +88,8 @@ class SubscriptionTest extends PHPUnit_Framework_TestCase
         ));
         $this->assertEquals($updateArray, array(
             'offer' => 'offer_40237e20a7d5a231d99b',
-            'payment' => 'pay_95ba26ba2c613ebb0ca8'
+            'payment' => 'pay_95ba26ba2c613ebb0ca8',
+            'mandate_reference' => 'DE1234TEST'
         ));
     }
 

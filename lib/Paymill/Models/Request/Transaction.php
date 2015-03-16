@@ -68,6 +68,11 @@ class Transaction extends Base
     private $_source;
 
     /**
+     * @var string
+     */
+    private $_mandateReference;
+
+    /**
      * Creates an instance of the transaction request model
      */
     function __construct()
@@ -302,6 +307,26 @@ class Transaction extends Base
     }
 
     /**
+     * Returns mandate reference
+     * @return string
+     */
+    public function getMandateReference()
+    {
+        return $this->_mandateReference;
+    }
+
+    /**
+     * Set mandate reference
+     * @param string $mandateReference
+     * @return \Paymill\Models\Request\Subscription
+     */
+    public function setMandateReference($mandateReference)
+    {
+        $this->_mandateReference = $mandateReference;
+        return $this;
+    }
+
+    /**
      * Returns an array of parameters customized for the argumented methodname
      * @param string $method
      * @return array
@@ -333,6 +358,9 @@ class Transaction extends Base
                 }
                 if(!is_null($this->getSource())) {
                     $parameterArray['source'] = $this->getSource();
+                }
+                if (!is_null($this->getMandateReference())) {
+                    $parameterArray['mandate_reference'] = $this->getMandateReference();
                 }
                 break;
             case 'update':

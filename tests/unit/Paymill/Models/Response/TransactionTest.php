@@ -56,6 +56,7 @@ class TransactionTest
         $client = new Response\Client();
         $preAuth = new Response\Preauthorization();
         $fees = array();
+        $mandateReference = 'DE1234TEST';
 
         $this->_transaction->setAmount($amount)
                 ->setOriginAmount($originAmount)
@@ -70,7 +71,8 @@ class TransactionTest
                 ->setPayment($payment)
                 ->setClient($client)
                 ->setPreauthorization($preAuth)
-                ->setFees($fees);
+                ->setFees($fees)
+                ->setMandateReference($mandateReference);
 
         $this->assertEquals($this->_transaction->getAmount(), $amount);
         $this->assertEquals($this->_transaction->getOriginAmount(), $originAmount);
@@ -86,6 +88,7 @@ class TransactionTest
         $this->assertEquals($this->_transaction->getClient(), $client);
         $this->assertEquals($this->_transaction->getPreauthorization(), $preAuth);
         $this->assertEquals($this->_transaction->getFees(), $fees);
+        $this->assertEquals($this->_transaction->getMandateReference(), $mandateReference);
     }
 
 }

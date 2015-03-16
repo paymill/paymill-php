@@ -52,7 +52,8 @@ class TransactionTest extends PHPUnit_Framework_TestCase
             'fee_payment' => 'pay_098f6bcd4621d373cade4e832627b4f6',
             'fee_currency' => 'EUR',
             'description' => 'Test Transaction',
-            'source'    => 'merchantcenter'
+            'source'    => 'merchantcenter',
+            'mandate_reference' =>'DE1234TEST'
         );
 
         $this->_transaction
@@ -66,7 +67,8 @@ class TransactionTest extends PHPUnit_Framework_TestCase
             ->setFeePayment($sample['fee_payment'])
             ->setFeeCurrency($sample['fee_currency'])
             ->setDescription($sample['description'])
-            ->setSource($sample['source']);
+            ->setSource($sample['source'])
+            ->setMandateReference($sample['mandate_reference']);
 
 
 
@@ -81,6 +83,7 @@ class TransactionTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($this->_transaction->getFeeCurrency(), $sample['fee_currency']);
         $this->assertEquals($this->_transaction->getDescription(), $sample['description']);
         $this->assertEquals($this->_transaction->getSource(), $sample['source']);
+        $this->assertEquals($this->_transaction->getMandateReference(), $sample['mandate_reference']);
 
 
         return $this->_transaction;
@@ -109,7 +112,8 @@ class TransactionTest extends PHPUnit_Framework_TestCase
             'fee_payment' => 'pay_098f6bcd4621d373cade4e832627b4f6',
             'fee_currency' => 'EUR',
             'description' => 'Test Transaction',
-            'source'    => 'merchantcenter'
+            'source'    => 'merchantcenter',
+            'mandate_reference' => 'DE1234TEST'
         ));
         $this->assertEquals($updateArray, array(
             'description' => 'Test Transaction'

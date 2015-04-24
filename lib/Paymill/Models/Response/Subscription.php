@@ -95,6 +95,11 @@ class Subscription extends Base
      * @var int
      */
     private $_tempAmount;
+    
+    /**
+     * @var string
+     */
+    private $_mandateReference;
 
     /**
      * Returns the model of the offer the subscription is based on
@@ -440,6 +445,22 @@ class Subscription extends Base
     public function getTempAmount()
     {
         return $this->_tempAmount;
+    }
+    
+     /** Set mandate reference mandate_reference
+     * @param string $mandateReference
+     */
+    public function setMandateReference($mandateReference)
+    {
+        $this->_mandateReference = $mandateReference;
+    }
+    /**
+     * Return mandate reference mandate_reference
+     * @return string
+     */
+    public function getMandateReference()
+    {
+        return $this->_mandateReference;
     }
 
 

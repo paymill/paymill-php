@@ -87,6 +87,11 @@ class Subscription extends Base
      */
     private $_remove;
     
+        /**
+     * @var string
+     */
+    private $_mandateReference;
+    
 
 
     /**
@@ -458,6 +463,9 @@ class Subscription extends Base
                 if (!is_null($this->getStartAt())) {
                     $parameterArray['start_at']  = $this->getStartAt();
                 }
+                if (!is_null($this->getMandateReference())) {
+                    $parameterArray['mandate_reference'] = $this->getMandateReference();
+                }
                 break;
             case 'update':
                 if (!is_null($this->getOffer())) {
@@ -494,6 +502,9 @@ class Subscription extends Base
                 }
                 if (!is_null($this->getOfferChangeType())) {
                     $parameterArray['offer_change_type'] = $this->getOfferChangeType();
+                }
+                if (!is_null($this->getMandateReference())) {
+                    $parameterArray['mandate_reference'] = $this->getMandateReference();
                 }
                 break;
             case 'getOne':

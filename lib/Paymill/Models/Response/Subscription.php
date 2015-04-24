@@ -95,6 +95,7 @@ class Subscription extends Base
      * @var int
      */
     private $_tempAmount;
+    
 
     /**
      * Returns the model of the offer the subscription is based on

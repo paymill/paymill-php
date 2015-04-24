@@ -59,7 +59,7 @@ class Transaction extends Base
 
     /**
      * @var string
-     */_
+     */
     private $_feeCurrency;
 
     /**

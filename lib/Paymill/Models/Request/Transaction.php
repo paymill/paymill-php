@@ -66,6 +66,11 @@ class Transaction extends Base
      * @var $_source
      */
     private $_source;
+    
+     /**
+     * @var string
+     */
+    private $_mandateReference;
 
     /**
      * Creates an instance of the transaction request model
@@ -300,6 +305,11 @@ class Transaction extends Base
     {
         return $this->_source;
     }
+    
+     /**
+     * @var string
+     */
+    private $_mandateReference;
 
     /**
      * Returns an array of parameters customized for the argumented methodname
@@ -333,6 +343,9 @@ class Transaction extends Base
                 }
                 if(!is_null($this->getSource())) {
                     $parameterArray['source'] = $this->getSource();
+                }
+                if (!is_null($this->getMandateReference())) {
+                    $parameterArray['mandate_reference'] = $this->getMandateReference();
                 }
                 break;
             case 'update':

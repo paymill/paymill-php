@@ -404,6 +404,27 @@ class Subscription extends Base
         $this->_remove = $remove;
         return $this;
     }
+    
+        /**
+     * Returns mandate reference
+     * @return string
+     */
+    public function getMandateReference()
+    {
+        return $this->_mandateReference;
+    }
+    
+    
+    /**
+     * Set mandate reference
+     * @param string $mandateReference
+     * @return \Paymill\Models\Request\Subscription
+     */
+    public function setMandateReference($mandateReference)
+    {
+        $this->_mandateReference = $mandateReference;
+        return $this;
+    }
 
     /**
      * Returns an array of parameters customized for the argumented methodname
@@ -444,6 +465,9 @@ class Subscription extends Base
                 if (!is_null($this->getStartAt())) {
                     $parameterArray['start_at']  = $this->getStartAt();
                 }
+                if (!is_null($this->getMandateReference())) {
+                    $parameterArray['mandate_reference'] = $this->getMandateReference();
+                }
                 break;
             case 'update':
                 if (!is_null($this->getOffer())) {
@@ -480,6 +504,9 @@ class Subscription extends Base
                 }
                 if (!is_null($this->getOfferChangeType())) {
                     $parameterArray['offer_change_type'] = $this->getOfferChangeType();
+                }
+                if (!is_null($this->getMandateReference())) {
+                    $parameterArray['mandate_reference'] = $this->getMandateReference();
                 }
                 break;
             case 'getOne':

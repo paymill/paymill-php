@@ -87,6 +87,11 @@ class Subscription extends Base
      */
     private $_remove;
     
+    /**
+     * @var string
+     */
+    private $_mandateReference;
+    
 
 
     /**

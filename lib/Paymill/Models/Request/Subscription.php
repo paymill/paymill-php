@@ -86,6 +86,7 @@ class Subscription extends Base
      * @var
      */
     private $_remove;
+    
 
 
     /**
@@ -396,6 +397,25 @@ class Subscription extends Base
     public function setRemove($remove)
     {
         $this->_remove = $remove;
+        return $this;
+    }
+    
+    /**
+     * Returns mandate reference
+     * @return string
+     */
+    public function getMandateReference()
+    {
+        return $this->_mandateReference;
+    }
+    /**
+     * Set mandate reference
+     * @param string $mandateReference
+     * @return \Paymill\Models\Request\Subscription
+     */
+    public function setMandateReference($mandateReference)
+    {
+        $this->_mandateReference = $mandateReference;
         return $this;
     }
 

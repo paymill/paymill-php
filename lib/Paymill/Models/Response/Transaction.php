@@ -397,5 +397,25 @@ class Transaction extends Base
         return $this->_source;
     }
     
+    /**
+     * @var string
+     */
+    private $_mandateReference;
+    
+        /** Set mandate reference mandate_reference
+     * @param string $mandateReference
+     */
+    public function setMandateReference($mandateReference)
+    {
+        $this->_mandateReference = $mandateReference;
+    }
+    /**
+     * Return mandate reference mandate_reference
+     * @return string
+     */
+    public function getMandateReference()
+    {
+        return $this->_mandateReference;
+    }
 
 }

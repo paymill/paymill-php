@@ -59,7 +59,7 @@ class Transaction extends Base
 
     /**
      * @var string
-     */
+     */_
     private $_feeCurrency;
 
     /**
@@ -307,9 +307,23 @@ class Transaction extends Base
     }
     
      /**
-     * @var string
+     * Returns mandate reference
+     * @return string
      */
-    private $_mandateReference;
+    public function getMandateReference()
+    {
+        return $this->_mandateReference;
+    }
+    /**
+     * Set mandate reference
+     * @param string $mandateReference
+     * @return \Paymill\Models\Request\Subscription
+     */
+    public function setMandateReference($mandateReference)
+    {
+        $this->_mandateReference = $mandateReference;
+        return $this;
+    }
 
     /**
      * Returns an array of parameters customized for the argumented methodname

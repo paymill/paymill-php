@@ -109,14 +109,14 @@ class TransactionTest extends PHPUnit_Framework_TestCase
             'billing_address'  => $sample['billing_address']
         ], $creationArray);
 
-        $this->assertEquals([
+        $this->assertEquals(array(
             'description' => 'Test Transaction'
-        ], $updateArray);
+        ), $updateArray);
 
-        $this->assertEquals([
+        $this->assertEquals(array(
             'count' => 1,
             'offset' => 0
-            ], $getOneArray
+            ), $getOneArray
         );
     }
 

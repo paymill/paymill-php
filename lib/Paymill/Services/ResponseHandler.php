@@ -11,11 +11,40 @@ use Paymill\Models\Response\Error;
  */
 class ResponseHandler
 {
-
+    /**
+     * Possible response codes
+     *
+     * @var array
+     */
     private $_errorCodes = array(
         10001 => "General undefined response.",
         10002 => "Still waiting on something.",
+        11000 => "Retry later",
+
         20000 => "General success response.",
+        20100 => "",
+        20101 => "Funds held by acquirer because merchant is new.",
+        20200 => "Transaction reversed.",
+        20201 => "Reversed due to chargeback.",
+        20202 => "Reversed due to money-back guarantee.",
+        20203 => "Reversed due to complaint by buyer.",
+        20204 => "Payment has been refunded.",
+        20300 => "Reversal has been canceled.",
+
+        30000 => "Transaction still in progress.",
+        30100 => "Transaction has been accepted.",
+        31000 => "Transaction pending.",
+        31100 => "Pending due to address.",
+        31101 => "Pending due to uncleared eCheck.",
+        31102 => "Pending due to risk review.",
+        31103 => "Pending due regulatory review.",
+        31104 => "Pending due to unregistered/unconfirmed receiver.",
+        31200 => "Pending due to unverified account, verify acquirer account.",
+        31201 => "Pending due to uncaptured funds, capture funds first.",
+        31202 => "Pending due to international account, accept manually.",
+        31203 => "Pending due to currency conflict, accept manually.",
+        31204 => "Pending due to fraud filters.",
+
         40000 => "General problem with data.",
         40001 => "General problem with payment data.",
         40100 => "Problem with credit card data.",
@@ -34,8 +63,17 @@ class ResponseHandler
         40401 => "Amount too low or zero.",
         40402 => "Usage field too long.",
         40403 => "Currency not allowed.",
+        40410 => "Invalid shopping cart data.",
+        40420 => "Invalid address data.",
+        40500 => "Permission error.",
+        40510 => "Rate limit.",
+
         50000 => "General problem with backend.",
         50001 => "Country blacklisted.",
+        50002 => "IP-Address blacklisted",
+        50003 => "Anonymous IP proxy used",
+        50004 => "Live mode not allowed.",
+        50005 => "Insufficient permissions (paymill accesskey).",
         50100 => "Technical error with credit card.",
         50101 => "Error limit exceeded.",
         50102 => "Card declined by authorization system.",
@@ -46,10 +84,31 @@ class ResponseHandler
         50201 => "Card blacklisted.",
         50300 => "Technical error with 3D secure.",
         50400 => "Decline because of risk issues.",
+        50401 => "Checksum invalid.",
+        50402 => "Bank account number invalid (format check).",
+        50403 => "Technical risk error.",
+        50404 => "Unknown risk error.",
+        50405 => "Invalid bank code.",
+        50406 => "Open chargeback.",
+        50407 => "Historic chargeback.",
+        50408 => "Institution/Government bank account (NCA).",
+        50409 => "Fraud case.",
+        50410 => "Personal Account Protection (PAP).",
+        50420 => "Rejected due to fraud settings.",
+        50430 => "Rejected due to risk settings.",
+        50440 => "Merchant account restriction.",
         50500 => "General timeout.",
         50501 => "Timeout on side of the acquirer.",
         50502 => "Risk management transaction timeout.",
         50600 => "Duplicate transaction.",
+        50700 => "Transaction canceled by user.",
+        50710 => "Failed due to funding source.",
+        50711 => "Cannot pay with PayPal.",
+        50720 => "Declined by acquirer.",
+        50730 => "Transaction denied by merchant.",
+        50800 => "capture preauthorization failed.",
+        50810 => "Authorization has been voided.",
+        50820 => "Authorization period expired."
     );
 
     /**
@@ -117,7 +176,7 @@ class ResponseHandler
     }
 
     /**
-     * Creates and fills a clientmodel
+     * Creates and fills a client model
      *
      * @param array $response
      * @return \Paymill\Models\Response\Client
@@ -137,7 +196,7 @@ class ResponseHandler
     }
 
     /**
-     * Creates and fills a paymentmodel
+     * Creates and fills a payment model
      *
      * @param array $response
      * @return \Paymill\Models\Response\Payment
@@ -169,7 +228,7 @@ class ResponseHandler
     }
 
     /**
-     * Creates and fills a transactionmodel
+     * Creates and fills a transaction model
      *
      * @param array $response
      * @return \Paymill\Models\Response\Transaction
@@ -199,7 +258,7 @@ class ResponseHandler
     }
 
     /**
-     * Creates and fills a preauthorizationmodel
+     * Creates and fills a preauthorization model
      *
      * @param array $response
      * @return \Paymill\Models\Response\Preauthorization
@@ -223,7 +282,7 @@ class ResponseHandler
     }
 
     /**
-     * Creates and fills a refundmodel
+     * Creates and fills a refund model
      *
      * @param array $response
      * @return \Paymill\Models\Response\Refund
@@ -246,7 +305,7 @@ class ResponseHandler
     }
 
     /**
-     * Creates and fills a offermodel
+     * Creates and fills a offer model
      *
      * @param array $response
      * @return \Paymill\Models\Response\Offer
@@ -268,7 +327,7 @@ class ResponseHandler
     }
 
     /**
-     * Creates and fills a subscriptionmodel
+     * Creates and fills a subscription model
      *
      * @param array $response
      * @return \Paymill\Models\Response\Subscription
@@ -297,7 +356,7 @@ class ResponseHandler
     }
 
     /**
-     * Creates and fills a webhookmodel
+     * Creates and fills a webhook model
      *
      * @param array $response
      * @return \Paymill\Models\Response\Webhook
@@ -317,7 +376,7 @@ class ResponseHandler
     }
 
     /**
-     * Creates and fills a fraudmodel
+     * Creates and fills a fraud model
      *
      * @param array $response
      * @return \Paymill\Models\Response\Fraud

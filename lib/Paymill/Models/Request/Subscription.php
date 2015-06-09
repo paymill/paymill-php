@@ -414,12 +414,15 @@ class Subscription extends Base
 
     /**
      * Set mandate reference
+     *
      * @param string $mandateReference
-     * @return \Paymill\Models\Request\Subscription
+     *
+     * @return $this
      */
     public function setMandateReference($mandateReference)
     {
         $this->_mandateReference = $mandateReference;
+
         return $this;
     }
 

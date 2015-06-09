@@ -3,6 +3,7 @@
 namespace Paymill\Services;
 
 use Paymill\Models\Response as Models;
+use Paymill\Models\Response\Checksum;
 use Paymill\Models\Response\Error;
 
 /**
@@ -106,6 +107,9 @@ class ResponseHandler
                 break;
             case 'fraud':
                 $model = $this->_createFraud($response);
+                break;
+            case 'checksum':
+                $model = $this->_createChecksum($response);
                 break;
         }
 
@@ -330,6 +334,26 @@ class ResponseHandler
     }
 
     /**
+     * Creates and fills a checksum model
+     *
+     * @param array $response
+     * @return Checksum
+     */
+    private function _createChecksum($response)
+    {
+        $model = new Checksum();
+        $model->setId($response['id']);
+        $model->setChecksum($response['checksum']);
+        $model->setData($response['data']);
+        $model->setType($response['type']);
+        $model->setAppId($response['app_id']);
+        $model->setCreatedAt($response['created_at']);
+        $model->setUpdatedAt($response['updated_at']);
+
+        return $model;
+    }
+
+    /**
      * Handles the multidimensional param arrays during model creation
      * @param array $response
      * @param string $resourceName
@@ -376,7 +400,7 @@ class ResponseHandler
                 $errorModel->setRawObject($this->convertResponse($response['body']['data'], $resourceName));
             } catch (\Exception $e) { }
         }
-        
+
         if (isset($response['body'])) {
             if (is_array($response['body'])) {
                 if (isset($response['body']['error'])) {
@@ -396,25 +420,24 @@ class ResponseHandler
     }
 
     /**
-     * Validates the data responsed by the API
+     * Validates the data responded by the API
+     * Just checks the header status is successful.
      *
-     * Only Refund, Transaction and Preauthorization return an response_code
      * @param array $response
-     * @return boolean
+     *
+     * @return boolean True if valid
      */
     public function validateResponse($response)
     {
         $returnValue = false;
-        if ($response['header']['status'] == 200) {
-            if (isset($response['body']['data']['response_code'])) {
-                $returnValue = false;
-                if ($response['body']['data']['response_code'] == 20000) {
-                    $returnValue = true;
-                }
-            } else {
-                $returnValue = true;
-            }
+        if (isset($response['header'])
+            && isset($response['header']['status'])
+            && $response['header']['status'] >= 200
+            && $response['header']['status'] < 300
+        ) {
+            $returnValue = true;
         }
+
         return $returnValue;
     }
 
@@ -436,7 +459,7 @@ class ResponseHandler
      */
     public function arrayToObject($array)
     {
-        return is_array($array) ? (object) array_map(array($this, 'arrayToObject'), $array) : $array;
+        return is_array($array) ? (object) array_map([$this, 'arrayToObject'], $array) : $array;
     }
 
 }

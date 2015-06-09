@@ -12,16 +12,32 @@ namespace Paymill\Models\Response;
  * To make the checksum computation as easy as possible we provide this endpoint for you.
  * @tutorial https://paymill.com/de-de/dokumentation/referenz/api-referenz/#document-checksum
  */
-class Checksum
+class Checksum extends Base
 {
     /**
+     * Checksum
+     *
      * @var string
      */
-    private $_checksum = null;
-    private $_livemode = false;
+    private $_checksum;
+
+    /**
+     * Type
+     *
+     * @var string
+     */
+    private $_type;
+
+    /**
+     * Data
+     *
+     * @var string
+     */
+    private $_data;
 
     /**
      * Returns the checksum
+     *
      * @return string
      */
     public function getChecksum()
@@ -31,32 +47,75 @@ class Checksum
 
     /**
      * Sets the checksum
+     *
      * @param string $val
-     * @return \Paymill\Models\Response\Checksum
+     * @return $this
      */
     public function setChecksum($val)
     {
         $this->_checksum = $val;
+
         return $this;
     }
 
     /**
-     * Returns the livemode flag of the checksum
-     * @return boolean
+     * Get type
+     *
+     * @return string
      */
-    public function getLivemode()
+    public function getType()
     {
-        return $this->_livemode;
+        return $this->_type;
     }
 
     /**
-     * Sets the livemode flag of the checksum
-     * @param boolean $livemode
-     * @return \Paymill\Models\Response\Checksum
+     * Set type
+     *
+     * @param string $type type
+     *
+     * @return $this
      */
-    public function setLivemode($livemode)
+    public function setType($type)
     {
-        $this->_livemode = $livemode;
+        $this->_type = $type;
+
         return $this;
+    }
+
+    /**
+     * Get data
+     *
+     * @return string
+     */
+    public function getData()
+    {
+        return $this->_data;
+    }
+
+    /**
+     * Set data
+     *
+     * @param string $data data
+     *
+     * @return $this
+     */
+    public function setData($data)
+    {
+        $this->_data = $data;
+
+        return $this;
+    }
+
+    /**
+     * Returns url encoded checksum data as array
+     *
+     * @return array
+     */
+    public function getDataAsArray()
+    {
+        $checksumData = null;
+        parse_str($this->getData(), $checksumData);
+
+        return $checksumData;
     }
 }

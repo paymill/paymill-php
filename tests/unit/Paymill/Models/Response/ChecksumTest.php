@@ -35,17 +35,34 @@ class ChecksumTest
         parent::tearDown();
     }
 
-    //Testmethods
     /**
      * Tests the getters and setters of the model
      * @test
      */
     public function setGetTest()
     {
-        $this->_model->setLivemode('live')->setChecksum('foobar');
+        $this->_model->setData('test=foo&foo[bar1]=test1&foo[bar2]=test2');
+        $this->_model->setType('creditcard');
+        $this->_model->setChecksum('foo-checksum');
+        $this->_model->setAppId('app_123');
+        $this->_model->setId('chk_123');
+        $this->_model->setCreatedAt(23423142314);
+        $this->_model->setUpdatedAt(23423142314);
 
-        $this->assertEquals($this->_model->getLivemode(), 'live');
-        $this->assertEquals($this->_model->getChecksum(), 'foobar');
+        $this->assertEquals($this->_model->getData(), 'test=foo&foo[bar1]=test1&foo[bar2]=test2');
+        $this->assertEquals($this->_model->getDataAsArray(), array(
+            'test' => 'foo',
+            'foo' => array(
+                'bar1' => 'test1',
+                'bar2' => 'test2'
+            )
+        ));
+        $this->assertEquals($this->_model->getType(), 'creditcard');
+        $this->assertEquals($this->_model->getChecksum(), 'foo-checksum');
+        $this->assertEquals($this->_model->getAppId(), 'app_123');
+        $this->assertEquals($this->_model->getId(), 'chk_123');
+        $this->assertEquals($this->_model->getCreatedAt(), 23423142314);
+        $this->assertEquals($this->_model->getUpdatedAt(), 23423142314);
     }
 
 }

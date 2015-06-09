@@ -94,7 +94,7 @@ class TransactionTest extends PHPUnit_Framework_TestCase
         $updateArray   = $transaction->parameterize("update");
         $getOneArray   = $transaction->parameterize("getOne");
 
-        $this->assertEquals([
+        $this->assertEquals(array(
             'amount'           => $sample['amount'], // e.g. "4200" for 42.00 EUR
             'currency'         => $sample['currency'], // ISO 4217
             'client'           => $sample['client'],
@@ -107,7 +107,7 @@ class TransactionTest extends PHPUnit_Framework_TestCase
             'mandate_reference' => $sample['mandate_reference'],
             'shipping_address' => $sample['shipping_address'],
             'billing_address'  => $sample['billing_address']
-        ], $creationArray);
+        ), $creationArray);
 
         $this->assertEquals(array(
             'description' => 'Test Transaction'

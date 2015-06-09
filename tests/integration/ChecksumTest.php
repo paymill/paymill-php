@@ -30,7 +30,7 @@ class ChecksumTest extends PHPUnit_Framework_TestCase
     {
         $this->_service = new Request();
         $this->_service->setConnectionClass(
-            new Curl(API_TEST_KEY, API_HOST, [CURLOPT_SSL_VERIFYPEER => SSL_VERIFY_PEER])
+            new Curl(API_TEST_KEY, API_HOST, array(CURLOPT_SSL_VERIFYPEER => SSL_VERIFY_PEER))
         );
 
         $this->_model = new Checksum();

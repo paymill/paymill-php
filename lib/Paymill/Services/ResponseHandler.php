@@ -518,7 +518,7 @@ class ResponseHandler
      */
     public function arrayToObject($array)
     {
-        return is_array($array) ? (object) array_map([$this, 'arrayToObject'], $array) : $array;
+        return is_array($array) ? (object) array_map(array($this, 'arrayToObject'), $array) : $array;
     }
 
 }

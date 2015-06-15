@@ -149,6 +149,13 @@ Changelog
 
 -	bugfix: [#92](https://github.com/paymill/paymill-php/pull/92) remove typecheck for http response code
 
+#### 4.0.0
+
+- Added shipping and billing address
+- Added shopping cart (items)
+-	Added PayPal functionality
+-	Possible [BC break in ResponseHandler.php](https://github.com/paymill/paymill-php/pull/102#discussion_r32232137)
+
 Documentation
 -------------
 

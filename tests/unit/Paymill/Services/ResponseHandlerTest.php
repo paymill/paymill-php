@@ -80,7 +80,7 @@ class ResponseHandlerTest extends PHPUnit_Framework_TestCase
      * Tests the convertResponseModel method with the client model as outcome
      * @test
      */
-    public function clientTest()
+    public function testClientTest()
     {
         $response = array(
             "id" => "client_88a388d9dd48f86c3136",
@@ -113,7 +113,7 @@ class ResponseHandlerTest extends PHPUnit_Framework_TestCase
      * Tests the convertResponseModel method with the client model as outcome using a client with multiple payment objects
      * @test
      */
-    public function clientMultiPaymentTest()
+    public function testClientMultiPaymentTest()
     {
         $response = array(
             'id' => "client_018dcaf0d8d03dde3ff6",
@@ -163,7 +163,7 @@ class ResponseHandlerTest extends PHPUnit_Framework_TestCase
      * Tests the convertResponseModel method with the payment model as outcome
      * @test
      */
-    public function paymentCCTest()
+    public function testPaymentCCTest()
     {
         $response= array(
             "id" => "pay_3af44644dd6d25c820a8",
@@ -187,7 +187,7 @@ class ResponseHandlerTest extends PHPUnit_Framework_TestCase
      * Tests the convertResponseModel method with the payment model as outcome
      * @test
      */
-    public function paymentSEPATest()
+    public function testPaymentSEPA()
     {
         $response = array(
             "id" => "pay_3af44644dd6d25c820a8",
@@ -212,7 +212,7 @@ class ResponseHandlerTest extends PHPUnit_Framework_TestCase
      * Tests the convertResponseModel method with the transaction model as outcome
      * @test
      */
-    public function transactionTest()
+    public function testTransaction()
     {
         $response = array(
             "id" => "tran_54645bcb98ba7acfe204",
@@ -276,7 +276,7 @@ class ResponseHandlerTest extends PHPUnit_Framework_TestCase
      * Tests the convertResponseModel method with the preauthorization model as outcome
      * @test
      */
-    public function preauthorizationTest()
+    public function testPreauthorization()
     {
         $response = array(
             "id" => "tran_54645bcb98ba7acfe204",
@@ -387,7 +387,7 @@ class ResponseHandlerTest extends PHPUnit_Framework_TestCase
      * Tests the convertResponseModel method with the refund model as outcome
      * @test
      */
-    public function refundTest()
+    public function testRefund()
     {
         $response = array(
             "id" => "refund_87bc404a95d5ce616049",
@@ -462,7 +462,7 @@ class ResponseHandlerTest extends PHPUnit_Framework_TestCase
      * Tests the convertResponseModel method with the offer model as outcome
      * @test
      */
-    public function offerTest()
+    public function testOfferTest()
     {
         $response = array(
             "id" => "offer_40237e20a7d5a231d99b",
@@ -487,7 +487,7 @@ class ResponseHandlerTest extends PHPUnit_Framework_TestCase
      * Tests the convertResponseModel method with the subscription model as outcome
      * @test
      */
-    public function subscriptionTest()
+    public function testSubscriptionTest()
     {
         $response = array(
             'id' => 'sub_012db05186ccfe22d86c',
@@ -564,7 +564,7 @@ class ResponseHandlerTest extends PHPUnit_Framework_TestCase
      * Tests the convertResponseModel method with the url version of the Webhook model as outcome
      * @test
      */
-    public function urlWebhookTest()
+    public function testUrlWebhookTest()
     {
         $response = array(
             "id" => "hook_40237e20a7d5a231d99b",
@@ -588,7 +588,7 @@ class ResponseHandlerTest extends PHPUnit_Framework_TestCase
      * Tests the convertResponseModel method with the email version of the Webhook model as outcome
      * @test
      */
-    public function emailWebhookTest()
+    public function testEmailWebhook()
     {
         $response = array(
             "id" => "hook_40237e20a7d5a231d99b",
@@ -608,6 +608,22 @@ class ResponseHandlerTest extends PHPUnit_Framework_TestCase
         $subject = $this->_responseHandler->convertResponse($response, "webhooks/");
         $this->assertInstanceOf("\Paymill\Models\Response\Webhook", $subject, var_export($subject, true));
     }
+
+    public function testValidateResponseIssetFalse()
+    {
+        $this->assertFalse($this->_responseHandler->validateResponse(array()));
+    }
+
+    public function testValidateResponseStatusFalse()
+    {
+        $this->assertFalse($this->_responseHandler->validateResponse(array('header' => array('status' => 404))));
+    }
+
+    public function testValidateResponseStatusTrue()
+    {
+        $this->assertTrue($this->_responseHandler->validateResponse(array('header' => array('status' => 200))));
+    }
+
 
     /**
      * Tests the handling of ResponseCodes
@@ -657,5 +673,4 @@ class ResponseHandlerTest extends PHPUnit_Framework_TestCase
         $this->assertInstanceOf('stdClass', $responseObject);
         $this->assertEquals($response['body']['data']['id'], $responseObject->data->id);
     }
-
 }

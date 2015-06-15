@@ -105,13 +105,15 @@ class Curl extends CommunicationAbstract
             return $responseBody;
         }
 
-        return array(
+        $result = array(
             'header' => array(
                 'status' => $responseInfo['http_code'],
                 'reason' => null,
             ),
             'body' => $responseBody
         );
+
+        return $result;
     }
 
     /**

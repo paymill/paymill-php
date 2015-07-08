@@ -16,5 +16,5 @@ abstract class CommunicationAbstract
      * @param string $method
      * @return mixed
      */
-    abstract protected function requestApi($action = '', $params = array(), $method = 'POST');
+    abstract public function requestApi($action = '', $params = array(), $method = 'POST');
 }

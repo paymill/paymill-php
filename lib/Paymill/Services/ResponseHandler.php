@@ -406,6 +406,7 @@ class ResponseHandler
         $model->setChecksum($response['checksum']);
         $model->setData($response['data']);
         $model->setType($response['type']);
+        $model->setAction($response['action']);
         $model->setAppId($response['app_id']);
         $model->setCreatedAt($response['created_at']);
         $model->setUpdatedAt($response['updated_at']);

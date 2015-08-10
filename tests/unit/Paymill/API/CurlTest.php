@@ -80,10 +80,11 @@ class CurlTest
 
         $this->_setMockProperties('_curlExec', $responseBody);
         $this->_setMockProperties('_curlInfo', $responseInfo);
+        $that = $this;
         $this->_curlObject->expects($this->once())
             ->method('_curlOpts')
-            ->will($this->returnCallback(function($curl, array $options) use($curlOpts) {
-                $this->assertEquals($curlOpts, $options);
+            ->will($this->returnCallback(function($curl, array $options) use($curlOpts, $that) {
+                $that->assertEquals($curlOpts, $options);
                 return true;
             }));
 

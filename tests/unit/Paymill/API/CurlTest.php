@@ -68,7 +68,7 @@ class CurlTest
         //Desired Results
         $responseBody = array('test' => true);
         $responseInfo = array('http_code' => 200, 'content_type' => 'test');
-        $curlOpts = [
+        $curlOpts = array(
             81    => false,
             10002 => 'https://api.paymill.com/v2.1/',
             19913 => true,
@@ -76,7 +76,7 @@ class CurlTest
             10018 => 'Paymill-php/0.0.2',
             64    => true,
             10005 => 'TestToken:'
-        ];
+        );
 
         $this->_setMockProperties('_curlExec', $responseBody);
         $this->_setMockProperties('_curlInfo', $responseInfo);

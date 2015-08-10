@@ -72,7 +72,7 @@ class Curl extends CommunicationAbstract
 
         // Add extra options to cURL if defined.
         if (!empty($this->_extraOptions)) {
-            $curlOpts = array_merge($curlOpts, $this->_extraOptions);
+            $curlOpts = $this->_extraOptions + $curlOpts;
         }
 
         if ('GET' === $method) {

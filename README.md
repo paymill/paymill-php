@@ -8,10 +8,19 @@ VERSIONING
 
 This wrapper is using the api v2.1 launched in June 2014. If you wish to use the old api v2.0 please use the wrapper in branch v2: https://github.com/paymill/paymill-php/tree/v2.
 
-How to test
------------
+How to test cards and errors
+----------------------------
 
 There are different credit card numbers, frontend and backend error codes, which can be used for testing. For more information, please read our testing reference. https://www.paymill.com/en-gb/documentation-3/reference/testing/
+
+How to run unit and integration tests
+-------------------------------------
+Just run:
+
+```
+ant test
+```
+
 
 Getting started with PAYMILL
 ----------------------------
@@ -139,6 +148,13 @@ Changelog
 #### 3.2.1
 
 -	bugfix: [#92](https://github.com/paymill/paymill-php/pull/92) remove typecheck for http response code
+
+#### 4.0.0
+
+- Added shipping and billing address
+- Added shopping cart (items)
+-	Added PayPal functionality
+-	Possible [BC break in ResponseHandler.php](https://github.com/paymill/paymill-php/pull/102#discussion_r32232137)
 
 Documentation
 -------------

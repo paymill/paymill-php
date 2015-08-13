@@ -85,10 +85,8 @@ class Checksum extends Base
     public function setType($type)
     {
         $this->_type = $type;
-
-        return $this;
     }
-
+        
     /**
      * Get action
      *

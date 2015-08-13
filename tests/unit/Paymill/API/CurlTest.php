@@ -21,7 +21,18 @@ class CurlTest
      */
     protected function setUp()
     {
-        $this->_curlObject = $this->getMock('Paymill\API\Curl', array('_curlExec', '_curlInfo', '_curlError'), array("TestToken"));
+        $constructorArgs = array(
+            'TestToken',
+            'https://api.paymill.com/v2.1/',
+            // add some extra curl options to make sure the merge of default and custom curl options works
+            array(CURLOPT_SSL_VERIFYHOST => false)
+        );
+
+        $this->_curlObject = $this->getMock(
+            'Paymill\API\Curl',
+            array('_curlExec', '_curlInfo', '_curlError', '_curlOpts'),
+            $constructorArgs
+        );
         parent::setUp();
     }
 
@@ -57,9 +68,25 @@ class CurlTest
         //Desired Results
         $responseBody = array('test' => true);
         $responseInfo = array('http_code' => 200, 'content_type' => 'test');
+        $curlOpts = array(
+            81    => false,
+            10002 => 'https://api.paymill.com/v2.1/',
+            19913 => true,
+            10036 => 'GET',
+            10018 => 'Paymill-php/0.0.2',
+            64    => true,
+            10005 => 'TestToken:'
+        );
 
         $this->_setMockProperties('_curlExec', $responseBody);
         $this->_setMockProperties('_curlInfo', $responseInfo);
+        $that = $this;
+        $this->_curlObject->expects($this->once())
+            ->method('_curlOpts')
+            ->will($this->returnCallback(function($curl, array $options) use($curlOpts, $that) {
+                $that->assertEquals($curlOpts, $options);
+                return true;
+            }));
 
         //Testing method using GET
         $result = $this->_curlObject->requestApi("", array(), 'GET');

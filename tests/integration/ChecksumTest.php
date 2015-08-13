@@ -4,6 +4,7 @@ namespace Paymill\Test\Integration;
 
 use Paymill\API\Curl;
 use Paymill\Models as Models;
+use Paymill\Models\Request\Checksum;
 use Paymill\Request;
 use PHPUnit_Framework_TestCase;
 
@@ -13,12 +14,12 @@ use PHPUnit_Framework_TestCase;
 class ChecksumTest extends PHPUnit_Framework_TestCase
 {
     /**
-     * @var \Paymill\Services\Request
+     * @var Request
      */
     private $_service;
 
     /**
-     * @var \Paymill\Models\Request\Checksum
+     * @var Checksum
      */
     private $_model;
 
@@ -32,11 +33,12 @@ class ChecksumTest extends PHPUnit_Framework_TestCase
             new Curl(API_TEST_KEY, API_HOST, array(CURLOPT_SSL_VERIFYPEER => SSL_VERIFY_PEER))
         );
 
-        $this->_model = new Models\Request\Checksum();
-        $this->_model->setChecksumType('postfinance_card');
+        $this->_model = new Checksum();
+        $this->_model->setChecksumType(Checksum::TYPE_PAYPAL);
+        $this->_model->setChecksumAction(Checksum::ACTION_TRANSACTION);
         $this->_model->setAmount('200');
-        $this->_model->setCurrency('CHF');
-        $this->_model->setDescription('dummy description');
+        $this->_model->setCurrency('EUR');
+        $this->_model->setDescription('Dummy description');
 
         parent::setUp();
     }
@@ -59,6 +61,7 @@ class ChecksumTest extends PHPUnit_Framework_TestCase
     {
         $result = $this->_service->getOne($this->_model);
         $this->assertInstanceOf('Paymill\Models\Response\Checksum', $result, var_export($result, true));
-		return $result;
+
+        return $result;
     }
 }

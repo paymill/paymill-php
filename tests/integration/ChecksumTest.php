@@ -35,6 +35,7 @@ class ChecksumTest extends PHPUnit_Framework_TestCase
 
         $this->_model = new Checksum();
         $this->_model->setChecksumType(Checksum::TYPE_PAYPAL);
+        $this->_model->setChecksumAction(Checksum::ACTION_TRANSACTION);
         $this->_model->setAmount('200');
         $this->_model->setCurrency('EUR');
         $this->_model->setDescription('Dummy description');

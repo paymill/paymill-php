@@ -43,6 +43,7 @@ class ChecksumTest extends PHPUnit_Framework_TestCase
     {
         $sample = array(
             'checksum_type' => Checksum::TYPE_PAYPAL,
+            'checksum_action' => Checksum::ACTION_TRANSACTION,
             'amount'        => '200',
             'currency'      => 'EUR',
             'description'   => 'foo bar',
@@ -92,6 +93,7 @@ class ChecksumTest extends PHPUnit_Framework_TestCase
 
         $this->_model
             ->setChecksumType($sample['checksum_type'])
+            ->setChecksumAction($sample['checksum_action'])
             ->setAmount($sample['amount'])
             ->setCurrency($sample['currency'])
             ->setDescription($sample['description'])
@@ -105,6 +107,7 @@ class ChecksumTest extends PHPUnit_Framework_TestCase
         ;
 
         $this->assertEquals($this->_model->getChecksumType(), $sample['checksum_type']);
+        $this->assertEquals($this->_model->getChecksumAction(), $sample['checksum_action']);
         $this->assertEquals($this->_model->getAmount(),       $sample['amount']);
         $this->assertEquals($this->_model->getCurrency(),     $sample['currency']);
         $this->assertEquals($this->_model->getDescription(),  $sample['description']);
@@ -152,6 +155,7 @@ class ChecksumTest extends PHPUnit_Framework_TestCase
     {
         $parameterArray = array();
         $parameterArray['checksum_type'] = Checksum::TYPE_PAYPAL;
+        $parameterArray['checksum_action'] = Checksum::ACTION_TRANSACTION;
         $parameterArray['amount']        = '200';
         $parameterArray['currency']      = 'EUR';
         $parameterArray['description']   = 'foo bar';

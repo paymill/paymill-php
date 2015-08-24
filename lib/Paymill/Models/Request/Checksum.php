@@ -21,9 +21,25 @@ class Checksum extends Base
     const TYPE_PAYPAL = 'paypal';
 
     /**
+     * Different checksum actions which will enable different validations for
+     * the input parameters.
+     */
+    const ACTION_PAYMENT = 'payment';
+    const ACTION_TRANSACTION = 'transaction';
+
+    /**
+     * Checksum type
+     *
      * @var string
      */
     private $_checksumType = null;
+
+    /**
+     * Checksum action
+     *
+     * @var string
+     */
+    private $_checksumAction = null;
 
     /**
      * @var string
@@ -161,6 +177,30 @@ class Checksum extends Base
     public function getChecksumType()
     {
         return $this->_checksumType;
+    }
+
+    /**
+     * Get checksum action
+     *
+     * @return string
+     */
+    public function getChecksumAction()
+    {
+        return $this->_checksumAction;
+    }
+
+    /**
+     * Set checksum action
+     *
+     * @param string $checksumAction Checksum action
+     *
+     * @return $this
+     */
+    public function setChecksumAction($checksumAction)
+    {
+        $this->_checksumAction = $checksumAction;
+
+        return $this;
     }
 
     /**
@@ -496,6 +536,10 @@ class Checksum extends Base
             case 'create':
                 if($this->getChecksumType()) {
                     $parameterArray['checksum_type'] = $this->getChecksumType();
+                }
+
+                if($this->getChecksumAction()) {
+                    $parameterArray['checksum_action'] = $this->getChecksumAction();
                 }
 
                 if($this->getAmount()) {

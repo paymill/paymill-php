@@ -2,6 +2,7 @@
 
 namespace Paymill\Test\Unit\Models\Response;
 
+use Paymill\Models\Request\Checksum;
 use Paymill\Models\Response as Response;
 use PHPUnit_Framework_TestCase;
 
@@ -43,6 +44,7 @@ class ChecksumTest
     {
         $this->_model->setData('test=foo&foo[bar1]=test1&foo[bar2]=test2');
         $this->_model->setType('creditcard');
+        $this->_model->setAction(Checksum::ACTION_TRANSACTION);
         $this->_model->setChecksum('foo-checksum');
         $this->_model->setAppId('app_123');
         $this->_model->setId('chk_123');
@@ -58,6 +60,7 @@ class ChecksumTest
             )
         ));
         $this->assertEquals($this->_model->getType(), 'creditcard');
+        $this->assertEquals($this->_model->getAction(), Checksum::ACTION_TRANSACTION);
         $this->assertEquals($this->_model->getChecksum(), 'foo-checksum');
         $this->assertEquals($this->_model->getAppId(), 'app_123');
         $this->assertEquals($this->_model->getId(), 'chk_123');

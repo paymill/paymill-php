@@ -10,7 +10,7 @@ namespace Paymill\Models\Response;
  * If you send us a request with transaction data and the generated checksum, we can easily validate the data
  * because we know your private key and the used hash algorithm.
  * To make the checksum computation as easy as possible we provide this endpoint for you.
- * @tutorial https://paymill.com/de-de/dokumentation/referenz/api-referenz/#document-checksum
+ * @tutorial https://developers.paymill.com/API/#checksums
  */
 class Checksum extends Base
 {
@@ -27,6 +27,13 @@ class Checksum extends Base
      * @var string
      */
     private $_type;
+
+    /**
+     * Action
+     *
+     * @var string
+     */
+    private $_action;
 
     /**
      * Data
@@ -78,6 +85,28 @@ class Checksum extends Base
     public function setType($type)
     {
         $this->_type = $type;
+    }
+        
+    /**
+     * Get action
+     *
+     * @return string
+     */
+    public function getAction()
+    {
+        return $this->_action;
+    }
+
+    /**
+     * Set action
+     *
+     * @param string $action action
+     *
+     * @return $this
+     */
+    public function setAction($action)
+    {
+        $this->_action = $action;
 
         return $this;
     }

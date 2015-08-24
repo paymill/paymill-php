@@ -22,7 +22,7 @@ class ResponseHandler
         11000 => "Retry later",
 
         20000 => "General success response.",
-        20100 => "",
+        20100 => "Funds held by acquirer.",
         20101 => "Funds held by acquirer because merchant is new.",
         20200 => "Transaction reversed.",
         20201 => "Reversed due to chargeback.",
@@ -47,6 +47,7 @@ class ResponseHandler
 
         40000 => "General problem with data.",
         40001 => "General problem with payment data.",
+        40002 => "Invalid checksum.",
         40100 => "Problem with credit card data.",
         40101 => "Problem with cvv.",
         40102 => "Card expired or not yet valid.",
@@ -405,6 +406,7 @@ class ResponseHandler
         $model->setChecksum($response['checksum']);
         $model->setData($response['data']);
         $model->setType($response['type']);
+        $model->setAction($response['action']);
         $model->setAppId($response['app_id']);
         $model->setCreatedAt($response['created_at']);
         $model->setUpdatedAt($response['updated_at']);

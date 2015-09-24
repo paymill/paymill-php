@@ -99,7 +99,7 @@ class Curl extends CommunicationAbstract
 
         if ('application/json' === $responseInfo['content_type']) {
             $responseBody = json_decode($responseBody, true);
-        } elseif('text/csv' === $responseInfo['content_type']
+        } elseif (strpos($responseInfo['content_type'], 'text/csv') !== false
             && !isset($responseBody['error'])
         ) {
             return $responseBody;

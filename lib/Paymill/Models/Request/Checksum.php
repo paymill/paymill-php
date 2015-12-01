@@ -121,12 +121,26 @@ class Checksum extends Base
      */
     private $_handling_amount;
 
+    private $_clientId;
+
     /**
      * Creates an instance of the checksum request model
      */
     function __construct()
     {
         $this->_serviceResource = 'checksums/';
+    }
+
+    public function setClientId($clientId)
+    {
+        $this->_clientId = $clientId;
+
+        return $this;
+    }
+
+    public function getClientId()
+    {
+        return $this->_clientId;
     }
 
     /**
@@ -580,6 +594,10 @@ class Checksum extends Base
 
                 if($this->getHandlingAmount()) {
                     $parameterArray['handling_amount'] = $this->getHandlingAmount();
+                }
+
+                if($this->getClientId()) {
+                    $parameterArray['client_id'] = $this->getClientId();
                 }
 
                 // Unite params:

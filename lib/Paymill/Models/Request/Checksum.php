@@ -121,6 +121,8 @@ class Checksum extends Base
      */
     private $_handling_amount;
 
+    private $_clientId;
+
     /**
      * Reusable payment
      *
@@ -141,6 +143,18 @@ class Checksum extends Base
     function __construct()
     {
         $this->_serviceResource = 'checksums/';
+    }
+
+    public function setClientId($clientId)
+    {
+        $this->_clientId = $clientId;
+
+        return $this;
+    }
+
+    public function getClientId()
+    {
+        return $this->_clientId;
     }
 
     /**
@@ -650,6 +664,10 @@ class Checksum extends Base
 
                 if($this->getReusablePaymentDescription()) {
                     $parameterArray['reusable_payment_description'] = $this->getReusablePaymentDescription();
+                }
+
+                if($this->getClientId()) {
+                    $parameterArray['client_id'] = $this->getClientId();
                 }
 
                 // Unite params:

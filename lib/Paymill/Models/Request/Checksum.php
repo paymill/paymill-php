@@ -124,9 +124,9 @@ class Checksum extends Base
     /**
      * Client identifier 
      * 
-     * @var string $_clientId
+     * @var string $_client
      */
-    private $_clientId;
+    private $_client;
 
     /**
      * Reusable payment
@@ -157,9 +157,9 @@ class Checksum extends Base
      * 
      * @return $this
      */
-    public function setClientId($clientId)
+    public function setClient($client)
     {
-        $this->_clientId = $clientId;
+        $this->_client = $client;
 
         return $this;
     }
@@ -169,9 +169,9 @@ class Checksum extends Base
      * 
      * @return string
      */
-    public function getClientId()
+    public function getClient()
     {
-        return $this->_clientId;
+        return $this->_client;
     }
 
     /**
@@ -683,8 +683,8 @@ class Checksum extends Base
                     $parameterArray['reusable_payment_description'] = $this->getReusablePaymentDescription();
                 }
 
-                if($this->getClientId()) {
-                    $parameterArray['client_id'] = $this->getClientId();
+                if($this->getClient()) {
+                    $parameterArray['client'] = $this->getClient();
                 }
 
                 // Unite params:

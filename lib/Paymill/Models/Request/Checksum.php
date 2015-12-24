@@ -121,6 +121,11 @@ class Checksum extends Base
      */
     private $_handling_amount;
 
+    /**
+     * Client identifier 
+     * 
+     * @var string $_clientId
+     */
     private $_clientId;
 
     /**
@@ -145,6 +150,13 @@ class Checksum extends Base
         $this->_serviceResource = 'checksums/';
     }
 
+    /**
+     * Sets the identifier of the Client for the transaction
+     * 
+     * @param string $clientId Client identifier
+     * 
+     * @return $this
+     */
     public function setClientId($clientId)
     {
         $this->_clientId = $clientId;
@@ -152,6 +164,11 @@ class Checksum extends Base
         return $this;
     }
 
+    /**
+     * Returns the identifier of the Client associated with the checksum. If no client is available null will be returned
+     * 
+     * @return string
+     */
     public function getClientId()
     {
         return $this->_clientId;

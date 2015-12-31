@@ -215,12 +215,15 @@ class ResponseHandler
             $model->setExpireYear($response['expire_year']);
             $model->setCardHolder($response['card_holder']);
             $model->setLastFour($response['last4']);
-        } else if ($response['type'] === "debit") {
+        } elseif ($response['type'] === "debit") {
             $model->setHolder($response['holder']);
             $model->setCode($response['code']);
             $model->setAccount($response['account']);
             $model->setBic($response['bic']);
             $model->setIban($response['iban']);
+        } elseif ($response['type'] === "paypal") {
+            $model->setHolder($response['holder']);
+            $model->setAccount($response['account']);
         }
         $model->setCreatedAt($response['created_at']);
         $model->setUpdatedAt($response['updated_at']);

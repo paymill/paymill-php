@@ -31,6 +31,13 @@ class Preauthorization extends Base
     private $_token;
 
     /**
+     * Source
+     *
+     * @var $_source
+     */
+    private $_source;
+
+    /**
      * @var string
      */
     private $_description;
@@ -129,6 +136,30 @@ class Preauthorization extends Base
     }
 
     /**
+     * Sets the name of origin of the call creating the transaction.
+     *
+     * @param string $source Source
+     *
+     * @return $this
+     */
+    public function setSource($source)
+    {
+        $this->_source = $source;
+
+        return $this;
+    }
+
+    /**
+     * Gets the name of origin of the call creating the transaction.
+     *
+     * @return string
+     */
+    public function getSource()
+    {
+        return $this->_source;
+    }
+
+    /**
      * Returns the description
      * @return string
      */
@@ -189,7 +220,9 @@ class Preauthorization extends Base
                 if (!is_null($this->getClient())) {
                     $parameterArray['client'] = $this->getClient();
                 }
-
+                if(!is_null($this->getSource())) {
+                    $parameterArray['source'] = $this->getSource();
+                }
                 break;
             case 'getOne':
                 $parameterArray['count'] = 1;

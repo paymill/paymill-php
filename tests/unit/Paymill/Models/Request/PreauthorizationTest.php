@@ -42,12 +42,13 @@ class PreauthorizationTest extends PHPUnit_Framework_TestCase
     public function setGetTest()
     {
         $sample = array(
-            'token' => '098f6bcd4621d373cade4e832627b4f6',
-            'payment' => 'pay_d43cf0ee969d9847512b',
-            'amount' => '4200',
-            'currency' => 'EUR',
+            'token'       => '098f6bcd4621d373cade4e832627b4f6',
+            'payment'     => 'pay_d43cf0ee969d9847512b',
+            'amount'      => '4200',
+            'currency'    => 'EUR',
             'description' => 'Test Description',
-            'client' => 'client_4624bcfbac1f4862642f'
+            'source'      => 'Test Source',
+            'client'      => 'client_4624bcfbac1f4862642f',
         );
 
         $this->_preauthorization
@@ -55,6 +56,7 @@ class PreauthorizationTest extends PHPUnit_Framework_TestCase
             ->setToken($sample['token'])
             ->setAmount($sample['amount'])
             ->setCurrency($sample['currency'])
+            ->setSource(($sample['source']))
             ->setDescription($sample['description'])
             ->setClient($sample['client']);
 
@@ -64,6 +66,7 @@ class PreauthorizationTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($this->_preauthorization->getCurrency(), $sample['currency']);
         $this->assertEquals($this->_preauthorization->getDescription(), $sample['description']);
         $this->assertEquals($this->_preauthorization->getClient(), $sample['client']);
+        $this->assertEquals($this->_preauthorization->getSource(), $sample['source']);
 
         return $this->_preauthorization;
     }
@@ -86,7 +89,8 @@ class PreauthorizationTest extends PHPUnit_Framework_TestCase
             'amount' => '4200',
             'currency' => 'EUR',
             'description' => 'Test Description',
-            'client' => 'client_4624bcfbac1f4862642f'
+            'client' => 'client_4624bcfbac1f4862642f',
+            'source' => 'Test Source'
             )
         );
         $this->assertEquals($getOneArray, array(

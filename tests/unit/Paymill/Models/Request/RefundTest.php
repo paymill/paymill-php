@@ -43,7 +43,8 @@ class RefundTest extends PHPUnit_Framework_TestCase
     {
         $sample = array(
             'amount' => '4200', // e.g. "4200" for 42.00 EUR
-            'description' => 'Sample Description'
+            'description' => 'Sample Description',
+            'reason' => 'requested_by_customer'
         );
 
         $this->_refund->setAmount($sample['amount'])

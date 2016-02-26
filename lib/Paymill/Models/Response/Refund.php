@@ -27,6 +27,7 @@ class Refund extends Base
     /**
      * Sets the transaction model
      * @param \Paymill\Models\Response\Transaction $transaction
+     *
      * @return \Paymill\Models\Response\Refund
      */
     public function setTransaction($transaction)
@@ -53,6 +54,7 @@ class Refund extends Base
     /**
      * Sets the amount
      * @param integer $amount
+     *
      * @return \Paymill\Models\Response\Refund
      */
     public function setAmount($amount)
@@ -79,6 +81,7 @@ class Refund extends Base
     /**
      * Sets the Status of the refund
      * @param string $status
+     *
      * @return \Paymill\Models\Response\Refund
      */
     public function setStatus($status)
@@ -105,6 +108,7 @@ class Refund extends Base
     /**
      * Sets the description of this refund
      * @param string $description
+     *
      * @return \Paymill\Models\Response\Refund
      */
     public function setDescription($description)
@@ -112,7 +116,33 @@ class Refund extends Base
         $this->_description = $description;
         return $this;
     }
-    
+
+    /**
+     * @var string
+     */
+    private $_reason;
+
+    /**
+     * Sets the reason
+     * @return string
+     */
+    public function getReason()
+    {
+        return $this->_reason;
+    }
+
+    /**
+     * @param string $reason
+     *
+     * @return \Paymill\Models\Response\Refund
+     */
+    public function setReason($reason)
+    {
+        $this->_reason = $reason;
+
+        return $this;
+    }
+
     /**
      * Whether this refund happend in test- or in livemode.
      * @var boolean 

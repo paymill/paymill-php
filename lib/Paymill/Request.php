@@ -265,7 +265,8 @@ class Request
                 $convertedResponse->getResponseCode(),
                 $convertedResponse->getErrorMessage(),
                 $convertedResponse->getHttpStatusCode(),
-                $convertedResponse->getRawObject()
+                $convertedResponse->getRawObject(),
+                $convertedResponse->getErrorResponseArray()
             );
         }
 

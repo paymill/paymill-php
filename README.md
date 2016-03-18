@@ -90,6 +90,7 @@ try {
   $e->getResponseCode();
   $e->getStatusCode();
   $e->getErrorMessage();
+  $e->getRawError();
 }
 ```
 

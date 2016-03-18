@@ -441,7 +441,7 @@ class ResponseHandler
      * @param string $resourceName
      * @return Error
      */
-    public function convertErrorToModel($response, $resourceName = null)
+    public function convertErrorToModel(array $response, $resourceName = null)
     {
         $errorModel = new Error();
 
@@ -452,6 +452,8 @@ class ResponseHandler
         $errorModel->setResponseCode($responseCode);
 
         $errorCode = 'Undefined Error. This should not happen!';
+        $rawError = array();
+
         if (isset($this->_errorCodes[$responseCode])) {
             $errorCode = $this->_errorCodes[$responseCode];
         }
@@ -465,6 +467,7 @@ class ResponseHandler
         if (isset($response['body'])) {
             if (is_array($response['body'])) {
                 if (isset($response['body']['error'])) {
+                    $rawError = $response['body']['error'];
                     if (is_array($response['body']['error'])) {
                         $errorCode = $this->getErrorMessageFromArray($response['body']['error']);
                     } elseif (is_string($response['body']['error'])) {
@@ -472,11 +475,17 @@ class ResponseHandler
                     }
                 }
             } elseif (is_string($response['body'])) {
-                $json = json_decode($response['body']);
-                $errorCode = $json->error;
+                $json = json_decode($response['body'], true);
+                if (isset($json['error'])) {
+                    $errorCode = $json['error'];
+                    $rawError = $json['error'];
+                }
             }
         }
+
         $errorModel->setErrorMessage($errorCode);
+        $errorModel->setErrorResponseArray(array('error' => $rawError));
+
         return $errorModel;
     }
 

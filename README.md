@@ -160,4 +160,4 @@ Changelog
 Documentation
 -------------
 
-For further information, please refer to our official PHP library reference: https://www.paymill.com/en-gb/documentation-3/reference/api-reference/index.html
+For further information, please refer to our official PHP library reference: https://developers.paymill.com/API/index

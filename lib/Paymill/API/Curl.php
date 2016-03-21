@@ -75,7 +75,7 @@ class Curl extends CommunicationAbstract
             $curlOpts = $this->_extraOptions + $curlOpts;
         }
 
-        if ('GET' === $method) {
+        if ('GET' === $method || 'DELETE' === $method) {
             if (0 !== count($params)) {
                 $curlOpts[CURLOPT_URL] .= false === strpos($curlOpts[CURLOPT_URL], '?') ? '?' : '&';
                 $curlOpts[CURLOPT_URL] .= http_build_query($params, null, '&');
@@ -129,7 +129,7 @@ class Curl extends CommunicationAbstract
     }
 
     /**
-     * Wrapps the curlExec function call
+     * Wraps the curlExec function call
      * @param resource $curl cURL handle passed to curl_exec
      * @return mixed
      */
@@ -139,7 +139,7 @@ class Curl extends CommunicationAbstract
     }
 
     /**
-     * Wrapps the curlInfo function call
+     * Wraps the curlInfo function call
      * @param resource $curl cURL handle passed to curl_getinfo
      * @return mixed
      */
@@ -149,7 +149,7 @@ class Curl extends CommunicationAbstract
     }
 
     /**
-     * Wrapps the curlError function call
+     * Wraps the curlError function call
      * @param resource $curl cURL handle passed to curl_error
      * @return mixed
      */

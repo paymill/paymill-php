@@ -75,7 +75,7 @@ class Curl extends CommunicationAbstract
             $curlOpts = $this->_extraOptions + $curlOpts;
         }
 
-        if ('GET' === $method) {
+        if ('GET' === $method || 'DELETE' === $method) {
             if (0 !== count($params)) {
                 $curlOpts[CURLOPT_URL] .= false === strpos($curlOpts[CURLOPT_URL], '?') ? '?' : '&';
                 $curlOpts[CURLOPT_URL] .= http_build_query($params, null, '&');

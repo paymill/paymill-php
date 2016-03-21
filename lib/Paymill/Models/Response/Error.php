@@ -10,7 +10,6 @@ namespace Paymill\Models\Response;
  */
 class Error
 {
-
     /**
      * @var string
      */
@@ -29,6 +28,19 @@ class Error
      * @var \Paymill\Models\Response\Base
      */
     private $_rawObject;
+
+    /**
+     * @var array
+     */
+    private $_errorResponseArray;
+
+    /**
+     * Error constructor.
+     */
+    public function __construct()
+    {
+        $this->_errorResponseArray = array();
+    }
 
     /**
      * Returns the error message stored in the model
@@ -110,4 +122,23 @@ class Error
         return $this->_rawObject;
     }
 
+    /**
+     * Sets raw error response array
+     * @param array $error
+     * @return \Paymill\Models\Response\Error
+     */
+    public function setErrorResponseArray(array $error)
+    {
+        $this->_errorResponseArray = $error;
+        return $this;
+    }
+
+    /**
+     * Returns the raw error response array
+     * @return array
+     */
+    public function getErrorResponseArray()
+    {
+        return $this->_errorResponseArray;
+    }
 }

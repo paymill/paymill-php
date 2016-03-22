@@ -42,6 +42,7 @@ class ChecksumTest extends PHPUnit_Framework_TestCase
     public function setGetTest()
     {
         $sample = array(
+            'client'     => 'client_88a388d9dd48f86c3136',
             'checksum_type' => Checksum::TYPE_PAYPAL,
             'checksum_action' => Checksum::ACTION_TRANSACTION,
             'amount'        => '200',
@@ -88,10 +89,13 @@ class ChecksumTest extends PHPUnit_Framework_TestCase
                 )
             ),
             'shipping_amount' => '50',
-            'handling_amount' => '50'
+            'handling_amount' => '50',
+            'require_reusable_payment' => true,
+            'reusable_payment_description' => 'Paymill Paypal test'
         );
 
         $this->_model
+            ->setClient($sample['client'])
             ->setChecksumType($sample['checksum_type'])
             ->setChecksumAction($sample['checksum_action'])
             ->setAmount($sample['amount'])
@@ -104,8 +108,11 @@ class ChecksumTest extends PHPUnit_Framework_TestCase
             ->setItems($sample['items'])
             ->setShippingAmount($sample['shipping_amount'])
             ->setHandlingAmount($sample['handling_amount'])
+            ->setRequireReusablePayment($sample['require_reusable_payment'])
+            ->setReusablePaymentDescription($sample['reusable_payment_description'])    
         ;
 
+        $this->assertEquals($this->_model->getClient(), $sample['client']);
         $this->assertEquals($this->_model->getChecksumType(), $sample['checksum_type']);
         $this->assertEquals($this->_model->getChecksumAction(), $sample['checksum_action']);
         $this->assertEquals($this->_model->getAmount(),       $sample['amount']);
@@ -118,7 +125,8 @@ class ChecksumTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($this->_model->getItems(),              $sample['items']);
         $this->assertEquals($this->_model->getShippingAmount(),     $sample['shipping_amount']);
         $this->assertEquals($this->_model->getHandlingAmount(),     $sample['handling_amount']);
-
+        $this->assertEquals($this->_model->getRequireReusablePayment(), $sample['require_reusable_payment']);
+        $this->assertEquals($this->_model->getReusablePaymentDescription(), $sample['reusable_payment_description']);
         return $this->_model;
     }
 
@@ -154,6 +162,7 @@ class ChecksumTest extends PHPUnit_Framework_TestCase
     public function parameterizeTestCreate(Checksum $model)
     {
         $parameterArray = array();
+        $parameterArray['client']        = 'client_88a388d9dd48f86c3136';
         $parameterArray['checksum_type'] = Checksum::TYPE_PAYPAL;
         $parameterArray['checksum_action'] = Checksum::ACTION_TRANSACTION;
         $parameterArray['amount']        = '200';
@@ -201,6 +210,8 @@ class ChecksumTest extends PHPUnit_Framework_TestCase
         );
         $parameterArray['shipping_amount'] = '50';
         $parameterArray['handling_amount'] = '50';
+        $parameterArray['require_reusable_payment'] = true;
+        $parameterArray['reusable_payment_description'] = 'Paymill Paypal test';
 
         $creationArray = $model->parameterize("create");
 

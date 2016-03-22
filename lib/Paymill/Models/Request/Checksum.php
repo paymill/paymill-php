@@ -122,11 +122,56 @@ class Checksum extends Base
     private $_handling_amount;
 
     /**
+     * Client identifier 
+     * 
+     * @var string $_client
+     */
+    private $_client;
+
+    /**
+     * Reusable payment
+     *
+     * @var bool $_requireReusablePayment
+     */
+    private $_requireReusablePayment;
+
+    /**
+     * Reusable payment description
+     *
+     * @var string $_reusablePaymentDescription
+     */
+    private $_reusablePaymentDescription;
+
+    /**
      * Creates an instance of the checksum request model
      */
     function __construct()
     {
         $this->_serviceResource = 'checksums/';
+    }
+
+    /**
+     * Sets the identifier of the Client for the transaction
+     * 
+     * @param string $clientId Client identifier
+     * 
+     * @return $this
+     */
+    public function setClient($client)
+    {
+        $this->_client = $client;
+
+        return $this;
+    }
+
+    /**
+     * Returns the identifier of the Client associated with the checksum. If no client is available null will be returned
+     * 
+     * @return string
+     */
+    public function getClient()
+    {
+        return $this->_client;
     }
 
     /**
@@ -516,6 +561,54 @@ class Checksum extends Base
     }
 
     /**
+     * Get require reusable payment
+     *
+     * @return bool
+     */
+    public function getRequireReusablePayment()
+    {
+        return $this->_requireReusablePayment;
+    }
+
+    /**
+     * Set require reusable payment
+     *
+     * @param bool $requireReusablePayment Reusable payment
+     *
+     * @return $this
+     */
+    public function setRequireReusablePayment($requireReusablePayment)
+    {
+        $this->_requireReusablePayment = $requireReusablePayment;
+
+        return $this;
+    }
+
+    /**
+     * Get reusable payment description
+     *
+     * @return string
+     */
+    public function getReusablePaymentDescription()
+    {
+        return $this->_reusablePaymentDescription;
+    }
+
+    /**
+     * Set reusable payment description
+     *
+     * @param string $reusablePaymentDescription Reusable payment description
+     *
+     * @return $this
+     */
+    public function setReusablePaymentDescription($reusablePaymentDescription)
+    {
+        $this->_reusablePaymentDescription = $reusablePaymentDescription;
+
+        return $this;
+    }
+
+    /**
      * Returns an array of parameters customized for the given method name
      *
      * @param string $method
@@ -580,6 +673,18 @@ class Checksum extends Base
 
                 if($this->getHandlingAmount()) {
                     $parameterArray['handling_amount'] = $this->getHandlingAmount();
+                }
+
+                if($this->getRequireReusablePayment()) {
+                    $parameterArray['require_reusable_payment'] = $this->getRequireReusablePayment();
+                }
+
+                if($this->getReusablePaymentDescription()) {
+                    $parameterArray['reusable_payment_description'] = $this->getReusablePaymentDescription();
+                }
+
+                if($this->getClient()) {
+                    $parameterArray['client'] = $this->getClient();
                 }
 
                 // Unite params:

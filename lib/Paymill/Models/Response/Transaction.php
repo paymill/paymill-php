@@ -13,6 +13,13 @@ namespace Paymill\Models\Response;
 class Transaction extends Base
 {
     /**
+     * @todo REFACTOR: define all response fields and replace usage of hardcoded strings in other classes
+     */
+    const RESPONSE_FIELD_SHIPPING_ADDRESS = 'shipping_address';
+    const RESPONSE_FIELD_BILLING_ADDRESS  = 'billing_address';
+    const RESPONSE_FIELD_ITEMS            = 'items';
+
+    /**
      * 'real' amount
      *
      * @var string
@@ -143,16 +150,16 @@ class Transaction extends Base
     /**
      * Shipping amount
      *
-     * @var int $_shipping_amount
+     * @var int $_shippingAmount
      */
-    private $_shipping_amount;
+    private $_shippingAmount;
 
     /**
      * Handling amount
      *
-     * @var int $_handling_amount
+     * @var int $_handlingAmount
      */
-    private $_handling_amount;
+    private $_handlingAmount;
 
     /**
      * Returns the 'real' amount.
@@ -474,7 +481,8 @@ class Transaction extends Base
     }
 
     /**
-     * Returns the fee array stored in the transaction
+     * Returns the fee array stored in the transaction.
+     *
      * @return array
      */
     public function getFees()
@@ -484,7 +492,7 @@ class Transaction extends Base
 
 
     /**
-     * Sets the Fees array for the transaction
+     * Sets the Fees array for the transaction.
      *
      * @param array $fees Fees
      *
@@ -600,19 +608,19 @@ class Transaction extends Base
      */
     public function getShippingAmount()
     {
-        return $this->_shipping_amount;
+        return $this->_shippingAmount;
     }
 
     /**
      * Set shipping amount
      *
-     * @param int $shipping_amount Shipping amount
+     * @param int $shippingAmount Shipping amount
      *
      * @return $this
      */
-    public function setShippingAmount($shipping_amount)
+    public function setShippingAmount($shippingAmount)
     {
-        $this->_shipping_amount = $shipping_amount;
+        $this->_shippingAmount = $shippingAmount;
 
         return $this;
     }
@@ -624,19 +632,19 @@ class Transaction extends Base
      */
     public function getHandlingAmount()
     {
-        return $this->_handling_amount;
+        return $this->_handlingAmount;
     }
 
     /**
      * Set handling amount
      *
-     * @param int $handling_amount Handling amount
+     * @param int $handlingAmount Handling amount
      *
      * @return $this
      */
-    public function setHandlingAmount($handling_amount)
+    public function setHandlingAmount($handlingAmount)
     {
-        $this->_handling_amount = $handling_amount;
+        $this->_handlingAmount = $handlingAmount;
 
         return $this;
     }

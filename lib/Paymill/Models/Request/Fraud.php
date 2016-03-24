@@ -11,7 +11,7 @@ class Fraud extends Base
     /**
      * @var string
      */
-    private $identifier = null;
+    private $_identifier = null;
 
     /**
      * Creates an instance of the fraud request model

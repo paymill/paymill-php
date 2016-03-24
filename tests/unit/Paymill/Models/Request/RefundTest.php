@@ -10,7 +10,6 @@ use PHPUnit_Framework_TestCase;
  */
 class RefundTest extends PHPUnit_Framework_TestCase
 {
-
     /**
      * @var Request\Refund
      */

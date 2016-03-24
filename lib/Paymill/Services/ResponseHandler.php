@@ -2,9 +2,22 @@
 
 namespace Paymill\Services;
 
-use Paymill\Models\Response as Models;
+use Paymill\Models\Internal\AbstractAddress;
+use Paymill\Models\Internal\BillingAddress;
+use Paymill\Models\Internal\ShippingAddress;
+use Paymill\Models\Internal\Item;
+use Paymill\Models\Response\Base;
 use Paymill\Models\Response\Checksum;
+use Paymill\Models\Response\Client;
 use Paymill\Models\Response\Error;
+use Paymill\Models\Response\Fraud;
+use Paymill\Models\Response\Offer;
+use Paymill\Models\Response\Payment;
+use Paymill\Models\Response\Preauthorization;
+use Paymill\Models\Response\Refund;
+use Paymill\Models\Response\Subscription;
+use Paymill\Models\Response\Transaction;
+use Paymill\Models\Response\Webhook;
 
 /**
  * ResponseHandler
@@ -116,7 +129,7 @@ class ResponseHandler
      * Converts a response to a model
      * @param array $response
      * @param string $serviceResource
-     * @return Models\Base|Error
+     * @return Base|Error
      */
     public function convertResponse($response, $serviceResource)
     {
@@ -128,7 +141,7 @@ class ResponseHandler
      * Creates an object from a response array based on the call-context
      * @param array $response Response from any Request
      * @param string $resourceName
-     * @return Models\Base
+     * @return Base
      */
     private function _convertResponseToModel($response, $resourceName)
     {
@@ -171,6 +184,15 @@ class ResponseHandler
             case 'checksum':
                 $model = $this->_createChecksum($response);
                 break;
+            case AbstractAddress::TYPE_SHIPPING:
+                $model = $this->_createAddress($response, AbstractAddress::TYPE_SHIPPING);
+                break;
+            case AbstractAddress::TYPE_BILLING:
+                $model = $this->_createAddress($response, AbstractAddress::TYPE_BILLING);
+                break;
+            case 'item':
+                $model = $this->_createItem($response);
+                break;
         }
 
         return $model;
@@ -180,11 +202,11 @@ class ResponseHandler
      * Creates and fills a client model
      *
      * @param array $response
-     * @return \Paymill\Models\Response\Client
+     * @return Client
      */
-    private function _createClient($response)
+    private function _createClient(array $response)
     {
-        $model = new Models\Client();
+        $model = new Client();
         $model->setId($response['id']);
         $model->setEmail($response['email']);
         $model->setDescription($response['description']);
@@ -200,11 +222,11 @@ class ResponseHandler
      * Creates and fills a payment model
      *
      * @param array $response
-     * @return \Paymill\Models\Response\Payment
+     * @return Payment
      */
-    private function _createPayment($response)
+    private function _createPayment(array $response)
     {
-        $model = new Models\Payment();
+        $model = new Payment();
         $model->setId($response['id']);
         $model->setType($response['type']);
         $model->setClient($this->_convertResponseToModel($response['client'], "client"));
@@ -235,11 +257,11 @@ class ResponseHandler
      * Creates and fills a transaction model
      *
      * @param array $response
-     * @return \Paymill\Models\Response\Transaction
+     * @return Transaction
      */
-    private function _createTransaction($response)
+    private function _createTransaction(array $response)
     {
-        $model = new Models\Transaction();
+        $model = new Transaction();
         $model->setId($response['id']);
         $model->setAmount($response['amount']);
         $model->setOriginAmount($response['origin_amount']);
@@ -258,6 +280,29 @@ class ResponseHandler
         $model->setPreauthorization($this->_convertResponseToModel($response['preauthorization'], "preauthorization"));
         $model->setFees($response['fees']);
         $model->setAppId($response['app_id']);
+
+        if (isset($response[Transaction::RESPONSE_FIELD_SHIPPING_ADDRESS])) {
+            $model->setShippingAddress(
+                $this->_convertResponseToModel(
+                    $response[Transaction::RESPONSE_FIELD_SHIPPING_ADDRESS],
+                    AbstractAddress::TYPE_SHIPPING
+                )
+            );
+        }
+
+        if (isset($response[Transaction::RESPONSE_FIELD_BILLING_ADDRESS])) {
+            $model->setBillingAddress(
+                $this->_convertResponseToModel(
+                    $response[Transaction::RESPONSE_FIELD_BILLING_ADDRESS],
+                    AbstractAddress::TYPE_BILLING
+                )
+            );
+        }
+
+        if (isset($response[Transaction::RESPONSE_FIELD_ITEMS])) {
+            $model->setItems($this->_handleRecursive($response[Transaction::RESPONSE_FIELD_ITEMS], 'item'));
+        }
+
         return $model;
     }
 
@@ -265,11 +310,11 @@ class ResponseHandler
      * Creates and fills a preauthorization model
      *
      * @param array $response
-     * @return \Paymill\Models\Response\Preauthorization
+     * @return Preauthorization
      */
     private function _createPreauthorization($response)
     {
-        $model = new Models\Preauthorization();
+        $model = new Preauthorization();
         $model->setId($response['id']);
         $model->setAmount($response['amount']);
         $model->setCurrency($response['currency']);
@@ -289,11 +334,11 @@ class ResponseHandler
      * Creates and fills a refund model
      *
      * @param array $response
-     * @return \Paymill\Models\Response\Refund
+     * @return Refund
      */
-    private function _createRefund($response)
+    private function _createRefund(array $response)
     {
-        $model = new Models\Refund();
+        $model = new Refund();
         $model->setId($response['id']);
         $model->setAmount($response['amount']);
         $model->setStatus($response['status']);
@@ -312,11 +357,11 @@ class ResponseHandler
      * Creates and fills a offer model
      *
      * @param array $response
-     * @return \Paymill\Models\Response\Offer
+     * @return Offer
      */
-    private function _createOffer($response)
+    private function _createOffer(array $response)
     {
-        $model = new Models\Offer();
+        $model = new Offer();
         $model->setId($response['id']);
         $model->setName($response['name']);
         $model->setAmount($response['amount']);
@@ -334,11 +379,11 @@ class ResponseHandler
      * Creates and fills a subscription model
      *
      * @param array $response
-     * @return \Paymill\Models\Response\Subscription
+     * @return Subscription
      */
-    private function _createSubscription($response)
+    private function _createSubscription(array $response)
     {
-        $model = new Models\Subscription();
+        $model = new Subscription();
         $model->setId($response['id']);
         $model->setOffer($this->_convertResponseToModel($response['offer'], 'offer'));
         $model->setLivemode($response['livemode']);
@@ -363,11 +408,11 @@ class ResponseHandler
      * Creates and fills a webhook model
      *
      * @param array $response
-     * @return \Paymill\Models\Response\Webhook
+     * @return Webhook
      */
-    private function _createWebhook($response)
+    private function _createWebhook(array $response)
     {
-        $model = new Models\Webhook();
+        $model = new Webhook();
         $model->setId($response['id']);
         isset($response['url']) ? $model->setUrl($response['url']) : $model->setEmail($response['email']);
         $model->setLivemode($response['livemode']);
@@ -383,11 +428,11 @@ class ResponseHandler
      * Creates and fills a fraud model
      *
      * @param array $response
-     * @return \Paymill\Models\Response\Fraud
+     * @return Fraud
      */
-    private function _createFraud($response)
+    private function _createFraud(array $response)
     {
-        $model = new Models\Fraud();
+        $model = new Fraud();
         $model->setId($response['id']);
         $model->setLivemode($response['livemode']);
         $model->setStatus($response['status']);
@@ -402,7 +447,7 @@ class ResponseHandler
      * @param array $response
      * @return Checksum
      */
-    private function _createChecksum($response)
+    private function _createChecksum(array $response)
     {
         $model = new Checksum();
         $model->setId($response['id']);
@@ -418,10 +463,61 @@ class ResponseHandler
     }
 
     /**
+     * Creates and fills an item model.
+     *
+     * @param array $response
+     * @return Item
+     */
+    private function _createItem(array $response)
+    {
+        $model = new Item();
+        $model->setName($response[Item::FIELD_NAME])
+            ->setDescription($response[Item::FIELD_DESCRIPTION])
+            ->setItemNumber($response[Item::FIELD_ITEM_NUMBER])
+            ->setUrl($response[Item::FIELD_URL])
+            ->setAmount($response[Item::FIELD_AMOUNT])
+            ->setQuantity($response[Item::FIELD_QUANTITY]);
+        
+        return $model;
+    }
+
+    /**
+     * Creates and fills a shipping- / billing address model.
+     *
+     * @param array $response
+     * @param string $type
+     * @return null|BillingAddress|ShippingAddress
+     */
+    private function _createAddress(array $response, $type)
+    {
+        switch($type) {
+            case AbstractAddress::TYPE_SHIPPING:
+                $model = new ShippingAddress();
+                break;
+            case AbstractAddress::TYPE_BILLING:
+                $model = new BillingAddress();
+                break;
+            default:
+                return null;
+        }
+
+        $model->setName($response[AbstractAddress::FIELD_NAME])
+            ->setStreetAddress($response[AbstractAddress::FIELD_STREET_ADDRESS])
+            ->setStreetAddressAddition($response[AbstractAddress::FIELD_STREET_ADDRESS_ADDITION])
+            ->setPostalCode($response[AbstractAddress::FIELD_POSTAL_CODE])
+            ->setCity($response[AbstractAddress::FIELD_CITY])
+            ->setState($response[AbstractAddress::FIELD_STATE])
+            ->setCountry($response[AbstractAddress::FIELD_COUNTRY])
+            ->setPhone($response[AbstractAddress::FIELD_PHONE]);
+
+        return $model;
+    }
+
+    /**
      * Handles the multidimensional param arrays during model creation
      * @param array $response
      * @param string $resourceName
-     * @return array|null|Models\Base
+     * @return array|null|Base
      */
     private function _handleRecursive($response, $resourceName)
     {
@@ -500,7 +596,7 @@ class ResponseHandler
      *
      * @return boolean True if valid
      */
-    public function validateResponse($response)
+    public function validateResponse(array $response)
     {
         $returnValue = false;
         if (isset($response['header'])
@@ -514,7 +610,7 @@ class ResponseHandler
         return $returnValue;
     }
 
-    private function getErrorMessageFromArray($errorArray)
+    private function getErrorMessageFromArray(array $errorArray)
     {
         $errorMessage = array_shift($errorArray);
         if (is_array($errorMessage)) {
@@ -527,8 +623,8 @@ class ResponseHandler
     /**
      * Converts an array into an object
      *
-     * @param array $array
-     * @return stdClass
+     * @param mixed $array
+     * @return \StdClass
      */
     public function arrayToObject($array)
     {

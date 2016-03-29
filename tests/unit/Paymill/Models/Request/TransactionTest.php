@@ -56,6 +56,7 @@ class TransactionTest extends PHPUnit_Framework_TestCase
             ->setSource($sample['source'])
             ->setShippingAddress($sample['shipping_address'])
             ->setBillingAddress($sample['billing_address'])
+            ->setItems($sample['items'])
             ->setMandateReference($sample['mandate_reference']);
 
         $this->assertEquals($this->_transaction->getAmount(), $sample['amount']);
@@ -71,6 +72,7 @@ class TransactionTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($this->_transaction->getSource(), $sample['source']);
         $this->assertEquals($this->_transaction->getShippingAddress(), $sample['shipping_address']);
         $this->assertEquals($this->_transaction->getBillingAddress(), $sample['billing_address']);
+        $this->assertEquals($this->_transaction->getItems(), $sample['items']);
         $this->assertEquals($this->_transaction->getMandateReference(), $sample['mandate_reference']);
 
         return $this->_transaction;
@@ -95,18 +97,19 @@ class TransactionTest extends PHPUnit_Framework_TestCase
         $getOneArray   = $transaction->parameterize("getOne");
 
         $this->assertEquals(array(
-            'amount'           => $sample['amount'], // e.g. "4200" for 42.00 EUR
-            'currency'         => $sample['currency'], // ISO 4217
-            'client'           => $sample['client'],
-            'preauthorization' => $sample['preauthorization'],
-            'fee_amount'       => $sample['fee_amount'], // e.g. "420" for 4.20 EUR
-            'fee_payment'      => $sample['fee_payment'],
-            'fee_currency'     => $sample['fee_currency'],
-            'description'      => $sample['description'],
-            'source'           => $sample['source'],
+            'amount'            => $sample['amount'], // e.g. "4200" for 42.00 EUR
+            'currency'          => $sample['currency'], // ISO 4217
+            'client'            => $sample['client'],
+            'preauthorization'  => $sample['preauthorization'],
+            'fee_amount'        => $sample['fee_amount'], // e.g. "420" for 4.20 EUR
+            'fee_payment'       => $sample['fee_payment'],
+            'fee_currency'      => $sample['fee_currency'],
+            'description'       => $sample['description'],
+            'source'            => $sample['source'],
             'mandate_reference' => $sample['mandate_reference'],
-            'shipping_address' => $sample['shipping_address'],
-            'billing_address'  => $sample['billing_address']
+            'shipping_address'  => $sample['shipping_address'],
+            'billing_address'   => $sample['billing_address'],
+            'items'             => $sample['items'],
         ), $creationArray);
 
         $this->assertEquals(array(
@@ -149,21 +152,41 @@ class TransactionTest extends PHPUnit_Framework_TestCase
             'phone'                   => '+49 89 189 045 300'
         );
 
+        $items = array(
+            array(
+                'name'        => 'Product 1',
+                'description' => 'Product description 1',
+                'item_number' => 'ITM123456_1',
+                'url'         => 'https://shop.example.com/product/product-1',
+                'amount'      => '2100',
+                'quantity'    => 1,
+            ),
+            array(
+                'name'        => 'Product 2',
+                'description' => 'Product description 2',
+                'item_number' => 'ITM123456_2',
+                'url'         => 'https://shop.example.com/product/product-2',
+                'amount'      => '1050',
+                'quantity'    => 2,
+            ),
+        );
+
         $sample = array(
-            'amount'           => '4200', // e.g. "4200" for 42.00 EUR
-            'currency'         => 'EUR', // ISO 4217
-            'payment'          => 'pay_2f82a672574647cd911d',
-            'token'            => '098f6bcd4621d373cade4e832627b4f6',
-            'client'           => 'client_c781b1d2f7f0f664b4d9',
-            'preauthorization' => 'preauth_ec54f67e52e92051bd65',
-            'fee_amount'       => '420', // e.g. "420" for 4.20 EUR
-            'fee_payment'      => 'pay_098f6bcd4621d373cade4e832627b4f6',
-            'fee_currency'     => 'EUR',
-            'description'      => 'Test Transaction',
-            'source'           => 'merchantcenter',
-            'mandate_reference' =>'DE1234TEST',
-            'shipping_address' => $shippingAddress,
-            'billing_address'  => $billingAddress
+            'amount'            => '4200', // e.g. "4200" for 42.00 EUR
+            'currency'          => 'EUR', // ISO 4217
+            'payment'           => 'pay_2f82a672574647cd911d',
+            'token'             => '098f6bcd4621d373cade4e832627b4f6',
+            'client'            => 'client_c781b1d2f7f0f664b4d9',
+            'preauthorization'  => 'preauth_ec54f67e52e92051bd65',
+            'fee_amount'        => '420', // e.g. "420" for 4.20 EUR
+            'fee_payment'       => 'pay_098f6bcd4621d373cade4e832627b4f6',
+            'fee_currency'      => 'EUR',
+            'description'       => 'Test Transaction',
+            'source'            => 'merchantcenter',
+            'mandate_reference' => 'DE1234TEST',
+            'shipping_address'  => $shippingAddress,
+            'billing_address'   => $billingAddress,
+            'items'             => $items,
         );
 
         return $sample;

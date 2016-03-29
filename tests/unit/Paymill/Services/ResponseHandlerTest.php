@@ -669,6 +669,7 @@ class ResponseHandlerTest extends PHPUnit_Framework_TestCase
             "fees" => array(),
             "app_id" => null
         );
+
         $responseObject = $this->_responseHandler->arrayToObject($response['body']);
         $this->assertInstanceOf('stdClass', $responseObject);
         $this->assertEquals($response['body']['data']['id'], $responseObject->data->id);

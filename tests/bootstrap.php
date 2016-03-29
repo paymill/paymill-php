@@ -7,7 +7,7 @@
 if (!defined('API_HOST')) {
     define(
         'API_HOST',
-        getenv('PAYMILL_TEST_API_HOST') ? getenv('PAYMILL_TEST_API_HOST') : 'https://api.paymill.com/v2.1/'
+        getenv('PAYMILL_API_HOST') ? getenv('PAYMILL_API_HOST') : 'https://api.paymill.com/v2.1/'
     );
 }
 
@@ -27,7 +27,7 @@ if (!defined('TOKEN_HOST')) {
  * can be overriden with environment variable API_TEST_KEY
  */
 if (!defined('API_TEST_KEY')) {
-    define('API_TEST_KEY', getenv('API_TEST_KEY') ? getenv('API_TEST_KEY') : '');
+    define('API_TEST_KEY', getenv('PAYMILL_API_TEST_KEY') ? getenv('PAYMILL_API_TEST_KEY') : '');
 }
 
 /**
@@ -35,7 +35,15 @@ if (!defined('API_TEST_KEY')) {
  * can be overriden with environment variable API_PUBLIC_TEST_KEY
  */
 if (!defined('API_PUBLIC_TEST_KEY')) {
-    define('API_PUBLIC_TEST_KEY', getenv('API_PUBLIC_TEST_KEY') ? getenv('API_PUBLIC_TEST_KEY') : '');
+    define('API_PUBLIC_TEST_KEY', getenv('PAYMILL_API_PUBLIC_TEST_KEY') ? getenv('PAYMILL_API_PUBLIC_TEST_KEY') : '');
+}
+
+if (!defined('WEBHOOK_1')) {
+    define('WEBHOOK_1', getenv('PAYMILL_WH_1') ? getenv('PAYMILL_WH_1') : 'transaction.succeeded');
+}
+
+if (!defined('WEBHOOK_2')) {
+    define('WEBHOOK_2', getenv('PAYMILL_WH_2') ? getenv('PAYMILL_WH_2') : 'subscription.created');
 }
 
 /**
@@ -51,8 +59,8 @@ if (!defined('SSL_VERIFY_PEER') && getenv('SSL_VERIFY_PEER')) {
 
 // register silently failing autoloader
 spl_autoload_register(function($class) {
-    if (0 === strpos($class, 'Paymill\\Test\\')) {
-        $class = str_replace('Paymill\\Test\\Integration', 'integration', $class);
+    if (0 === strpos($class, 'Paymill\\Tests\\')) {
+        $class = str_replace('Paymill\\Tests\\', '\\', $class);
         $path = __DIR__ . '/' . strtr($class, '\\', '/').'.php';
         if (is_file($path) && is_readable($path)) {
             require_once $path;

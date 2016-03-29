@@ -250,4 +250,23 @@ abstract class AbstractAddress
 
         return $this;
     }
+
+    /**
+     * Converts model to array.
+     *
+     * @return array
+     */
+    public function toArray()
+    {
+        return array(
+            static::FIELD_NAME                    => $this->_name,
+            static::FIELD_STREET_ADDRESS          => $this->_streetAddress,
+            static::FIELD_STREET_ADDRESS_ADDITION => $this->_streetAddressAddition,
+            static::FIELD_CITY                    => $this->_city,
+            static::FIELD_POSTAL_CODE             => $this->_postalCode,
+            static::FIELD_COUNTRY                 => $this->_country,
+            static::FIELD_STATE                   => $this->_state,
+            static::FIELD_PHONE                   => $this->_phone,
+        );
+    }
 }

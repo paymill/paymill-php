@@ -5,15 +5,16 @@ namespace Paymill\Test\Integration;
 use Paymill\API\Curl;
 use Paymill\Models as Models;
 use Paymill\Request;
+use Paymill\Test\Integration\IntegrationBase;
 use PHPUnit_Framework_TestCase;
 
 /**
  * RefundTest
  */
-class RefundTest extends PHPUnit_Framework_TestCase
+class RefundTest extends IntegrationBase
 {
     /**
-     * @var \Paymill\Services\Request
+     * @var \Paymill\Request
      */
     private $_service;
 
@@ -55,7 +56,7 @@ class RefundTest extends PHPUnit_Framework_TestCase
         $transactionModel = new Models\Request\Transaction();
         $transactionModel->setAmount(200)
             ->setCurrency('EUR')
-            ->setToken("098f6bcd4621d373cade4e832627b4f6");
+            ->setToken($this->createToken());
         $transactionModelResponse = $this->_service->create($transactionModel);
         $this->assertInstanceOf('Paymill\Models\Response\Transaction', $transactionModelResponse, var_export($transactionModelResponse, true));
 

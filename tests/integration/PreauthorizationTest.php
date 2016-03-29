@@ -57,7 +57,7 @@ class PreauthorizationTest extends PHPUnit_Framework_TestCase
             ->setCurrency('EUR');
         $result = $this->_service->create($this->_model);
         $this->assertInstanceOf('Paymill\Models\Response\Preauthorization', $result);
-        $this->assertNotNull($result.getTransaction());
+        $this->assertNotNull($result->getTransaction());
         return $result;
     }
 

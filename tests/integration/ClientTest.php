@@ -13,7 +13,7 @@ use PHPUnit_Framework_TestCase;
 class Client extends PHPUnit_Framework_TestCase
 {
     /**
-     * @var \Paymill\Services\Request
+     * @var \Paymill\Request
      */
     private $_service;
 
@@ -114,7 +114,6 @@ class Client extends PHPUnit_Framework_TestCase
     /**
      * @test
      * @codeCoverageIgnore
-     * @depends createClient
      */
     public function getAllClientAsModel()
     {

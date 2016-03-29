@@ -39,6 +39,8 @@ class ChecksumTest extends PHPUnit_Framework_TestCase
         $this->_model->setAmount('200');
         $this->_model->setCurrency('EUR');
         $this->_model->setDescription('Dummy description');
+        $this->_model->setReturnUrl('http://dummy.url');
+        $this->_model->setCancelUrl('http://dummy.url');
 
         parent::setUp();
     }
@@ -59,7 +61,7 @@ class ChecksumTest extends PHPUnit_Framework_TestCase
      */
     public function createChecksum()
     {
-        $result = $this->_service->getOne($this->_model);
+        $result = $this->_service->create($this->_model);
         $this->assertInstanceOf('Paymill\Models\Response\Checksum', $result, var_export($result, true));
 
         return $result;

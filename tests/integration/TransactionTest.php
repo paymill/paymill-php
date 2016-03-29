@@ -10,10 +10,10 @@ use PHPUnit_Framework_TestCase;
 /**
  * Transaction
  */
-class Transaction extends PHPUnit_Framework_TestCase
+class Transaction extends IntegrationBase
 {
     /**
-     * @var \Paymill\Services\Request
+     * @var \Paymill\Request
      */
     private $_service;
 
@@ -67,7 +67,7 @@ class Transaction extends PHPUnit_Framework_TestCase
     {
         $this->_model->setAmount(100)
             ->setCurrency('EUR')
-            ->setToken('098f6bcd4621d373cade4e832627b4f6');
+            ->setToken($this->createToken());
         $result = $this->_service->create($this->_model);
         $this->assertInstanceOf('Paymill\Models\Response\Transaction', $result);
         return $result;

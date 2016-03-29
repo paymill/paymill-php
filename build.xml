@@ -17,7 +17,6 @@
 
     <target name="test" description="Run unit tests using PHPUnit">
         <exec executable="phpunit" dir="tests" failonerror="true">
-            <arg line="--testsuite=unit" />
         </exec>
     </target>
 

@@ -1,7 +1,8 @@
 language: php
 
-script: ant test
-script: ant test-integration
+script:
+  - ant test
+  - ant test-integration
 
 env:
   global: 

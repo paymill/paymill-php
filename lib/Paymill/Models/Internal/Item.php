@@ -184,4 +184,21 @@ class Item
 
         return $this;
     }
+
+    /**
+     * Converts model to array.
+     *
+     * @return array
+     */
+    public function toArray()
+    {
+        return array(
+            static::FIELD_NAME => $this->_name,
+            static::FIELD_DESCRIPTION => $this->_description,
+            static::FIELD_ITEM_NUMBER => $this->_itemNumber,
+            static::FIELD_AMOUNT => $this->_amount,
+            static::FIELD_QUANTITY => $this->_quantity,
+            static::FIELD_URL => $this->_url,
+        );
+    }
 }

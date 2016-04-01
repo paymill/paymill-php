@@ -1,15 +1,27 @@
 language: php
-php:
-  - 5.6
-  - 5.5
-  - 5.4
-  - 5.3
-  - hhvm
-  
-script: ant test
-env: 
+
+script:
+  - ant test
+  - ant test-integration
+
+env:
   global: 
-     secure: "StaRWxgVW55YXMetUfL91rGDHJCBC0e3Nv9qYx5jg2aa9H0BIYhJ8vYtDXbKFEeGXWRnlLdPVclzRiIMdYQTZaBrjHxWVzE9N5stIyIq/Ik5hvkRs3h78ICSsDJB7SAun+aYv4vV/2kR44B0YiOhWZehV3IhAWO1Csd4HDjiQHY="
+     - secure: "StaRWxgVW55YXMetUfL91rGDHJCBC0e3Nv9qYx5jg2aa9H0BIYhJ8vYtDXbKFEeGXWRnlLdPVclzRiIMdYQTZaBrjHxWVzE9N5stIyIq/Ik5hvkRs3h78ICSsDJB7SAun+aYv4vV/2kR44B0YiOhWZehV3IhAWO1Csd4HDjiQHY="
+     - PAYMILL_API_TEST_KEY: 0dcb0c6a3dcddace93de405fb98857b7
+     - PAYMILL_API_PUBLIC_TEST_KEY: 07558773223ff498c4ab0ca581551453
+
+matrix:
+  include:
+    - php: 5.6
+      env: PAYMILL_WH_1=transaction.succeeded PAYMILL_WH_2=subscription.created
+    - php: 5.5
+      env: PAYMILL_WH_1=chargeback.executed PAYMILL_WH_2=transaction.created
+    - php: 5.4
+      env: PAYMILL_WH_1=transaction.pending PAYMILL_WH_2=transaction.failed
+    - php: 5.3
+      env: PAYMILL_WH_1=client.updated PAYMILL_WH_2=subscription.updated
+    - php: hhvm
+      env: PAYMILL_WH_1=subscription.deleted PAYMILL_WH_2=subscription.succeeded
 
 before_install: composer self-update
 install: composer install

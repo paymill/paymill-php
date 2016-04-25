@@ -77,6 +77,7 @@ class ResponseHandler
         40401 => "Amount too low or zero.",
         40402 => "Usage field too long.",
         40403 => "Currency not allowed.",
+        40404 => "Refund amount exceeds the possible value",
         40410 => "Invalid shopping cart data.",
         40420 => "Invalid address data.",
         40500 => "Permission error.",

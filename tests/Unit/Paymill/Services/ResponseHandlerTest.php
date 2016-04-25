@@ -33,6 +33,7 @@ class ResponseHandlerTest extends PHPUnit_Framework_TestCase
         40401 => "Amount too low or zero.",
         40402 => "Usage field too long.",
         40403 => "Currency not allowed.",
+        40404 => "Refund amount exceeds the possible value",
         50000 => "General problem with backend.",
         50001 => "Country blacklisted.",
         50100 => "Technical error with credit card.",

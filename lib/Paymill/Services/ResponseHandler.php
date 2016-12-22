@@ -43,6 +43,7 @@ class ResponseHandler
         20203 => "Reversed due to complaint by buyer.",
         20204 => "Payment has been refunded.",
         20300 => "Reversal has been canceled.",
+        22000 => "Initiation of transaction successful",
 
         30000 => "Transaction still in progress.",
         30100 => "Transaction has been accepted.",
@@ -82,6 +83,8 @@ class ResponseHandler
         40420 => "Invalid address data.",
         40500 => "Permission error.",
         40510 => "Rate limit.",
+        42000 => "Initiation of transaction failed",
+        42410 => "Initiation of transaction expired",
 
         50000 => "General problem with backend.",
         50001 => "Country blacklisted.",

@@ -126,7 +126,8 @@ class ResponseHandler
         50730 => "Transaction denied by merchant.",
         50800 => "capture preauthorization failed.",
         50810 => "Authorization has been voided.",
-        50820 => "Authorization period expired."
+        50820 => "Authorization period expired.",
+        51200 => "Rejected due to risk settings."
     );
 
     /**

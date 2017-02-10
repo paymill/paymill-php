@@ -59,25 +59,25 @@ To load the PAYMILL library from the file, which is located in *the app folder*,
 require '../paymill-php/autoload.php';
 ```
 
-1.	Instantiate the request class with the following parameters: $apiKey: First parameter is always your private API (test) Key
+1. Instantiate the request class with the following parameters: $apiKey: First parameter is always your private API (test) Key
 
-```php
-$request = new Paymill\Request($apiKey);
-```
+ ```php
+ $request = new Paymill\Request($apiKey);
+ ```
 
-1.	Instantiate the model class with the parameters described in the API-reference:
+1. Instantiate the model class with the parameters described in the API-reference:
 
-```php
-$payment = new \Paymill\Models\Request\Payment();
-$payment->setToken("098f6bcd4621d373cade4e832627b4f6");
-```
+ ```php
+ $payment = new \Paymill\Models\Request\Payment();
+ $payment->setToken("098f6bcd4621d373cade4e832627b4f6");
+ ```
 
-1.	Use your desired function:
+1. Use your desired function:
 
-```php
-$response  = $request->create($payment);
-$paymentId = $response->getId();
-```
+ ```php
+ $response  = $request->create($payment);
+ $paymentId = $response->getId();
+ ```
 
 It recommend to wrap it into a "try/catch" to handle exceptions like this:
 

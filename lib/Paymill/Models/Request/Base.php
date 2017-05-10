@@ -7,10 +7,10 @@ namespace Paymill\Models\Request;
  */
 abstract class Base
 {
-
     /**
+     * Unique identifier of object.
      *
-     * @var string
+     * @var int
      */
     protected $_id;
     protected $_serviceResource = null;

@@ -79,6 +79,11 @@ class Subscription extends Base
     /**
      * @var int
      */
+    private $_endOfPeriod;
+
+    /**
+     * @var int
+     */
     private $_amountChangeType;
 
     /**
@@ -361,6 +366,28 @@ class Subscription extends Base
     public function getPeriodOfValidity()
     {
         return $this->_periodOfValidity;
+    }
+
+    /**
+     * Sets the end of validity period
+     * @param int $endOfPeriod
+     *
+     * @return Subscription
+     */
+    public function setEndOfPeriod($endOfPeriod)
+    {
+        $this->_endOfPeriod = $endOfPeriod;
+
+        return $this;
+    }
+
+    /**
+     * Returns the end of validity period
+     * @return int
+     */
+    public function getEndOfPeriod()
+    {
+        return $this->_endOfPeriod;
     }
 
     /**

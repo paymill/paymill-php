@@ -394,6 +394,8 @@ class ResponseHandler
         $model->setLivemode($response['livemode']);
         $model->setTrialStart($response['trial_start']);
         $model->setTrialEnd($response['trial_end']);
+        $model->setPeriodOfValidity($response['period_of_validity']);
+        $model->setEndOfPeriod($response['end_of_period']);
         $model->setNextCaptureAt($response['next_capture_at']);
         $model->setCreatedAt($response['created_at']);
         $model->setUpdatedAt($response['updated_at']);

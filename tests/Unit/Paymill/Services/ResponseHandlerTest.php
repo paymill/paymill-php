@@ -511,6 +511,8 @@ class ResponseHandlerTest extends PHPUnit_Framework_TestCase
             'livemode' => false,
             'trial_start' => null,
             'trial_end' => null,
+            "period_of_validity" => "2 YEAR",
+            "end_of_period" => 1461429607,
             'next_capture_at' => 1369563095,
             'created_at' => 1341935490,
             'updated_at' => 1341935490,

@@ -50,11 +50,15 @@ class SubscriptionTest extends PHPUnit_Framework_TestCase
         $payment = new Response\Payment();
         $client = new Response\Client();
         $mandateReference = 'DE1234TEST';
+        $periodOfValidity = '2 YEAR';
+        $endOfPeriod = 1461429607;
 
         $this->_subscription->setOffer($offer)
                 ->setLivemode($liveMode)
                 ->setTrialStart($trialStart)
                 ->setTrialEnd($trialEnd)
+                ->setPeriodOfValidity($periodOfValidity)
+                ->setEndOfPeriod($endOfPeriod)
                 ->setNextCaptureAt($nextCaptureAt)
                 ->setCanceledAt($canceledAt)
                 ->setClient($client)
@@ -65,6 +69,8 @@ class SubscriptionTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($this->_subscription->getLivemode(), $liveMode);
         $this->assertEquals($this->_subscription->getTrialStart(), $trialStart);
         $this->assertEquals($this->_subscription->getTrialEnd(), $trialEnd);
+        $this->assertEquals($this->_subscription->getPeriodOfValidity(), $periodOfValidity);
+        $this->assertEquals($this->_subscription->getEndOfPeriod(), $endOfPeriod);
         $this->assertEquals($this->_subscription->getNextCaptureAt(), $nextCaptureAt);
         $this->assertEquals($this->_subscription->getCanceledAt(), $canceledAt);
         $this->assertEquals($this->_subscription->getClient(), $client);

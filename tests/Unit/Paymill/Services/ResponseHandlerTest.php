@@ -266,7 +266,8 @@ class ResponseHandlerTest extends PHPUnit_Framework_TestCase
                 )),
             "preauthorization" => null,
             "fees" => array(),
-            "app_id" => null
+            "app_id" => null,
+            "subscription" => null
         );
         $subject = $this->_responseHandler->convertResponse($response, "transactions/");
         $this->assertInstanceOf("\Paymill\Models\Response\Transaction", $subject, var_export($subject, true));
@@ -450,7 +451,8 @@ class ResponseHandlerTest extends PHPUnit_Framework_TestCase
                     )),
                 "preauthorization" => null,
                 "fees" => array(),
-                "app_id" => null
+                "app_id" => null,
+                "subscription" => null
             ),
             "app_id" => null
         );

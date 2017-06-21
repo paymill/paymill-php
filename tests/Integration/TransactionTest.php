@@ -105,6 +105,7 @@ class Transaction extends IntegrationBase
         $this->assertInstanceOf('Paymill\Models\Response\Transaction', $result);
         $this->assertInstanceOf('Paymill\Models\Internal\ShippingAddress', $result->getShippingAddress());
         $this->assertInstanceOf('Paymill\Models\Internal\BillingAddress', $result->getBillingAddress());
+        $this->assertNull($result->getSubscription());
         $this->assertInternalType('array', $result->getItems());
 
         $items = $result->getItems();
@@ -185,7 +186,7 @@ class Transaction extends IntegrationBase
         $this->_model;
         $result = $this->_service->getAllAsModel($this->_model);
         $this->assertInternalType('array', $result, var_export($result, true));
-		$this->assertInstanceOf('Paymill\Models\Response\Transaction', array_pop($result));
+        $this->assertInstanceOf('Paymill\Models\Response\Transaction', array_pop($result));
     }
 
     /**

@@ -66,7 +66,7 @@ class Curl extends CommunicationAbstract
             CURLOPT_URL => $this->_apiUrl . $action,
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_CUSTOMREQUEST => $method,
-            CURLOPT_USERAGENT => 'Paymill-php/0.0.2',
+            CURLOPT_USERAGENT => 'paymill-php/4.5.0',
             CURLOPT_SSL_VERIFYPEER => true
         );
 

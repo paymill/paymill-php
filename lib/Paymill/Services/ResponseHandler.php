@@ -281,6 +281,7 @@ class ResponseHandler
         $model->setShortId($response['short_id']);
         $model->setInvoices($response['invoices']);
         $model->setPayment($this->_convertResponseToModel($response['payment'], "payment"));
+        $model->setSubscription($this->_convertResponseToModel($response['subscription'], "subscription"));
         $model->setClient($this->_convertResponseToModel($response['client'], "client"));
         $model->setPreauthorization($this->_convertResponseToModel($response['preauthorization'], "preauthorization"));
         $model->setFees($response['fees']);
@@ -390,7 +391,9 @@ class ResponseHandler
     {
         $model = new Subscription();
         $model->setId($response['id']);
-        $model->setOffer($this->_convertResponseToModel($response['offer'], 'offer'));
+        $model->setOffer(isset($response['offer']) ?
+            $this->_convertResponseToModel($response['offer'], 'offer') : null
+        );
         $model->setLivemode($response['livemode']);
         $model->setTrialStart($response['trial_start']);
         $model->setTrialEnd($response['trial_end']);
@@ -400,8 +403,12 @@ class ResponseHandler
         $model->setCreatedAt($response['created_at']);
         $model->setUpdatedAt($response['updated_at']);
         $model->setCanceledAt($response['canceled_at']);
-        $model->setPayment($this->_convertResponseToModel($response['payment'], "payment"));
-        $model->setClient($this->_convertResponseToModel($response['client'], "client"));
+        $model->setPayment(isset($response['payment']) ?
+            $this->_convertResponseToModel($response['payment'], "payment") : null
+        );
+        $model->setClient(isset($response['client']) ?
+            $this->_convertResponseToModel($response['client'], "client") : null
+        );
         $model->setAppId($response['app_id']);
         $model->setIsCanceled($response['is_canceled']);
         $model->setIsDeleted($response['is_deleted']);

@@ -106,6 +106,13 @@ class Transaction extends Base
     private $_client = null;
 
     /**
+     * Subscription
+     *
+     * @var Subscription
+     */
+    private $_subscription = null;
+
+    /**
      * Preauthorization
      *
      * @var Preauthorization
@@ -428,6 +435,30 @@ class Transaction extends Base
     public function setPayment($payment)
     {
         $this->_payment = $payment;
+
+        return $this;
+    }
+
+    /**
+     * Get Subscription
+     *
+     * @return Subscription
+     */
+    public function getSubscription()
+    {
+        return $this->_subscription;
+    }
+
+    /**
+     * Set Subscription
+     *
+     * @param Subscription $subscription
+     *
+     * @return $this
+     */
+    public function setSubscription($subscription)
+    {
+        $this->_subscription = $subscription;
 
         return $this;
     }

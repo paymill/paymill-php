@@ -146,16 +146,22 @@ Update Root certificate on Linux(ubuntu)
 Changelog
 ---------
 
-#### 3.2.1
+#### 4.5.0
 
--	bugfix: [#92](https://github.com/paymill/paymill-php/pull/92) remove typecheck for http response code
+- Added new transaction response property "subscripition"
+- Updated wrapper version in curl user agent option
+- Added demo file (samples/Demo.php)
 
 #### 4.0.0
 
 - Added shipping and billing address
 - Added shopping cart (items)
--	Added PayPal functionality
--	Possible [BC break in ResponseHandler.php](https://github.com/paymill/paymill-php/pull/102#discussion_r32232137)
+- Added PayPal functionality
+  Possible [BC break in ResponseHandler.php](https://github.com/paymill/paymill-php/pull/102#discussion_r32232137)
+
+#### 3.2.1
+
+-	bugfix: [#92](https://github.com/paymill/paymill-php/pull/92) remove typecheck for http response code
 
 Documentation
 -------------

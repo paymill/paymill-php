@@ -72,7 +72,7 @@ class CurlTest extends PHPUnit_Framework_TestCase
             10002 => 'https://api.paymill.com/v2.1/',
             19913 => true,
             10036 => 'GET',
-            10018 => 'Paymill-php/0.0.2',
+            10018 => 'paymill-php/4.5.0',
             64    => true,
             10005 => 'TestToken:'
         );

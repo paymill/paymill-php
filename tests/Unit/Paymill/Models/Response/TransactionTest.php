@@ -53,6 +53,7 @@ class TransactionTest extends PHPUnit_Framework_TestCase
         $payment = new Response\Payment();
         $client = new Response\Client();
         $preAuth = new Response\Preauthorization();
+        $subscription = new Response\Subscription();
         $fees = array();
         $mandateReference = 'DE1234TEST';
 
@@ -67,6 +68,7 @@ class TransactionTest extends PHPUnit_Framework_TestCase
                 ->setShortId($shortId)
                 ->setInvoices($invoices)
                 ->setPayment($payment)
+                ->setSubscription($subscription)
                 ->setClient($client)
                 ->setPreauthorization($preAuth)
                 ->setFees($fees)
@@ -83,10 +85,10 @@ class TransactionTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($this->_transaction->getShortId(), $shortId);
         $this->assertEquals($this->_transaction->getInvoices(), $invoices);
         $this->assertEquals($this->_transaction->getPayment(), $payment);
+        $this->assertEquals($this->_transaction->getSubscription(), $subscription);
         $this->assertEquals($this->_transaction->getClient(), $client);
         $this->assertEquals($this->_transaction->getPreauthorization(), $preAuth);
         $this->assertEquals($this->_transaction->getFees(), $fees);
         $this->assertEquals($this->_transaction->getMandateReference(), $mandateReference);
     }
-
 }

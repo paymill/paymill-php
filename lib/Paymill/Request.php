@@ -220,6 +220,7 @@ class Request
         $convertedResponse = null;
         $httpMethod = $this->_getHTTPMethod($method);
         $parameter = $model->parameterize($method);
+
         $serviceResource = $model->getServiceResource() . $model->getId();
 
         if ((is_a($model, '\Paymill\Models\Request\Transaction')
